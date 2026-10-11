@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}OrientIA — {% translate "Ma filière" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% translate "Ma filière" as titre %}{% translate "Gère ta filière : les vœux que tu vises, ou la formation que tu suis déjà." as sous_titre %}
+    {% include 'espace/_onglets.html' %}
+
+    <!-- Situation -->
+    <form method="post" class="statut-switch mb-4">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="statut">
+        {% for valeur, libelle in parcours.STATUTS %}
+            <button type="submit" name="statut" value="{{ valeur }}" class="statut-option {% if parcours.statut == valeur %}actif{% endif %}">
+                <i class="bi {% if valeur == 'bachelier' %}bi-compass{% else %}bi-mortarboard-fill{% endif %}"></i> {{ libelle }}
+            </button>
+        {% endfor %}
+    </form>
+
+    {% if parcours.statut == 'etudiant' %}
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <form method="post" class="card-x" style="height:auto;">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="inscription">
+                    <h5 class="fw-bold mb-3">{% translate "Ma formation actuelle" %}</h5>
+                    <div class="field">
+                        <label for="idFiliere">{% translate "Filière" %}</label>
+                        <select name="filiere" id="idFiliere" class="field-input">
+                            <option value="">—</option>
+                            {% for f in filieres %}<option value="{{ f.pk }}" {% if parcours.filiere_id == f.pk %}selected{% endif %}>{{ f.nom }} ({{ f.get_niveau_display }})</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="idEtab">{% translate "Établissement" %}</label>
+                        <select name="etablissement" id="idEtab" class="field-input">
+                            <option value="">—</option>
+                            {% for e in etablissements %}<option value="{{ e.pk }}" {% if parcours.etablissement_id == e.pk %}selected{% endif %}>{{ e.nom }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="idSemestre">{% translate "Semestre en cours" %}</label>
+                        <input type="number" min="1" max="10" name="semestre" id="idSemestre" class="field-input" value="{{ parcours.semestre|default:'' }}">
+                    </div>
+                    <button type="submit" class="btn-gradient">{% translate "Enregistrer" %}</button>
+                </form>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card-x" style="height:auto;">
+                    {% if unites %}
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+                            <h5 class="fw-bold mb-0">{% blocktranslate trimmed with n=parcours.semestre %}Mes matières du semestre {{ n }}{% endblocktranslate %}</h5>
+                            <strong class="text-gradient">{{ progression }} %</strong>
+                        </div>
+                        <div class="barre mb-4"><div class="barre-remplie" style="width: {{ progression }}%"></div></div>
+                        {% for u in unites %}
+                            <form method="post" class="matiere-ligne">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="avancement">
+                                <input type="hidden" name="unite" value="{{ u.ue.pk }}">
+                                <div class="flex-grow-1 min-w-0">
+                                    <div class="fw-semibold small">{{ u.ue.intitule }}</div>
+                                    <div class="text-muted small">{{ u.ue.code }} · {{ u.ue.credits|default:"—" }} {% translate "crédits" %} · {{ u.ue.heures|default:"—" }} {% translate "h" %}</div>
+                                </div>
+                                <select name="statut" class="field-input mb-0 statut-matiere statut-{{ u.statut }}" onchange="this.form.submit()" aria-label="{% translate "Avancement" %}">
+                                    {% for valeur, libelle in statuts_matiere %}<option value="{{ valeur }}" {% if u.statut == valeur %}selected{% endif %}>{{ libelle }}</option>{% endfor %}
+                                </select>
+                            </form>
+                        {% endfor %}
+                    {% elif parcours.filiere and parcours.semestre %}
+                        <div class="etat-vide">
+                            {% translate "Le programme officiel de cette filière n'est pas encore disponible pour ce semestre." %}
+                            {% if semestres_dispo %}<div class="small mt-1">{% translate "Semestres disponibles :" %} {{ semestres_dispo|join:", " }}</div>{% endif %}
+                        </div>
+                    {% else %}
+                        <div class="etat-vide"><i class="bi bi-journal-text fs-3 d-block mb-2"></i>{% translate "Choisis ta filière et ton semestre pour voir tes matières officielles." %}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p class="text-muted">{% translate "Classe jusqu'à 3 filières par ordre de préférence et suis l'avancement de tes démarches." %}</p>
+        <div class="row g-4">
+            {% for rang, voeu in voeux %}
+                <div class="col-lg-4">
+                    <form method="post" class="card-x voeu {% if voeu %}rempli{% endif %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="choix">
+                        <input type="hidden" name="rang" value="{{ rang }}">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="badge-soft">{% blocktranslate trimmed %}Vœu n°{{ rang }}{% endblocktranslate %}</span>
+                            {% if voeu %}<strong class="small text-gradient">{{ voeu.avancement }} %</strong>{% endif %}
+                        </div>
+                        {% if voeu %}<div class="barre mb-3"><div class="barre-remplie" style="width: {{ voeu.avancement }}%"></div></div>{% endif %}
+                        <div class="field">
+                            <label>{% translate "Filière" %}</label>
+                            <select name="filiere" class="field-input" required>
+                                <option value="">—</option>
+                                {% for f in filieres %}<option value="{{ f.pk }}" {% if voeu.filiere_id == f.pk %}selected{% endif %}>{{ f.nom }}</option>{% endfor %}
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>{% translate "École visée" %}</label>
+                            <select name="etablissement" class="field-input">
+                                <option value="">—</option>
+                                {% for e in etablissements %}<option value="{{ e.pk }}" {% if voeu.etablissement_id == e.pk %}selected{% endif %}>{{ e.nom }}</option>{% endfor %}
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>{% translate "Où en es-tu ?" %}</label>
+                            <select name="etape" class="field-input">
+                                {% for valeur, libelle in etapes %}<option value="{{ valeur }}" {% if voeu.etape == valeur %}selected{% endif %}>{{ libelle }}</option>{% endfor %}
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>{% translate "Remarque" %}</label>
+                            <input type="text" name="remarque" class="field-input" maxlength="255" value="{{ voeu.remarque|default:'' }}" placeholder="{% translate "Ex : dossier à déposer avant le 15 juin" %}">
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn-gradient flex-grow-1">{% translate "Enregistrer" %}</button>
+                        </div>
+                    </form>
+                    {% if voeu %}
+                        <form method="post" class="text-end mt-2">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="supprimer_choix">
+                            <input type="hidden" name="pk" value="{{ voeu.pk }}">
+                            <button type="submit" class="btn-ghost btn-sm-x"><i class="bi bi-trash"></i> {% translate "Retirer ce vœu" %}</button>
+                        </form>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

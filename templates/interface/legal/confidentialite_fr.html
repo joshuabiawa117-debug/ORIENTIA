@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% comment %}
+    Texte rédigé comme base de travail : à faire relire par un juriste avant la mise en ligne
+    (loi camerounaise relative à la protection des données à caractère personnel).
+{% endcomment %}
+{% block title %}OrientIA — Politique de confidentialité{% endblock %}
+
+{% block content %}
+<div class="container page-legale">
+    <div class="page-head">
+        <span class="badge-soft"><i class="bi bi-shield-lock"></i> Tes données</span>
+        <h1 class="mt-3">Politique de confidentialité</h1>
+        <p>Dernière mise à jour : 11 octobre 2026</p>
+    </div>
+
+    <div class="card-x">
+        <h2>En bref</h2>
+        <ul>
+            <li>OrientIA collecte seulement ce qui sert à t'orienter : ton profil, ton espace étudiant et tes échanges.</li>
+            <li>Tes questions à OrientIA, tes fichiers et tes messages vocaux sont envoyés à <strong>Groq (États-Unis)</strong>, le service d'intelligence artificielle qui rédige les réponses.</li>
+            <li>Rien n'est vendu, et il n'y a aucune publicité ni aucun pisteur publicitaire.</li>
+            <li>Tu peux <a href="{% url 'mes_donnees' %}">télécharger ou supprimer toutes tes données</a> à tout moment.</li>
+        </ul>
+
+        <h2>1. Qui est responsable de tes données ?</h2>
+        <p>La plateforme OrientIA, joignable à <a href="mailto:contact@orientia.cm">contact@orientia.cm</a>, est responsable du traitement de tes données.</p>
+
+        <h2>2. Quelles données sont collectées, et pourquoi ?</h2>
+        <ul>
+            <li><strong>Ton compte</strong> : nom d'utilisateur, email, mot de passe (enregistré chiffré). Cela te permet de te connecter et de récupérer ton compte.</li>
+            <li><strong>Ton profil</strong> : sous-système, série, centres d'intérêt, région, projet d'études, école visée, année de naissance. Cela sert à adapter les conseils, à trouver les écoles proches de chez toi et à protéger les mineurs dans la messagerie. Ton année de naissance n'est jamais affichée.</li>
+            <li><strong>Ton espace étudiant</strong> : filière, vœux, notes, tâches, emploi du temps. Cela sert à ton suivi et à te proposer des plannings de révision.</li>
+            <li><strong>Tes échanges avec OrientIA</strong> : questions, réponses, fichiers joints (lus mais pas conservés), avis 👍/👎. Ils servent à la mémoire de la conversation, à ton historique et à l'amélioration des réponses.</li>
+            <li><strong>La communauté</strong> : questions, réponses, messages privés et signalements. Cela sert à l'entraide entre élèves et à la modération.</li>
+            <li><strong>Des données techniques</strong> : l'adresse IP, utilisée seulement pour limiter les abus (nombre de questions par heure).</li>
+        </ul>
+
+        <h2>3. Sur quelle base ?</h2>
+        <p>Sur ton <strong>consentement</strong>, donné en créant ton compte, et sur notre intérêt légitime à protéger la plateforme contre les abus. Tu peux retirer ton consentement en supprimant ton compte.</p>
+
+        <h2>4. Qui reçoit tes données ?</h2>
+        <ul>
+            <li><strong>Groq, Inc. (États-Unis)</strong> reçoit le texte de tes questions, le contenu des fichiers joints, tes messages vocaux, ainsi que les informations de profil utiles à la réponse. Groq indique ne pas utiliser ces données pour entraîner ses modèles. <strong>Évite d'y mettre des informations sensibles</strong> (santé, numéro de téléphone, adresse précise…).</li>
+            <li><strong>Google</strong>, seulement si tu choisis « Continuer avec Google » pour te connecter.</li>
+            <li><strong>Notre hébergeur et notre service d'envoi d'emails</strong>, qui conservent ou transmettent les données pour notre compte.</li>
+            <li>L'équipe de modération d'OrientIA, quand un contenu est signalé.</li>
+        </ul>
+        <p>Certaines de ces données sont donc transférées hors du Cameroun.</p>
+
+        <h2>5. Combien de temps sont-elles conservées ?</h2>
+        <ul>
+            <li>Les données de ton compte sont conservées tant que ton compte existe. Elles sont supprimées immédiatement quand tu le supprimes.</li>
+            <li>Les conversations des visiteurs sans compte sont supprimées après 30 jours.</li>
+            <li>Les sauvegardes de la base sont effacées au bout de 14 jours.</li>
+        </ul>
+
+        <h2>6. Les mineurs</h2>
+        <p>OrientIA s'adresse aussi à des élèves de moins de 18 ans. Si tu es mineur·e, parles-en à un parent ou à un responsable avant de créer ton compte. Pour te protéger, les messages privés entre adultes et mineurs sont réservés aux membres vérifiés par l'équipe, et tout comportement inquiétant peut être signalé en un clic.</p>
+
+        <h2>7. Tes droits</h2>
+        <p>Tu peux accéder à tes données, les corriger (dans <a href="{% url 'bienvenue' %}">ton profil</a>), les télécharger, les supprimer, ou t'opposer à un traitement. La page <a href="{% url 'mes_donnees' %}">Mes données</a> fait tout cela en un clic. Pour toute autre demande, écris à <a href="mailto:contact@orientia.cm">contact@orientia.cm</a> : nous répondons sous 30 jours.</p>
+
+        <h2>8. Cookies</h2>
+        <p>OrientIA n'utilise que des cookies nécessaires au fonctionnement du site : connexion, protection des formulaires, langue choisie. Ton choix de thème (clair ou sombre) est gardé dans ton navigateur. Il n'y a ni cookie publicitaire ni outil de suivi.</p>
+
+        <h2>9. Sécurité</h2>
+        <p>Les échanges avec le site sont chiffrés (HTTPS), les mots de passe ne sont jamais enregistrés en clair, et l'accès à l'administration est réservé à l'équipe.</p>
+
+        <h2>10. Modifications</h2>
+        <p>Si cette politique change, la date en haut de page est mise à jour. En cas de changement important, nous te prévenons sur le site.</p>
+    </div>
+</div>
+{% endblock %}

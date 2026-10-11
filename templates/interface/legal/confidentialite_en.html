@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% comment %}
+    Working draft: have it reviewed by a lawyer before going live
+    (Cameroonian law on the protection of personal data).
+{% endcomment %}
+{% block title %}OrientIA — Privacy policy{% endblock %}
+
+{% block content %}
+<div class="container page-legale">
+    <div class="page-head">
+        <span class="badge-soft"><i class="bi bi-shield-lock"></i> Your data</span>
+        <h1 class="mt-3">Privacy policy</h1>
+        <p>Last updated: 11 October 2026</p>
+    </div>
+
+    <div class="card-x">
+        <h2>In short</h2>
+        <ul>
+            <li>OrientIA only collects what helps guide you: your profile, your student space and your conversations.</li>
+            <li>Your questions to OrientIA, your files and your voice messages are sent to <strong>Groq (United States)</strong>, the artificial intelligence service that writes the answers.</li>
+            <li>Nothing is sold, and there are no ads and no advertising trackers.</li>
+            <li>You can <a href="{% url 'mes_donnees' %}">download or delete all your data</a> at any time.</li>
+        </ul>
+
+        <h2>1. Who is responsible for your data?</h2>
+        <p>The OrientIA platform, reachable at <a href="mailto:contact@orientia.cm">contact@orientia.cm</a>, is responsible for processing your data.</p>
+
+        <h2>2. What data is collected, and why?</h2>
+        <ul>
+            <li><strong>Your account</strong>: username, email, password (stored encrypted). This lets you log in and recover your account.</li>
+            <li><strong>Your profile</strong>: subsystem, series, interests, region, study plans, target school, year of birth. This is used to tailor advice, find schools near you and protect minors in private messages. Your year of birth is never displayed.</li>
+            <li><strong>Your student space</strong>: programme, choices, grades, tasks, timetable. This is used to track your progress and suggest study plans.</li>
+            <li><strong>Your conversations with OrientIA</strong>: questions, answers, attached files (read but not kept), 👍/👎 feedback. They are used for conversation memory, your history and improving answers.</li>
+            <li><strong>The community</strong>: questions, answers, private messages and reports. This is used for peer support and moderation.</li>
+            <li><strong>Technical data</strong>: your IP address, used only to limit abuse (number of questions per hour).</li>
+        </ul>
+
+        <h2>3. On what basis?</h2>
+        <p>On your <strong>consent</strong>, given when you create your account, and on our legitimate interest in protecting the platform against abuse. You can withdraw your consent by deleting your account.</p>
+
+        <h2>4. Who receives your data?</h2>
+        <ul>
+            <li><strong>Groq, Inc. (United States)</strong> receives the text of your questions, the content of attached files, your voice messages and the profile information needed for the answer. Groq states that it does not use this data to train its models. <strong>Avoid including sensitive information</strong> (health, phone number, exact address…).</li>
+            <li><strong>Google</strong>, only if you choose "Continue with Google" to log in.</li>
+            <li><strong>Our hosting provider and our email service</strong>, which store or send data on our behalf.</li>
+            <li>The OrientIA moderation team, when content is reported.</li>
+        </ul>
+        <p>Some of this data is therefore transferred outside Cameroon.</p>
+
+        <h2>5. How long is it kept?</h2>
+        <ul>
+            <li>Your account data is kept as long as your account exists. It is deleted immediately when you delete your account.</li>
+            <li>Conversations of visitors without an account are deleted after 30 days.</li>
+            <li>Database backups are erased after 14 days.</li>
+        </ul>
+
+        <h2>6. Minors</h2>
+        <p>OrientIA is also used by students under 18. If you are a minor, talk to a parent or guardian before creating your account. To protect you, private messages between adults and minors are limited to members verified by the team, and any worrying behaviour can be reported in one click.</p>
+
+        <h2>7. Your rights</h2>
+        <p>You can access your data, correct it (in <a href="{% url 'bienvenue' %}">your profile</a>), download it, delete it, or object to its processing. The <a href="{% url 'mes_donnees' %}">My data</a> page does all of this in one click. For any other request, write to <a href="mailto:contact@orientia.cm">contact@orientia.cm</a>: we reply within 30 days.</p>
+
+        <h2>8. Cookies</h2>
+        <p>OrientIA only uses cookies that the site needs to work: login, form protection, chosen language. Your theme choice (light or dark) is kept in your browser. There are no advertising cookies and no tracking tools.</p>
+
+        <h2>9. Security</h2>
+        <p>Traffic with the site is encrypted (HTTPS), passwords are never stored in plain text, and access to the administration is restricted to the team.</p>
+
+        <h2>10. Changes</h2>
+        <p>If this policy changes, the date at the top of the page is updated. For important changes, we will let you know on the site.</p>
+    </div>
+</div>
+{% endblock %}

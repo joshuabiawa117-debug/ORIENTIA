@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% comment %}Working draft: have it reviewed by a lawyer before going live.{% endcomment %}
+{% block title %}OrientIA — Terms of use{% endblock %}
+
+{% block content %}
+<div class="container page-legale">
+    <div class="page-head">
+        <span class="badge-soft"><i class="bi bi-file-earmark-text"></i> Rules</span>
+        <h1 class="mt-3">Terms of use</h1>
+        <p>Last updated: 11 October 2026</p>
+    </div>
+
+    <div class="card-x">
+        <h2>1. What OrientIA is for</h2>
+        <p>OrientIA helps students in Cameroon choose their path after secondary school. It offers an artificial intelligence assistant, programme guides, an entrance exam calendar, a student space and a peer-support community. It is free to use.</p>
+
+        <h2>2. OrientIA's answers are advice, not official decisions</h2>
+        <p>OrientIA relies on official documents, but an artificial intelligence can make mistakes or miss recent information. <strong>Always check</strong> dates, fees and admission requirements with the institution concerned or the Ministry of Higher Education (MINESUP) before making a decision. OrientIA is not an official ministry service.</p>
+
+        <h2>3. Your account</h2>
+        <ul>
+            <li>The information you give must be accurate, especially your year of birth.</li>
+            <li>Your password is personal: never share it.</li>
+            <li>If you are under 18, talk to a parent or guardian before signing up.</li>
+        </ul>
+
+        <h2>4. Community rules</h2>
+        <p>The community is a place for mutual help. It is forbidden to:</p>
+        <ul>
+            <li>insult, harass, threaten or discriminate against anyone;</li>
+            <li>ask for money, or offer fake entrance exams, admissions or diplomas;</li>
+            <li>post sexual, violent or illegal content;</li>
+            <li>try to obtain photos, an address or a meeting from a minor;</li>
+            <li>advertise or send mass messages;</li>
+            <li>impersonate someone else, or a verified member.</li>
+        </ul>
+        <p>Every member can <strong>report</strong> content or a member, and <strong>block</strong> someone. Content reported by several members is hidden until the team reviews it. The team may remove content or suspend an account that breaks these rules. Serious incidents may be reported to the authorities.</p>
+
+        <h2>5. Badges</h2>
+        <p>The "Verified contributor", "Ambassador" and "Guidance counsellor" badges are awarded only by the OrientIA team, after verification.</p>
+
+        <h2>6. What you post</h2>
+        <p>You remain the owner of your questions and answers. By posting them in the community, you allow OrientIA to display them on the platform. You can remove them by deleting your account.</p>
+
+        <h2>7. Usage limits</h2>
+        <p>To keep the service available to everyone, the number of questions to OrientIA, messages and posts per hour is limited.</p>
+
+        <h2>8. Your data</h2>
+        <p>How it is used is explained in the <a href="{% url 'confidentialite' %}">privacy policy</a>.</p>
+
+        <h2>9. Changes and contact</h2>
+        <p>These terms may change; the date at the top of the page is then updated. For any question: <a href="mailto:contact@orientia.cm">contact@orientia.cm</a>.</p>
+    </div>
+</div>
+{% endblock %}

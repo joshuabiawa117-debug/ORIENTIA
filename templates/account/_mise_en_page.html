@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% comment %}Mise en page commune des pages « mot de passe oublié » (mêmes couleurs que la connexion).{% endcomment %}
+{% block title %}OrientIA — {% translate "Mot de passe oublié" %}{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block skeleton %}{% include 'interface/_squelette_auth.html' with champs="1" %}{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="form-panel">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a class="auth-brand mb-0" href="{% url 'accueil' %}">
+                <span class="brand-icon"><i class="bi bi-compass"></i></span>
+                <span>Orient<span class="text-gradient">IA</span></span>
+            </a>
+            {% include 'interface/_choix_langue.html' %}
+        </div>
+        {% block formulaire %}{% endblock %}
+        <p class="text-center mt-4 auth-foot">
+            <a href="{% url 'connexion' %}" class="link-brand"><i class="bi bi-arrow-left"></i> {% translate "Retour à la connexion" %}</a>
+        </p>
+    </div>
+
+    <div class="showcase-panel">
+        <span class="circle-deco circle-glow float-circle" style="width:320px;height:320px;top:-120px;right:-100px;"></span>
+        <span class="circle-deco circle-glow float-circle" style="width:220px;height:220px;bottom:-90px;left:-60px;animation-delay:1.5s;"></span>
+        <div class="showcase-icon"><i class="bi bi-key-fill"></i></div>
+        <h2>{% translate "Pas de panique" %}</h2>
+        <p>{% translate "Tu reçois un lien par email pour choisir un nouveau mot de passe. Pense à regarder dans tes spams." %}</p>
+    </div>
+</div>
+{% include 'interface/_oeil.html' %}
+{% endblock %}

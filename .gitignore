@@ -1,0 +1,24 @@
+# Secrets
+.env
+config/.env
+
+# Environnement virtuel
+env/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+db.sqlite3
+
+# Fichiers envoyés (annales)
+media/
+
+# Sauvegardes de la base (manage.py sauvegarder_base)
+sauvegardes/
+
+# Fichiers statiques rassemblés pour la production (manage.py collectstatic)
+staticfiles/
+
+# Journaux
+logs/

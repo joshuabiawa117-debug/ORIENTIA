@@ -1,0 +1,21 @@
+{
+  "id": "/",
+  "name": "OrientIA — Orientation post-bac au Cameroun",
+  "short_name": "OrientIA",
+  "description": "Ton assistant IA pour choisir ta filière après le bac au Cameroun.",
+  "lang": "fr",
+  "icons": [
+    { "src": "img/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "img/favicon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "img/favicon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "theme_color": "#6a5cf6",
+  "background_color": "#f6f6fb",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "shortcuts": [
+    { "name": "Parler à OrientIA", "url": "/chat/" },
+    { "name": "Mon emploi du temps", "url": "/mon-espace/emploi-du-temps/" }
+  ]
+}

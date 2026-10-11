@@ -1,0 +1,322 @@
+{% load static i18n %}<!DOCTYPE html>
+{% get_current_language as LANGUE %}
+<html lang="{{ LANGUE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}OrientIA — {% translate "Orientation post-bac au Cameroun" %}{% endblock %}</title>
+    <meta name="description" content="{% translate "OrientIA, ton assistant IA, t'aide à choisir ta filière après le bac au Cameroun." %}">
+    <meta name="theme-color" content="#6a5cf6">
+    <!-- Logo OrientIA dans l'onglet du navigateur et sur l'écran d'accueil des téléphones -->
+    <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+    <link rel="icon" href="{% static 'img/favicon-32.png' %}" sizes="32x32" type="image/png">
+    <link rel="icon" href="{% static 'img/favicon-16.png' %}" sizes="16x16" type="image/png">
+    <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+    <link rel="manifest" href="{% static 'site.webmanifest' %}">
+    <script>
+    // Thème choisi (clair/sombre) appliqué avant l'affichage pour éviter un flash blanc
+    (function () {
+        let theme = null;
+        try { theme = localStorage.getItem('theme'); } catch (e) {}
+        if (!theme) theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.dataset.bsTheme = theme;
+    })();
+    </script>
+    <!-- Bibliothèques servies par le site lui-même (static/vendor) : moins de données mobiles, fonctionne hors ligne -->
+    <link href="{% static 'vendor/geist/geist.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script>document.documentElement.classList.add('chargement-en-cours');</script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {% with page=request.resolver_match.url_name %}
+    <header class="site-header">
+        <nav class="navbar navbar-expand-xl">
+            <div class="container">
+                <a class="logo me-4" href="{% url 'accueil' %}">
+                    <span class="logo-icon"><i class="bi bi-compass"></i></span>
+                    <span class="logo-text">Orient<span class="text-gradient">IA</span></span>
+                </a>
+
+                <button class="menu-toggle d-xl-none" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+                        aria-controls="navMenu" aria-expanded="false" aria-label="{% translate "Menu" %}">
+                    <i class="bi bi-list fs-5"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <div class="d-flex flex-column flex-xl-row gap-1 me-auto">
+                        <a class="nav-pill {% if page == 'accueil' %}active{% endif %}" href="{% url 'accueil' %}">{% translate "Accueil" %}</a>
+                        <a class="nav-pill {% if page == 'chat' %}active{% endif %}" href="{% url 'chat' %}">
+                            <i class="bi bi-stars"></i> {% translate "Parler à OrientIA" %}
+                        </a>
+                        <div class="dropdown">
+                            <a class="nav-pill dropdown-toggle {% if request.resolver_match.namespace == 'orientation' and page in 'filieres filiere test resultat_test' %}active{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{% translate "Orientation" %}</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'orientation:test' %}"><i class="bi bi-compass me-2"></i>{% translate "Test d'orientation" %}<small>{% translate "Découvre les domaines qui te correspondent" %}</small></a></li>
+                                <li><a class="dropdown-item" href="{% url 'orientation:filieres' %}"><i class="bi bi-journal-bookmark me-2"></i>{% translate "Fiches filières" %}<small>{% translate "Matières, débouchés, écoles" %}</small></a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown">
+                            <a class="nav-pill dropdown-toggle {% if page in 'carte ecoles_proches comparateur' %}active{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{% translate "Écoles" %}</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'carte' %}"><i class="bi bi-map me-2"></i>{% translate "Carte des établissements" %}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'orientation:ecoles_proches' %}"><i class="bi bi-crosshair me-2"></i>{% translate "Écoles près de chez moi" %}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'orientation:comparateur' %}"><i class="bi bi-layout-three-columns me-2"></i>{% translate "Comparer des écoles" %}</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown">
+                            <a class="nav-pill dropdown-toggle {% if page in 'concours annales' %}active{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{% translate "Concours" %}</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'orientation:concours' %}"><i class="bi bi-calendar-event me-2"></i>{% translate "Calendrier des concours" %}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'orientation:annales' %}"><i class="bi bi-pencil-square me-2"></i>{% translate "Annales et quiz" %}</a></li>
+                            </ul>
+                        </div>
+                        <a class="nav-pill {% if request.resolver_match.namespace == 'communaute' %}active{% endif %}" href="{% url 'communaute:liste' %}">{% translate "Communauté" %}</a>
+                    </div>
+
+                    <div class="d-flex flex-wrap flex-xl-nowrap align-items-center gap-2 mt-2 mt-xl-0">
+                        <!-- Langue -->
+                        {% include 'interface/_choix_langue.html' %}
+
+                        <!-- Mode sombre -->
+                        <button type="button" class="btn-icone" id="btnTheme" aria-label="{% translate "Changer de thème (clair / sombre)" %}" title="{% translate "Mode clair / sombre" %}">
+                            <i class="bi bi-moon-stars"></i><i class="bi bi-sun"></i>
+                        </button>
+
+                        {% if user.is_authenticated %}
+                            <div class="dropdown">
+                                <button class="user-menu-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="nav-avatar">{{ user.first_name|default:user.username|first|upper }}</span>
+                                    {{ user.first_name|default:user.username }}
+                                    {% if nb_messages_non_lus %}<span class="pastille-compteur" title="{% translate "Messages non lus" %}">{{ nb_messages_non_lus }}</span>{% endif %}
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="{% url 'dashboard' %}"><i class="bi bi-grid me-2"></i>{% translate "Mon espace" %}</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'espace:filiere' %}"><i class="bi bi-mortarboard me-2"></i>{% translate "Ma filière" %}</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'espace:emploi_du_temps' %}"><i class="bi bi-calendar-week me-2"></i>{% translate "Emploi du temps" %}</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'espace:suivi' %}"><i class="bi bi-graph-up-arrow me-2"></i>{% translate "Mon suivi" %}</a></li>
+                                    <li><a class="dropdown-item d-flex align-items-center" href="{% url 'communaute:messagerie' %}"><i class="bi bi-envelope me-2"></i>{% translate "Messages" %}
+                                        {% if nb_messages_non_lus %}<span class="pastille-compteur ms-auto">{{ nb_messages_non_lus }}</span>{% endif %}</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'bienvenue' %}"><i class="bi bi-person-gear me-2"></i>{% translate "Mon profil" %}</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'historique_chat' %}"><i class="bi bi-clock-history me-2"></i>{% translate "Mes conversations" %}</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'mes_donnees' %}"><i class="bi bi-shield-lock me-2"></i>{% translate "Mes données" %}</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item text-danger" href="{% url 'deconnexion' %}"><i class="bi bi-box-arrow-right me-2"></i>{% translate "Se déconnecter" %}</a></li>
+                                </ul>
+                            </div>
+                        {% else %}
+                            <a class="btn-ghost btn-sm-x" href="{% url 'connexion' %}">{% translate "Se connecter" %}</a>
+                            <a class="btn-brand btn-sm-x" href="{% url 'inscription' %}">{% translate "Créer un compte" %}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    {% if messages %}
+        <div class="flash-zone" role="status">
+            {% for message in messages %}
+                <div class="flash {{ message.tags }}">
+                    <i class="bi {% if message.tags == 'error' %}bi-exclamation-circle text-danger{% else %}bi-check-circle-fill{% endif %}"></i>
+                    <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        </div>
+        <script>setTimeout(() => document.querySelector('.flash-zone')?.remove(), 5000);</script>
+    {% endif %}
+
+    <main id="principal" aria-busy="true">
+        <!-- Squelette affiché pendant le chargement (0,3 s), propre à chaque page -->
+        <div id="squelette" aria-hidden="true">
+            <!-- Logo OrientIA (aiguille qui tourne) centré par-dessus le squelette -->
+            <div class="squelette-logo">
+                <div class="squelette-logo-carte">
+                    {% translate "Chargement…" as texte_squelette %}
+                    {% include 'interface/_logo_chargement.html' with taille="lg" message=texte_squelette %}
+                </div>
+            </div>
+            {% block skeleton %}
+            <div class="container py-5">
+                <div class="sk" style="width:140px;height:26px;border-radius:999px;"></div>
+                <div class="sk mt-3" style="width:min(460px,80%);height:40px;"></div>
+                <div class="sk mt-2" style="width:min(620px,95%);height:16px;"></div>
+                <div class="row g-4 mt-3">
+                    {% for i in "123" %}
+                    <div class="col-md-4"><div class="sk-card"><div class="sk" style="width:46px;height:46px;border-radius:13px;"></div><div class="sk mt-3" style="width:70%;height:20px;"></div><div class="sk mt-2" style="width:100%;height:12px;"></div><div class="sk mt-2" style="width:85%;height:12px;"></div></div></div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+
+        <div id="contenuPage">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    {% block footer %}
+    <footer class="site-footer">
+        <span class="circle-deco circle-brand-soft float-circle" style="width:240px;height:240px;top:-110px;right:-110px;"></span>
+        <span class="circle-deco circle-light float-circle" style="width:140px;height:140px;bottom:-60px;left:-50px;animation-delay:1s;"></span>
+
+        <div class="container position-relative py-5">
+            <div class="row g-5">
+                <div class="col-lg-5">
+                    <a class="logo" href="{% url 'accueil' %}">
+                        <span class="logo-icon"><i class="bi bi-compass"></i></span>
+                        <span class="logo-text">Orient<span class="text-gradient">IA</span></span>
+                    </a>
+                    <p class="text-muted mt-3 mb-4" style="max-width: 380px;">
+                        {% blocktranslate trimmed %}
+                            La plateforme d'orientation post-bac au Cameroun. Notre assistant IA
+                            s'appuie sur des documents officiels pour t'aider à choisir ta voie.
+                        {% endblocktranslate %}
+                    </p>
+                    <div class="trust-row">
+                        <span class="badge-neutral"><i class="bi bi-patch-check"></i> {% translate "Sources MINESUP" %}</span>
+                        <span class="badge-neutral"><i class="bi bi-translate"></i> {% translate "Francophone et anglophone" %}</span>
+                        <span class="badge-neutral"><i class="bi bi-lock"></i> {% translate "Données protégées" %}</span>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2 offset-lg-1">
+                    <h6>{% translate "Plateforme" %}</h6>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'chat' %}">{% translate "Parler à OrientIA" %}</a></li>
+                        <li><a href="{% url 'orientation:filieres' %}">{% translate "Fiches filières" %}</a></li>
+                        <li><a href="{% url 'carte' %}">{% translate "Établissements" %}</a></li>
+                        <li><a href="{% url 'orientation:test' %}">{% translate "Test d'orientation" %}</a></li>
+                        <li><a href="{% url 'orientation:concours' %}">{% translate "Calendrier des concours" %}</a></li>
+                        <li><a href="{% url 'orientation:annales' %}">{% translate "Annales et quiz" %}</a></li>
+                        <li><a href="{% url 'communaute:liste' %}">{% translate "Communauté" %}</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6>{% translate "Mon compte" %}</h6>
+                    <ul class="footer-links">
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'dashboard' %}">{% translate "Mon espace" %}</a></li>
+                            <li><a href="{% url 'bienvenue' %}">{% translate "Mon profil" %}</a></li>
+                            <li><a href="{% url 'mes_donnees' %}">{% translate "Mes données" %}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'connexion' %}">{% translate "Se connecter" %}</a></li>
+                            <li><a href="{% url 'inscription' %}">{% translate "S'inscrire" %}</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6>{% translate "Contact" %}</h6>
+                    <ul class="footer-links">
+                        <li><a href="mailto:contact@orientia.cm">{% translate "Nous écrire" %}</a></li>
+                        <li><a href="{% url 'confidentialite' %}">{% translate "Confidentialité" %}</a></li>
+                        <li><a href="{% url 'conditions' %}">{% translate "Conditions d'utilisation" %}</a></li>
+                        <li><span class="text-muted">Yaoundé · {% translate "Cameroun" %}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container py-3 d-flex flex-column flex-md-row justify-content-between gap-2">
+                <span>&copy; 2026 OrientIA — {% translate "Assistant intelligent d'orientation académique" %}</span>
+                <span>{% translate "Fait avec" %} <i class="bi bi-heart-fill" style="color: var(--brand);"></i> {% translate "au Cameroun" %}</span>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+    {% endwith %}
+
+    <!-- Logo OrientIA dont l'aiguille tourne : utilisé pour certains chargements -->
+    <div class="ecran-logo" id="ecranLogo" aria-hidden="true">
+        {% translate "Chargement…" as texte_chargement %}
+        {% include 'interface/_logo_chargement.html' with taille="lg" message=texte_chargement %}
+    </div>
+    <template id="modeleLogoPetit">
+        {% include 'interface/_logo_chargement.html' with taille="sm" message="…" %}
+    </template>
+
+    <script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js' %}"></script>
+    <script>
+    // Chargement avec le logo OrientIA (aiguille qui tourne)
+    window.OrientIA = (function () {
+        const ecran = document.getElementById('ecranLogo');
+        const texteEcran = ecran.querySelector('.logo-chargement-texte');
+        const texteParDefaut = texteEcran.textContent;
+        let minuteur = null;
+
+        return {
+            // Plein écran, après un court délai pour ne pas clignoter si tout va vite
+            afficher(message) {
+                texteEcran.textContent = message || texteParDefaut;
+                clearTimeout(minuteur);
+                minuteur = setTimeout(() => {
+                    ecran.classList.add('visible');
+                    ecran.setAttribute('aria-hidden', 'false');
+                }, 120);
+            },
+            masquer() {
+                clearTimeout(minuteur);
+                ecran.classList.remove('visible');
+                ecran.setAttribute('aria-hidden', 'true');
+            },
+            // Petite version à insérer dans la page (bulle du chat, quiz...)
+            petitLogo(message) {
+                const logo = document.getElementById('modeleLogoPetit').content.firstElementChild.cloneNode(true);
+                logo.querySelector('.logo-chargement-texte').textContent = message;
+                return logo;
+            },
+        };
+    })();
+
+    // Les formulaires marqués data-chargement="…" affichent le logo pendant l'envoi
+    document.addEventListener('submit', (e) => {
+        const form = e.target;
+        if (!e.defaultPrevented && form.dataset.chargement !== undefined) {
+            OrientIA.afficher(form.dataset.chargement);
+        }
+    });
+    // Retour arrière : la page revient depuis le cache, on retire l'écran de chargement
+    window.addEventListener('pageshow', () => OrientIA.masquer());
+
+    // Bouton mode sombre : bascule et mémorise le choix
+    document.getElementById('btnTheme').addEventListener('click', () => {
+        const racine = document.documentElement;
+        const theme = racine.dataset.theme === 'dark' ? 'light' : 'dark';
+        racine.dataset.theme = theme;
+        racine.dataset.bsTheme = theme;
+        try { localStorage.setItem('theme', theme); } catch (e) {}
+    });
+
+    // Squelette : le contenu apparaît après une courte attente (0,3 s : assez pour éviter un flash, sans faire attendre)
+    (function () {
+        const DUREE_ATTENTE = 300;
+        const racine = document.documentElement;
+        const principal = document.getElementById('principal');
+
+        function afficherContenu() {
+            if (!racine.classList.contains('chargement-en-cours')) return;
+            racine.classList.remove('chargement-en-cours');
+            principal.setAttribute('aria-busy', 'false');
+            // Prévenir les scripts de la page (ex. la carte doit recalculer sa taille)
+            document.dispatchEvent(new Event('contenu-affiche'));
+        }
+
+        setTimeout(afficherContenu, DUREE_ATTENTE);
+        // Retour arrière depuis le cache : pas de nouvelle attente
+        window.addEventListener('pageshow', (e) => { if (e.persisted) afficherContenu(); });
+    })();
+    </script>
+    {{ tuiles_carte|json_script:"tuilesCarte" }}
+    <script>
+    // Mode hors ligne : le site reste consultable quand la connexion coupe (et s'installe comme une application)
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => navigator.serviceWorker.register("{% url 'service_worker' %}").catch(() => {}));
+    }
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

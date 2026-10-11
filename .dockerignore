@@ -1,0 +1,13 @@
+# Jamais dans l'image : secrets, environnement local, sauvegardes, journaux
+config/.env
+.env
+env/
+venv/
+__pycache__/
+*.pyc
+.git/
+sauvegardes/
+logs/
+media/
+staticfiles/
+db.sqlite3

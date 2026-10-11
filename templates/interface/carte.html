@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+{% block title %}{% translate "OrientIA — Établissements" %}{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'vendor/leaflet/leaflet.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/markercluster/MarkerCluster.css' %}">
+{% endblock %}
+
+{% block skeleton %}
+<div class="container">
+    <div class="page-head">
+        <div class="sk sk-pill" style="width:150px;height:28px;"></div>
+        <div class="sk mt-3" style="width:min(440px,85%);height:40px;"></div>
+        <div class="sk mt-2" style="width:min(520px,95%);height:16px;"></div>
+    </div>
+    <div class="toolbar">
+        <div class="sk flex-grow-1" style="min-width:220px;height:48px;border-radius:12px;"></div>
+        <div class="sk sk-pill" style="width:64px;height:36px;"></div>
+        <div class="sk sk-pill" style="width:84px;height:36px;"></div>
+    </div>
+    <div class="sk mb-3" style="width:160px;height:12px;"></div>
+    <div class="centres-layout">
+        <div class="centres-liste">
+            {% for i in "1234" %}
+            <div class="centre-card" style="cursor:default;">
+                <div class="sk" style="width:40px;height:40px;border-radius:13px;flex-shrink:0;"></div>
+                <div class="flex-grow-1"><div class="sk" style="width:85%;height:14px;"></div><div class="sk mt-2" style="width:55%;height:11px;"></div><div class="sk sk-pill mt-2" style="width:70px;height:20px;"></div></div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="sk sk-carte" style="border-radius:24px;"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <span class="badge-soft"><i class="bi bi-geo-alt"></i> {% translate "Carte interactive" %}</span>
+        <h1 class="mt-3">{% translate "Établissements" %} <span class="text-gradient">{% translate "référencés" %}</span></h1>
+        <p>{% translate "Recherche une école, filtre par type et situe-la sur la carte du Cameroun." %}</p>
+        <a href="{% url 'orientation:ecoles_proches' %}" class="btn-brand btn-sm-x mt-3"><i class="bi bi-crosshair"></i> {% translate "Trouver les écoles près de chez moi" %}</a>
+    </div>
+
+    <div class="toolbar">
+        <label class="search-box">
+            <i class="bi bi-search"></i>
+            <input type="search" id="recherche" placeholder="{% translate "Rechercher un établissement, une ville…" %}" aria-label="{% translate "Rechercher" %}">
+        </label>
+        <div class="filter-pills" id="filtres"></div>
+    </div>
+
+    <p class="text-muted small mb-3" id="compteur"></p>
+
+    <div class="centres-layout">
+        <div class="centres-liste" id="liste"></div>
+        <div class="carte-wrap"><div id="carte"></div></div>
+    </div>
+</div>
+
+{{ etablissements|json_script:"donnees-etablissements" }}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'vendor/leaflet/leaflet.js' %}"></script>
+<script src="{% static 'vendor/markercluster/leaflet.markercluster.js' %}"></script>
+<script src="{% static 'js/carte.js' %}"></script>
+<script>
+const etablissements = JSON.parse(document.getElementById('donnees-etablissements').textContent);
+
+const liste = document.getElementById('liste');
+const zoneFiltres = document.getElementById('filtres');
+const champRecherche = document.getElementById('recherche');
+const compteur = document.getElementById('compteur');
+
+let filtreType = 'tous';
+
+// --- Carte ---
+const carte = L.map('carte', { scrollWheelZoom: false }).setView([5.5, 12.3], 6);
+ajouterFondDeCarte(carte, "{{ _("Afficher le fond de carte")|escapejs }}");
+const TEXTE_APPROX = "{{ _("Position approximative (centre de la ville ou de la région)")|escapejs }}";
+
+const icone = L.divIcon({
+    className: '',
+    html: '<div style="width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:linear-gradient(135deg,#6a5cf6,#b16ef6);box-shadow:0 6px 14px -4px rgba(106,92,246,.7);border:3px solid #fff;"></div>',
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+    popupAnchor: [0, -28],
+});
+
+function contenuPopup(e) {
+    // Construit le contenu avec textContent : les données ne sont jamais interprétées comme du HTML
+    const div = document.createElement('div');
+    const titre = document.createElement('strong');
+    titre.textContent = e.nom;
+    const type = document.createElement('div');
+    type.style.cssText = 'color:#6a5cf6;font-size:.8rem;font-weight:600;margin-top:2px;';
+    type.textContent = e.type;
+    const adresse = document.createElement('div');
+    adresse.style.cssText = 'color:#6b6880;font-size:.82rem;margin-top:4px;';
+    adresse.textContent = e.adresse || '';
+    div.append(titre, type, adresse);
+    if (e.approx) {
+        const approx = document.createElement('div');
+        approx.style.cssText = 'color:#9a97ad;font-size:.75rem;margin-top:4px;font-style:italic;';
+        approx.textContent = TEXTE_APPROX;
+        div.append(approx);
+    }
+    return div;
+}
+
+const marqueurs = etablissements.map(e =>
+    L.marker([e.lat, e.lon], { icon: icone }).bindPopup(contenuPopup(e))
+);
+// Les écoles proches les unes des autres sont regroupées en une pastille qui indique leur nombre
+const groupe = L.markerClusterGroup({
+    showCoverageOnHover: false,
+    maxClusterRadius: 45,
+    iconCreateFunction: (amas) => L.divIcon({
+        className: '', iconSize: [40, 40],
+        html: `<div class="marker-cluster-orientia">${amas.getChildCount()}</div>`,
+    }),
+}).addTo(carte);
+groupe.addLayers(marqueurs);
+function cadrer() {
+    if (marqueurs.length) carte.fitBounds(groupe.getBounds().pad(0.2), { maxZoom: 13 });
+}
+cadrer();
+
+// La carte est créée pendant que le squelette est affiché : on recalcule sa taille quand elle apparaît
+document.addEventListener('contenu-affiche', () => {
+    carte.invalidateSize();
+    cadrer();
+});
+
+// --- Filtres par type ---
+const types = [...new Set(etablissements.map(e => e.type).filter(Boolean))].sort();
+['tous', ...types].forEach(t => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'filter-pill' + (t === 'tous' ? ' active' : '');
+    btn.textContent = t === 'tous' ? "{{ _("Tous")|escapejs }}" : t;
+    btn.addEventListener('click', () => {
+        filtreType = t;
+        zoneFiltres.querySelectorAll('.filter-pill').forEach(b => b.classList.toggle('active', b === btn));
+        afficher();
+    });
+    zoneFiltres.appendChild(btn);
+});
+
+// --- Liste ---
+function normaliser(s) {
+    return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
+function afficher() {
+    const q = normaliser(champRecherche.value.trim());
+    liste.innerHTML = '';
+    let visibles = 0;
+    const aGarder = [];
+
+    etablissements.forEach((e, i) => {
+        const correspond = (filtreType === 'tous' || e.type === filtreType)
+            && (!q || normaliser(e.nom + ' ' + e.adresse + ' ' + e.type + ' ' + e.region).includes(q));
+
+        if (correspond) {
+            aGarder.push(marqueurs[i]);
+            visibles++;
+
+            const carteCentre = document.createElement('button');
+            carteCentre.type = 'button';
+            carteCentre.className = 'centre-card';
+            carteCentre.innerHTML = `
+                <span class="icon-tile"><i class="bi bi-building"></i></span>
+                <div class="flex-grow-1 min-w-0">
+                    <h3></h3>
+                    <p><i class="bi bi-geo-alt"></i> <span class="adresse"></span></p>
+                    <span class="badge-neutral type"></span>
+                </div>`;
+            carteCentre.querySelector('h3').textContent = e.nom;
+            carteCentre.querySelector('.adresse').textContent = e.adresse || "{{ _("Adresse non renseignée")|escapejs }}";
+            carteCentre.querySelector('.type').textContent = e.type;
+            if (e.approx) {
+                const approx = document.createElement('span');
+                approx.className = 'badge-neutral badge-approx ms-1';
+                approx.title = TEXTE_APPROX;
+                approx.textContent = "{{ _("≈ position approx.")|escapejs }}";
+                carteCentre.querySelector('.type').after(approx);
+            }
+            carteCentre.addEventListener('click', () => {
+                liste.querySelectorAll('.centre-card').forEach(c => c.classList.remove('active'));
+                carteCentre.classList.add('active');
+                // Ouvre la pastille de regroupement si besoin, puis la fiche de l'école
+                groupe.zoomToShowLayer(marqueurs[i], () => marqueurs[i].openPopup());
+                if (window.innerWidth < 992) window.scrollTo({ top: document.querySelector('.carte-wrap').offsetTop - 80, behavior: 'smooth' });
+            });
+            liste.appendChild(carteCentre);
+        }
+    });
+    groupe.clearLayers();
+    groupe.addLayers(aGarder);
+
+    compteur.textContent = "{{ _("Établissements trouvés :")|escapejs }}" + ' ' + visibles;
+    if (!visibles) {
+        liste.innerHTML = `<div class="etat-vide"><i class="bi bi-search fs-3 d-block mb-2"></i>${
+            etablissements.length ? "{{ _("Aucun établissement ne correspond à ta recherche.")|escapejs }}" : "{{ _("Aucun établissement enregistré pour le moment.")|escapejs }}"
+        }</div>`;
+    }
+}
+
+champRecherche.addEventListener('input', afficher);
+afficher();
+</script>
+{% endblock %}

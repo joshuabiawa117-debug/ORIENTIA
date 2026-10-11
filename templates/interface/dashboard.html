@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% translate "OrientIA — Mon espace" %}{% endblock %}
+
+{% block skeleton %}
+<div class="container pt-4">
+    <div class="dash-hero mb-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+            <div><div class="sk sk-dark" style="width:min(320px,70vw);height:34px;"></div><div class="sk sk-dark mt-2" style="width:min(380px,80vw);height:14px;"></div></div>
+            <div class="sk sk-dark sk-pill" style="width:180px;height:50px;"></div>
+        </div>
+    </div>
+    <div class="raccourcis-espace mb-4">
+        <a href="{% url 'espace:filiere' %}" class="raccourci"><i class="bi bi-mortarboard"></i><span>{% translate "Ma filière" %}</span></a>
+        <a href="{% url 'espace:emploi_du_temps' %}" class="raccourci"><i class="bi bi-calendar-week"></i><span>{% translate "Emploi du temps" %}</span></a>
+        <a href="{% url 'espace:suivi' %}" class="raccourci"><i class="bi bi-graph-up-arrow"></i><span>{% translate "Mon suivi" %}</span></a>
+        <a href="{% url 'communaute:messagerie' %}" class="raccourci"><i class="bi bi-envelope"></i><span>{% translate "Messages" %}</span>
+            {% if nb_messages_non_lus %}<span class="pastille-compteur">{{ nb_messages_non_lus }}</span>{% endif %}</a>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-5">
+            <div class="sk-card">
+                <div class="d-flex justify-content-between"><div class="sk" style="width:110px;height:20px;"></div><div class="sk sk-pill" style="width:90px;height:32px;"></div></div>
+                <div class="sk mt-4" style="width:100%;height:8px;"></div>
+                {% for i in "1234" %}<div class="sk mt-4" style="width:90px;height:10px;"></div><div class="sk mt-2" style="width:60%;height:14px;"></div>{% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="row g-4">
+                {% for i in "12" %}
+                <div class="col-sm-6"><div class="sk-card"><div class="sk" style="width:46px;height:46px;border-radius:13px;"></div><div class="sk mt-3" style="width:60%;height:18px;"></div><div class="sk mt-2" style="width:100%;height:12px;"></div><div class="sk mt-2" style="width:80%;height:12px;"></div></div></div>
+                {% endfor %}
+                <div class="col-12"><div class="sk-card"><div class="sk" style="width:220px;height:16px;"></div><div class="d-flex flex-wrap gap-2 mt-3">{% for i in "123" %}<div class="sk sk-pill" style="width:200px;height:34px;"></div>{% endfor %}</div></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container pt-4">
+
+    <!-- Bandeau d'accueil -->
+    <div class="dash-hero mb-4">
+        <span class="circle-deco circle-glow float-circle" style="width:300px;height:300px;top:-140px;right:-60px;"></span>
+        <div class="position-relative d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+            <div>
+                <h1 class="mb-1">{% translate "Bonjour," %} {{ user.first_name|default:user.username }} 👋</h1>
+                <p class="mb-0">{% translate "Prêt·e à avancer sur ton orientation aujourd'hui ?" %}</p>
+            </div>
+            <a href="{% url 'chat' %}" class="btn-brand btn-lg-x"><i class="bi bi-stars"></i> {% translate "Parler à OrientIA" %}</a>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Profil + progression -->
+        <div class="col-lg-5">
+            <div class="card-x">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0">{% translate "Mon profil" %}</h5>
+                    <a href="{% url 'bienvenue' %}" class="btn-soft btn-sm-x"><i class="bi bi-pencil"></i> {% translate "Modifier" %}</a>
+                </div>
+
+                <div class="d-flex justify-content-between small mb-2">
+                    <span class="text-muted">{% translate "Profil complété" %}</span>
+                    <strong class="text-gradient">{{ profil.progression }}%</strong>
+                </div>
+                <div class="barre mb-4"><div class="barre-remplie" style="width: {{ profil.progression }}%"></div></div>
+
+                <dl class="profil-liste mb-0">
+                    <dt>{% translate "Profil" %}</dt>
+                    <dd>{{ profil.get_type_profil_display }}</dd>
+
+                    <dt>{% translate "Série du bac" %}</dt>
+                    <dd>{% if profil.serie_bac %}{{ profil.get_serie_bac_display }}{% else %}<a href="{% url 'bienvenue' %}?etape=2" class="link-brand">{% translate "+ Ajouter" %}</a>{% endif %}</dd>
+
+                    <dt>{% translate "Centres d'intérêt" %}</dt>
+                    <dd>{% if profil.centres_interet %}{{ profil.centres_interet }}{% else %}<a href="{% url 'bienvenue' %}?etape=3" class="link-brand">{% translate "+ Ajouter" %}</a>{% endif %}</dd>
+
+                    <dt>{% translate "Région" %}</dt>
+                    <dd>{% if profil.region %}{{ profil.region }}{% else %}<a href="{% url 'bienvenue' %}?etape=4" class="link-brand">{% translate "+ Ajouter" %}</a>{% endif %}</dd>
+
+                    <dt>{% translate "Projet après le bac" %}</dt>
+                    <dd>{% if profil.projet_etudes %}{{ profil.projet_etudes }}{% else %}<a href="{% url 'bienvenue' %}?etape=5" class="link-brand">{% translate "+ Ajouter" %}</a>{% endif %}</dd>
+
+                    <dt>{% translate "École visée" %}</dt>
+                    <dd>{% if profil.ecole_souhaitee %}{{ profil.ecole_souhaitee }}{% else %}<a href="{% url 'bienvenue' %}?etape=5" class="link-brand">{% translate "+ Ajouter" %}</a>{% endif %}</dd>
+                </dl>
+
+                {% if profil.progression < 100 %}
+                    <div class="tip mt-3">
+                        <i class="bi bi-lightbulb"></i>
+                        <span>{% translate "Complète ton profil pour qu'OrientIA te donne des conseils adaptés à ta série et à tes goûts." %}</span>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Test d'orientation -->
+            <div class="card-x mt-4" style="height:auto;">
+                <h6 class="fw-bold mb-3"><i class="bi bi-compass text-gradient"></i> {% translate "Mon test d'orientation" %}</h6>
+                {% if dernier_test %}
+                    {% for nom, score in domaines_test %}
+                        <div class="d-flex justify-content-between small mb-1"><span>{{ nom }}</span><strong>{{ score }} %</strong></div>
+                        <div class="barre mb-2"><div class="barre-remplie" style="width: {{ score }}%"></div></div>
+                    {% endfor %}
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="{% url 'orientation:resultat_test' dernier_test.pk %}" class="arrow-link">{% translate "Voir le détail" %} <i class="bi bi-arrow-right"></i></a>
+                        <a href="{% url 'orientation:test' %}" class="link-brand small align-self-center">{% translate "Refaire le test" %}</a>
+                    </div>
+                {% else %}
+                    <p class="text-muted small">{% translate "3 minutes pour découvrir les domaines qui te correspondent. OrientIA s'en servira pour mieux te conseiller." %}</p>
+                    <a href="{% url 'orientation:test' %}" class="btn-brand btn-sm-x"><i class="bi bi-play-fill"></i> {% translate "Faire le test" %}</a>
+                {% endif %}
+            </div>
+
+            <!-- Écoles favorites -->
+            <div class="card-x mt-4" style="height:auto;">
+                <h6 class="fw-bold mb-3"><i class="bi bi-heart text-gradient"></i> {% translate "Mes écoles favorites" %}</h6>
+                {% for e in favoris %}
+                    <div class="ecole-ligne"><span class="icon-tile mb-0"><i class="bi bi-building"></i></span><span class="small fw-semibold">{{ e.nom }}</span></div>
+                {% empty %}
+                    <p class="text-muted small">{% translate "Ajoute des écoles en favoris depuis le comparateur pour les retrouver ici." %}</p>
+                {% endfor %}
+                <a href="{% url 'orientation:comparateur' %}" class="arrow-link mt-2">{% if favoris %}{% translate "Comparer mes favoris" %}{% else %}{% translate "Ouvrir le comparateur" %}{% endif %} <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Actions rapides -->
+        <div class="col-lg-7">
+            <div class="row g-4">
+                <div class="col-sm-6">
+                    <a href="{% url 'chat' %}" class="card-x card-lift">
+                        <span class="icon-tile solid"><i class="bi bi-stars"></i></span>
+                        <h5 class="fw-bold">{% translate "Parler à OrientIA" %}</h5>
+                        <p class="text-muted">{% translate "Pose tes questions sur les filières, les débouchés et les admissions." %}</p>
+                        <span class="arrow-link">{% translate "Commencer" %} <i class="bi bi-arrow-right"></i></span>
+                    </a>
+                </div>
+                <div class="col-sm-6">
+                    <a href="{% url 'communaute:liste' %}" class="card-x card-lift">
+                        <span class="icon-tile"><i class="bi bi-people"></i></span>
+                        <h5 class="fw-bold">{% translate "Communauté" %}</h5>
+                        <p class="text-muted">{% translate "Échange avec les autres bacheliers et les étudiants." %}</p>
+                        <span class="arrow-link">{% translate "Rejoindre" %} <i class="bi bi-arrow-right"></i></span>
+                    </a>
+                </div>
+
+                <!-- Écoles proches -->
+                <div class="col-sm-6">
+                    <div class="card-x">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="fw-bold mb-0"><i class="bi bi-geo-alt text-gradient"></i> {% translate "Écoles proches de toi" %}</h6>
+                        </div>
+                        {% if ecoles %}
+                            <p class="text-muted small mb-2">{% translate "Depuis" %} {{ lieu }}{% translate ", dans tes domaines" %}</p>
+                            {% for e in ecoles %}
+                                <div class="ecole-ligne">
+                                    <span class="rang" style="width:26px;height:26px;font-size:.75rem;">{{ forloop.counter }}</span>
+                                    <div class="min-w-0"><div class="fw-semibold small text-truncate">{{ e.nom }}</div>
+                                        <div class="text-muted small">{{ e.distance.km|floatformat:0 }} {% translate "km" %}</div></div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted small">{% translate "Indique ta région et tes centres d'intérêt pour voir les écoles les plus proches." %}</p>
+                        {% endif %}
+                        <a href="{% url 'orientation:ecoles_proches' %}" class="arrow-link mt-2">{% translate "Voir sur la carte" %} <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Concours suivis -->
+                <div class="col-sm-6">
+                    <div class="card-x">
+                        <h6 class="fw-bold mb-2"><i class="bi bi-bell text-gradient"></i> {% translate "Mes concours" %}</h6>
+                        {% for c in concours_suivis|slice:":3" %}
+                            {% with e=c.prochaine_echeance %}
+                            <div class="ecole-ligne">
+                                <div class="min-w-0 flex-grow-1"><div class="fw-semibold small text-truncate">{{ c.nom }}</div>
+                                    <div class="text-muted small">{% if e %}{{ e.0 }} · {{ e.1|date:"j M" }}{% else %}{{ c.statut.1 }}{% endif %}</div></div>
+                                {% if e %}<span class="badge-soft">J-{{ e.2 }}</span>{% endif %}
+                            </div>
+                            {% endwith %}
+                        {% empty %}
+                            <p class="text-muted small">{% translate "Active les rappels sur les concours qui t'intéressent pour ne rater aucune date." %}</p>
+                        {% endfor %}
+                        <a href="{% url 'orientation:concours' %}" class="arrow-link mt-2">{% translate "Calendrier des concours" %} <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card-x">
+                        <div class="d-flex gap-3 align-items-start">
+                            <span class="icon-tile mb-0"><i class="bi bi-chat-quote"></i></span>
+                            <div>
+                                <h6 class="fw-bold mb-2">{% translate "Idées de questions à poser à OrientIA" %}</h6>
+                                <div class="chips">
+                                    {% for idee in idees %}
+                                        <a class="chip text-decoration-none" href="{% url 'chat' %}?q={{ idee|urlencode }}">{{ idee }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

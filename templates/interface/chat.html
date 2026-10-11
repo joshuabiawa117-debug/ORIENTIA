@@ -1,0 +1,375 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+{% block title %}{% translate "OrientIA — Parler à OrientIA" %}{% endblock %}
+
+{% block skeleton %}
+<div class="container">
+    <div class="page-head d-flex flex-column align-items-center">
+        <div class="sk sk-pill" style="width:130px;height:28px;"></div>
+        <div class="sk mt-3" style="width:min(340px,80%);height:40px;"></div>
+        <div class="sk mt-2" style="width:min(480px,90%);height:16px;"></div>
+    </div>
+    <div class="chat-shell">
+        <div class="chat-head">
+            <div class="sk" style="width:40px;height:40px;border-radius:13px;"></div>
+            <div class="flex-grow-1"><div class="sk" style="width:70px;height:14px;"></div><div class="sk mt-2" style="width:200px;height:10px;"></div></div>
+        </div>
+        <div class="chat-messages">
+            <div class="d-flex gap-2 align-items-end">
+                <div class="sk" style="width:30px;height:30px;border-radius:10px;"></div>
+                <div class="sk" style="width:min(520px,75%);height:70px;border-radius:18px;"></div>
+            </div>
+            <div class="sk align-self-end" style="width:min(300px,55%);height:46px;border-radius:18px;"></div>
+            <div class="d-flex gap-2 align-items-end">
+                <div class="sk" style="width:30px;height:30px;border-radius:10px;"></div>
+                <div class="sk" style="width:min(420px,65%);height:90px;border-radius:18px;"></div>
+            </div>
+        </div>
+        <div class="chat-input-zone"><div class="sk sk-pill" style="width:100%;height:52px;"></div></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head text-center">
+        <span class="badge-soft"><i class="bi bi-stars"></i> {% translate "Assistante IA" %}</span>
+        <h1 class="mt-3">{% translate "Discute avec" %} <span class="text-gradient">OrientIA</span></h1>
+        <p>{% translate "Pose ta question : OrientIA s'appuie sur des documents officiels pour te répondre." %}</p>
+    </div>
+
+    {% if not user.is_authenticated %}
+        <div class="bandeau-connexion">
+            <i class="bi bi-person-heart"></i>
+            <span>{% translate "Connecte-toi pour qu'OrientIA adapte ses conseils à ta série et à tes centres d'intérêt." %}</span>
+            <a href="{% url 'connexion' %}?next={% url 'chat' %}" class="btn-brand btn-sm-x">{% translate "Se connecter" %}</a>
+        </div>
+    {% endif %}
+
+    <div class="chat-shell">
+        <div class="chat-head">
+            <span class="caty-avatar"><i class="bi bi-stars"></i></span>
+            <div class="flex-grow-1">
+                <div class="fw-semibold">OrientIA</div>
+                <div class="chat-status"><span class="pulse-dot"></span> {% translate "En ligne · répond en quelques secondes" %}</div>
+            </div>
+            {% if user.is_authenticated %}
+            <a class="btn-ghost btn-sm-x" href="{% url 'historique_chat' %}" title="{% translate "Mes conversations" %}">
+                <i class="bi bi-clock-history"></i><span class="d-none d-md-inline">{% translate "Historique" %}</span>
+            </a>
+            {% endif %}
+            <button type="button" class="btn-ghost btn-sm-x" id="btnNouvelle" title="{% translate "Nouvelle conversation" %}">
+                <i class="bi bi-arrow-counterclockwise"></i><span class="d-none d-sm-inline">{% translate "Nouvelle conversation" %}</span>
+            </button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages" aria-live="polite">
+            <div class="message assistant">
+                <span class="caty-avatar sm"><i class="bi bi-stars"></i></span>
+                <div class="message-bubble">{% translate "Bonjour" %}{% if user.is_authenticated %} {{ user.first_name|default:user.username }}{% endif %} {% translate "! Je suis OrientIA, ton assistant d'orientation académique. Pose-moi une question sur les filières, les débouchés ou les établissements au Cameroun." %}</div>
+            </div>
+        </div>
+
+        <div class="suggestions" id="suggestions">
+            <button type="button" class="suggestion">{% translate "Quelles filières après un bac C ?" %}</button>
+            <button type="button" class="suggestion">{% translate "Comment entrer à l'ENSP ?" %}</button>
+            <button type="button" class="suggestion">{% translate "Quels BTS existent en informatique ?" %}</button>
+            <button type="button" class="suggestion">{% translate "Qu'est-ce qu'un IPES ?" %}</button>
+        </div>
+
+        <div class="chat-input-zone">
+            <div class="piece-jointe d-none" id="pieceJointe">
+                <i class="bi bi-paperclip"></i>
+                <span class="nom" id="nomPieceJointe"></span>
+                <button type="button" class="btn-ghost btn-sm-x" id="retirerPieceJointe" aria-label="{% translate "Retirer le fichier" %}"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <form id="chatForm" class="chat-input">
+                {% csrf_token %}
+                <label class="btn-outil" for="fichierChat" title="{% translate "Joindre un fichier (photo, PDF, texte)" %}" aria-label="{% translate "Joindre un fichier (photo, PDF, texte)" %}">
+                    <i class="bi bi-paperclip"></i>
+                    <input type="file" id="fichierChat" accept="image/*,.pdf,.txt,.md,.csv" hidden>
+                </label>
+                <input type="text" id="questionInput" placeholder="{% translate "Écris ta question ici…" %}" autocomplete="off" maxlength="500">
+                <button type="button" class="btn-outil btn-micro" id="micChat" title="{% translate "Dicter ma question" %}" aria-label="{% translate "Dicter ma question" %}"><i class="bi bi-mic"></i></button>
+                <button type="submit" class="send-btn" id="btnEnvoyer" aria-label="{% translate "Envoyer" %}"><i class="bi bi-arrow-up"></i></button>
+            </form>
+            <p class="aide-chat">{% translate "Tu peux joindre un relevé de notes, une brochure d'école ou une photo, et parler au lieu d'écrire." %}</p>
+            <p class="aide-chat avertissement-ia">
+                <i class="bi bi-shield-lock"></i>
+                {% translate "OrientIA peut se tromper : vérifie les informations importantes auprès des écoles. Tes questions et fichiers sont traités par Groq (États-Unis) : n'y mets pas d'informations sensibles." %}
+                <a href="{% url 'confidentialite' %}">{% translate "En savoir plus" %}</a>
+            </p>
+        </div>
+    </div>
+</div>
+{{ echanges|json_script:"echangesConversation" }}
+{% endblock %}
+
+{% block scripts %}
+<!-- Mise en forme des réponses d'OrientIA (Markdown → HTML nettoyé) -->
+<script src="{% static 'vendor/marked/marked.min.js' %}"></script>
+<script src="{% static 'vendor/dompurify/purify.min.js' %}"></script>
+{% include 'interface/_saisie_vocale.html' %}
+<script>
+const chatForm = document.getElementById('chatForm');
+const fichierChat = document.getElementById('fichierChat');
+const pieceJointe = document.getElementById('pieceJointe');
+const LANGUE_VOIX = document.documentElement.lang === 'en' ? 'en-GB' : 'fr-FR';
+const chatMessages = document.getElementById('chatMessages');
+const questionInput = document.getElementById('questionInput');
+const btnEnvoyer = document.getElementById('btnEnvoyer');
+const suggestions = document.getElementById('suggestions');
+const messageAccueil = chatMessages.innerHTML;
+const csrf = () => document.querySelector('[name=csrfmiddlewaretoken]').value;
+// Identifiant de la conversation : donné par le serveur à la première réponse, il permet à OrientIA
+// de se souvenir des échanges précédents (« et pour la 2e filière ? »)
+let conversationId = "{{ conversation|escapejs }}" || null;
+
+function ajouterMessage(texte, type) {
+    const div = document.createElement('div');
+    div.className = `message ${type}`;
+    if (type !== 'user') {
+        div.insertAdjacentHTML('beforeend', '<span class="caty-avatar sm"><i class="bi bi-stars"></i></span>');
+    }
+    const bulle = document.createElement('div');
+    bulle.className = 'message-bubble';
+    bulle.textContent = texte;  // textContent : le texte n'est jamais interprété comme du HTML
+    div.appendChild(bulle);
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return div;
+}
+
+// Affiche la réponse avec sa mise en forme (gras, listes...). Le HTML est nettoyé par DOMPurify :
+// rien de ce que renvoie l'IA ne peut exécuter du code dans la page.
+function afficherReponse(bulle, texte) {
+    if (window.marked && window.DOMPurify) {
+        bulle.classList.add('markdown');
+        bulle.innerHTML = DOMPurify.sanitize(marked.parse(texte));
+    } else {
+        bulle.textContent = texte;
+    }
+}
+
+function ajouterIndicateurFrappe() {
+    const div = ajouterMessage('', 'assistant');
+    const bulle = div.querySelector('.message-bubble');
+    bulle.classList.add('reflexion');
+    bulle.appendChild(OrientIA.petitLogo("{{ _("OrientIA réfléchit…")|escapejs }}"));
+    return div;
+}
+
+async function envoyer(question) {
+    const fichier = fichierChat.files[0];
+    suggestions.classList.add('d-none');
+    const message = ajouterMessage(question, 'user');
+    if (fichier) {
+        const etiquette = document.createElement('div');
+        etiquette.className = 'fichier-envoye';
+        etiquette.textContent = '📎 ' + fichier.name;
+        message.querySelector('.message-bubble').prepend(etiquette);
+    }
+    questionInput.value = '';
+    btnEnvoyer.disabled = true;
+
+    const enCours = ajouterIndicateurFrappe();
+    const bulle = enCours.querySelector('.message-bubble');
+
+    try {
+        let options;
+        if (fichier) {
+            // Avec un fichier joint : envoi en formulaire (le navigateur fixe lui-même le Content-Type)
+            const donnees = new FormData();
+            donnees.append('question', question);
+            donnees.append('fichier', fichier);
+            if (conversationId) donnees.append('conversation', conversationId);
+            options = { method: 'POST', headers: { 'X-CSRFToken': csrf() }, body: donnees };
+            retirerPieceJointe();
+        } else {
+            options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrf() },
+                body: JSON.stringify({ question: question, conversation: conversationId }),
+            };
+        }
+        const response = await fetch("{% url 'api_chat' %}", options);
+        bulle.classList.remove('reflexion');
+        let data = {};
+        try { data = await response.json(); } catch (e) { /* réponse non JSON (erreur serveur) */ }
+
+        if (response.ok && data.reponse) {
+            conversationId = data.conversation;
+            afficherReponse(bulle, data.reponse);
+            completerReponse(enCours, data);
+        } else {
+            enCours.classList.add('erreur');
+            bulle.textContent = response.status === 403
+                ? "{{ _("Ta session a expiré. Recharge la page puis réessaie.")|escapejs }}"
+                : (data.erreur || "{{ _("Erreur du serveur (code %s).")|escapejs }}".replace('%s', response.status));
+        }
+    } catch (err) {
+        bulle.classList.remove('reflexion');
+        enCours.classList.add('erreur');
+        bulle.textContent = "{{ _("Impossible de joindre le serveur. Vérifie que « runserver » tourne.")|escapejs }}";
+    } finally {
+        btnEnvoyer.disabled = false;
+        questionInput.focus();
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+}
+
+chatForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const question = questionInput.value.trim() || (fichierChat.files[0] ? "{{ _("Que peux-tu me dire sur ce document pour mon orientation ?")|escapejs }}" : '');
+    if (question && !btnEnvoyer.disabled) envoyer(question);
+});
+
+suggestions.querySelectorAll('.suggestion').forEach(btn => {
+    btn.addEventListener('click', () => envoyer(btn.textContent));
+});
+
+// Pièce jointe
+function retirerPieceJointe() {
+    fichierChat.value = '';
+    pieceJointe.classList.add('d-none');
+}
+fichierChat.addEventListener('change', () => {
+    const fichier = fichierChat.files[0];
+    if (!fichier) return retirerPieceJointe();
+    if (fichier.size > 8 * 1024 * 1024) {
+        alert("{{ _("Fichier trop lourd (8 Mo maximum).")|escapejs }}");
+        return retirerPieceJointe();
+    }
+    document.getElementById('nomPieceJointe').textContent = fichier.name;
+    pieceJointe.classList.remove('d-none');
+    questionInput.focus();
+});
+document.getElementById('retirerPieceJointe').addEventListener('click', retirerPieceJointe);
+
+// Micro : la question dictée est envoyée directement
+document.getElementById('micChat').addEventListener('click', (e) => {
+    SaisieVocale.basculer(e.currentTarget, (texte) => {
+        questionInput.value = texte;
+        if (!btnEnvoyer.disabled) envoyer(texte);
+    });
+});
+
+// Lecture à voix haute des réponses d'OrientIA (synthèse vocale du navigateur)
+function ajouterBoutonEcoute(message, texte) {
+    if (!('speechSynthesis' in window)) return;
+    const bouton = document.createElement('button');
+    bouton.type = 'button';
+    bouton.className = 'btn-ecouter';
+    const libelleEcouter = '<i class="bi bi-volume-up"></i> ' + "{{ _("Écouter")|escapejs }}";
+    const libelleStop = '<i class="bi bi-stop-circle"></i> ' + "{{ _("Arrêter")|escapejs }}";
+    bouton.innerHTML = libelleEcouter;
+    bouton.addEventListener('click', () => {
+        if (speechSynthesis.speaking && bouton.classList.contains('lecture')) {
+            speechSynthesis.cancel();
+            return;
+        }
+        speechSynthesis.cancel();
+        document.querySelectorAll('.btn-ecouter.lecture').forEach(b => { b.classList.remove('lecture'); b.innerHTML = libelleEcouter; });
+        // On lit le texte sans les symboles de mise en forme (**, #, |...)
+        const enonce = new SpeechSynthesisUtterance(texte.replace(/[*#|_>`~-]+/g, ' '));
+        enonce.lang = LANGUE_VOIX;
+        enonce.onend = enonce.onerror = () => { bouton.classList.remove('lecture'); bouton.innerHTML = libelleEcouter; };
+        bouton.classList.add('lecture');
+        bouton.innerHTML = libelleStop;
+        speechSynthesis.speak(enonce);
+    });
+    return bouton;
+}
+
+// Sous une réponse : documents consultés, écoute, et avis 👍 / 👎
+function completerReponse(message, data) {
+    const bulle = message.querySelector('.message-bubble');
+    if (data.sources && data.sources.length) {
+        const sources = document.createElement('div');
+        sources.className = 'sources-reponse';
+        sources.innerHTML = '<i class="bi bi-journal-text"></i> ';
+        const libelle = document.createElement('span');
+        libelle.textContent = "{{ _("Documents consultés :")|escapejs }} " + data.sources.join(' · ');
+        sources.appendChild(libelle);
+        bulle.appendChild(sources);
+    }
+    const actions = document.createElement('div');
+    actions.className = 'actions-reponse';
+    const ecoute = ajouterBoutonEcoute(message, data.reponse);
+    if (ecoute) actions.appendChild(ecoute);
+    if (data.echange) {
+        [[1, 'bi-hand-thumbs-up', "{{ _("Réponse utile")|escapejs }}"],
+         [-1, 'bi-hand-thumbs-down', "{{ _("Réponse pas utile")|escapejs }}"]].forEach(([valeur, icone, titre]) => {
+            const bouton = document.createElement('button');
+            bouton.type = 'button';
+            bouton.className = 'btn-avis' + (data.avis === valeur ? ' actif' : '');
+            bouton.title = titre;
+            bouton.setAttribute('aria-label', titre);
+            bouton.setAttribute('aria-pressed', data.avis === valeur ? 'true' : 'false');
+            bouton.innerHTML = `<i class="bi ${icone}"></i>`;
+            bouton.addEventListener('click', () => donnerAvis(actions, data.echange, valeur));
+            actions.appendChild(bouton);
+        });
+    }
+    bulle.after(actions);
+}
+
+async function donnerAvis(actions, echange, valeur) {
+    try {
+        const response = await fetch("{% url 'api_avis' %}", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrf() },
+            body: JSON.stringify({ echange: echange, avis: valeur }),
+        });
+        if (!response.ok) return;
+        const { avis } = await response.json();
+        actions.querySelectorAll('.btn-avis').forEach((bouton, i) => {
+            const actif = avis === (i === 0 ? 1 : -1);
+            bouton.classList.toggle('actif', actif);
+            bouton.setAttribute('aria-pressed', actif ? 'true' : 'false');
+        });
+        let merci = actions.querySelector('.merci-avis');
+        if (!merci) {
+            merci = document.createElement('span');
+            merci.className = 'merci-avis';
+            actions.appendChild(merci);
+        }
+        merci.textContent = avis === -1 ? "{{ _("Merci ! Cette réponse sera relue pour améliorer OrientIA.")|escapejs }}"
+            : avis === 1 ? "{{ _("Merci pour ton avis !")|escapejs }}" : '';
+    } catch (e) { /* hors ligne : l'avis n'est simplement pas enregistré */ }
+}
+
+// Conversation rouverte depuis l'historique
+const echangesExistants = JSON.parse(document.getElementById('echangesConversation').textContent);
+if (echangesExistants.length) {
+    suggestions.classList.add('d-none');
+    echangesExistants.forEach((e) => {
+        const message = ajouterMessage(e.question, 'user');
+        if (e.document) {
+            const etiquette = document.createElement('div');
+            etiquette.className = 'fichier-envoye';
+            etiquette.textContent = '📎 ' + e.document;
+            message.querySelector('.message-bubble').prepend(etiquette);
+        }
+        const reponse = ajouterMessage('', 'assistant');
+        afficherReponse(reponse.querySelector('.message-bubble'), e.reponse);
+        completerReponse(reponse, { reponse: e.reponse, sources: e.sources, echange: e.id, avis: e.avis });
+    });
+}
+
+// Question passée dans l'adresse (ex : depuis les idées du tableau de bord)
+const questionInitiale = new URLSearchParams(window.location.search).get('q');
+if (questionInitiale) {
+    history.replaceState(null, '', window.location.pathname);
+    envoyer(questionInitiale.slice(0, 500));
+}
+
+document.getElementById('btnNouvelle').addEventListener('click', () => {
+    conversationId = null;
+    history.replaceState(null, '', window.location.pathname);
+    chatMessages.innerHTML = messageAccueil;
+    suggestions.classList.remove('d-none');
+    questionInput.focus();
+});
+</script>
+{% endblock %}

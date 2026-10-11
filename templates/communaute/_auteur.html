@@ -1,0 +1,11 @@
+{% load i18n %}{% comment %}Avatar + nom + badges d'un membre. Paramètre : membre (un utilisateur).{% endcomment %}
+<span class="membre">
+    <span class="membre-avatar">{{ membre.first_name|default:membre.username|first|upper }}</span>
+    <a class="membre-nom" href="{% url 'communaute:membre' membre.username %}">{{ membre.first_name|default:membre.username }}</a>
+    {% if membre.profil.badge %}
+        <span class="badge-membre contributeur" title="{% translate "Badge vérifié par l'équipe OrientIA" %}"><i class="bi bi-patch-check-fill"></i> {{ membre.profil.get_badge_display }}</span>
+    {% endif %}
+    {% if membre.profil.serie_bac and membre.profil.serie_bac != 'autre' %}
+        <span class="badge-membre">{{ membre.profil.get_serie_bac_display }}</span>
+    {% endif %}
+</span>

@@ -1,0 +1,11 @@
+<script>
+// Bouton « œil » pour afficher / masquer un mot de passe
+document.querySelectorAll('.btn-eye').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const champ = document.getElementById(btn.dataset.cible);
+        const visible = champ.type === 'text';
+        champ.type = visible ? 'password' : 'text';
+        btn.querySelector('i').className = visible ? 'bi bi-eye' : 'bi bi-eye-slash';
+    });
+});
+</script>

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ membre.first_name|default:membre.username }} — OrientIA{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 860px;">
+    <div class="pt-4">
+        <a href="{% url 'communaute:liste' %}" class="arrow-link"><i class="bi bi-arrow-left"></i> {% translate "Retour à la communauté" %}</a>
+    </div>
+
+    <div class="dash-hero mt-3 mb-4">
+        <span class="circle-deco circle-glow float-circle" style="width:260px;height:260px;top:-130px;right:-60px;"></span>
+        <div class="position-relative d-flex flex-column flex-md-row align-items-md-center gap-4">
+            <span class="avatar-profil">{{ membre.first_name|default:membre.username|first|upper }}</span>
+            <div class="flex-grow-1">
+                <h1 class="mb-1">{{ membre.first_name|default:membre.username }}</h1>
+                <p class="mb-2">@{{ membre.username }}</p>
+                <div class="d-flex flex-wrap gap-2">
+                    {% if membre.profil.badge %}<span class="badge-soft" title="{% translate "Badge vérifié par l'équipe OrientIA" %}"><i class="bi bi-patch-check-fill"></i> {{ membre.profil.get_badge_display }}</span>{% endif %}
+                    {% if membre.profil.serie_bac and membre.profil.serie_bac != 'autre' %}<span class="badge-soft">{{ membre.profil.get_serie_bac_display }}</span>{% endif %}
+                    {% if membre.profil.region %}<span class="badge-soft"><i class="bi bi-geo-alt"></i> {{ membre.profil.region }}</span>{% endif %}
+                </div>
+            </div>
+            {% if user.is_authenticated and user != membre %}
+                <div class="d-flex flex-column align-items-md-end gap-2">
+                    {% if not refus_message %}
+                        <a href="{% url 'communaute:conversation' membre.username %}" class="btn-brand btn-lg-x"><i class="bi bi-envelope"></i> {% translate "Envoyer un message" %}</a>
+                    {% endif %}
+                    <div class="d-flex gap-1">
+                        <form method="post" action="{% url 'communaute:bloquer' membre.username %}" class="m-0">
+                            {% csrf_token %}
+                            <button type="submit" class="lien-signaler"><i class="bi bi-slash-circle"></i> {% if bloque %}{% translate "Débloquer" %}{% else %}{% translate "Bloquer" %}{% endif %}</button>
+                        </form>
+                        <a class="lien-signaler" href="{% url 'communaute:signaler' 'membre' membre.pk %}"><i class="bi bi-flag"></i> {% translate "Signaler" %}</a>
+                    </div>
+                </div>
+            {% elif not user.is_authenticated %}
+                <a href="{% url 'connexion' %}?next={{ request.path|urlencode }}" class="btn-brand btn-lg-x"><i class="bi bi-envelope"></i> {% translate "Se connecter pour écrire" %}</a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if refus_message %}
+        <div class="bandeau-refus mb-4"><i class="bi bi-shield-lock"></i><span>{{ refus_message }}
+            {% if age_manquant %}<a href="{% url 'bienvenue' %}?etape=2" class="link-brand">{% translate "Compléter mon profil" %}</a>{% endif %}</span></div>
+    {% endif %}
+
+    <div class="row g-4 mb-4">
+        <div class="col-4"><div class="card-x text-center"><div class="stat-value text-gradient">{{ sujets|length }}</div><div class="stat-label">{% translate "questions posées" %}</div></div></div>
+        <div class="col-4"><div class="card-x text-center"><div class="stat-value text-gradient">{{ nb_reponses }}</div><div class="stat-label">{% translate "réponses données" %}</div></div></div>
+        <div class="col-4"><div class="card-x text-center"><div class="stat-value text-gradient">{{ nb_meilleures }}</div><div class="stat-label">{% translate "meilleures réponses" %}</div></div></div>
+    </div>
+
+    <div class="card-x" style="height:auto;">
+        <h5 class="fw-bold mb-3">{% translate "Ses questions" %}</h5>
+        {% for s in sujets %}
+            <a href="{% url 'communaute:detail' s.pk %}" class="d-block link-brand mb-2">{{ s.titre }}</a>
+        {% empty %}
+            <p class="text-muted mb-0">{% translate "Aucune question pour le moment." %}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

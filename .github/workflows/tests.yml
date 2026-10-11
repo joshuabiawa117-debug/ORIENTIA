@@ -1,0 +1,57 @@
+# Lance tous les tests d'OrientIA à chaque envoi sur GitHub (push) et à chaque demande de fusion (pull request).
+# Les appels à Groq sont simulés dans les tests : aucune clé API n'est nécessaire.
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgis/postgis:17-3.5
+        env:
+          POSTGRES_PASSWORD: orientia-tests
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+
+    env:
+      DJANGO_SECRET_KEY: cle-de-test-uniquement
+      DJANGO_DEBUG: "True"
+      DB_NAME: assistant_orientation
+      DB_USER: postgres
+      DB_PASSWORD: orientia-tests
+      DB_HOST: localhost
+      DB_PORT: "5432"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ajouter pgvector à PostgreSQL
+        run: |
+          docker exec ${{ job.services.postgres.id }} sh -c \
+            "apt-get update -qq && apt-get install -y -qq postgresql-17-pgvector"
+
+      - name: Installer les bibliothèques géographiques (GDAL)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+
+      - name: Vérifier le projet
+        run: |
+          python manage.py compiler_traductions
+          python manage.py check
+          python manage.py makemigrations --check --dry-run
+
+      - name: Lancer les tests
+        run: python manage.py test --noinput

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% translate "OrientIA — Ton résultat" %}{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 980px;">
+    <div class="page-head text-center">
+        <span class="badge-soft"><i class="bi bi-stars"></i> {% translate "Ton résultat" %}</span>
+        <h1 class="mt-3">{% translate "Tes domaines" %} <span class="text-gradient">{% translate "de prédilection" %}</span></h1>
+        <p>{% translate "D'après tes réponses, voici les domaines qui te correspondent le mieux." %}</p>
+    </div>
+
+    <div class="row g-4 mb-4">
+        {% for d in podium %}
+            <div class="col-md-4">
+                <div class="card-x podium {% if forloop.first %}premier{% endif %}">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <span class="rang">{{ forloop.counter }}</span>
+                        <span class="score-podium text-gradient">{{ d.score }} %</span>
+                    </div>
+                    <h3 class="h5 fw-bold">{{ d.nom }}</h3>
+                    <p class="text-muted small">{{ d.description }}</p>
+                    {% if d.filieres %}
+                        <div class="small fw-semibold mb-2">{% translate "Des filières pour toi :" %}</div>
+                        <div class="d-flex flex-column gap-1 mb-3">
+                            {% for f in d.filieres %}<a href="{% url 'orientation:filiere' f.slug %}" class="link-brand small">{{ f.nom }}</a>{% endfor %}
+                        </div>
+                    {% endif %}
+                    <a href="{% url 'orientation:ecoles_proches' %}?domaine={{ d.domaine }}" class="arrow-link mt-auto">{% translate "Écoles proches" %} <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if autres %}
+        <div class="card-x mb-4" style="height:auto;">
+            <h6 class="fw-bold mb-3">{% translate "Tes autres domaines" %}</h6>
+            <div class="row g-3">
+                {% for nom, score in autres %}
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-1"><span>{{ nom }}</span><span class="text-muted">{{ score }} %</span></div>
+                        <div class="barre"><div class="barre-remplie" style="width: {{ score }}%; opacity:.55;"></div></div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="cta-band text-center">
+        <span class="circle-deco circle-glow float-circle" style="width:260px;height:260px;top:-130px;left:-60px;"></span>
+        <div class="position-relative">
+            {% if user.is_authenticated %}
+                <h2 class="h3 mb-2">{% translate "Résultat enregistré dans ton profil" %}</h2>
+                <p class="mb-4">{% translate "OrientIA en tient compte pour te conseiller des filières et des écoles proches de chez toi." %}</p>
+                <div class="d-flex flex-wrap justify-content-center gap-2">
+                    <a href="{% url 'chat' %}?q={{ question_orientia|urlencode }}" class="btn-brand btn-lg-x"><i class="bi bi-stars"></i> {% translate "En parler à OrientIA" %}</a>
+                    <a href="{% url 'dashboard' %}" class="btn-soft btn-lg-x">{% translate "Mon espace" %}</a>
+                </div>
+            {% else %}
+                <h2 class="h3 mb-2">{% translate "Garde ton résultat" %}</h2>
+                <p class="mb-4">{% translate "Crée ton compte pour qu'OrientIA s'en souvienne et te propose des écoles proches de chez toi." %}</p>
+                <div class="d-flex flex-wrap justify-content-center gap-2">
+                    <a href="{% url 'inscription' %}" class="btn-brand btn-lg-x">{% translate "Créer mon compte" %}</a>
+                    <a href="{% url 'orientation:test' %}" class="btn-soft btn-lg-x">{% translate "Refaire le test" %}</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

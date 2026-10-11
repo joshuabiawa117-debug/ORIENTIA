@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% translate "OrientIA — Calendrier des concours" %}{% endblock %}
+
+{% block skeleton %}
+<div class="container">
+    <div class="page-head"><div class="sk sk-pill" style="width:170px;height:28px;"></div><div class="sk mt-3" style="width:min(460px,85vw);height:40px;"></div><div class="sk mt-2" style="width:min(560px,90vw);height:16px;"></div></div>
+    <div class="d-flex gap-2 mb-4">{% for i in "1234" %}<div class="sk sk-pill" style="width:120px;height:36px;"></div>{% endfor %}</div>
+    <div class="row g-4">{% for i in "1234" %}<div class="col-lg-6"><div class="sk-card"><div class="sk" style="width:65%;height:20px;"></div><div class="sk mt-2" style="width:40%;height:12px;"></div><div class="sk mt-4" style="width:100%;height:60px;"></div><div class="d-flex gap-2 mt-3"><div class="sk sk-pill" style="width:140px;height:36px;"></div></div></div></div>{% endfor %}</div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-head">
+        <span class="badge-soft"><i class="bi bi-calendar-event"></i> {% translate "Calendrier" %}</span>
+        <h1 class="mt-3">{% translate "Les" %} <span class="text-gradient">{% translate "concours" %}</span> {% translate "à ne pas rater" %}</h1>
+        <p>{% translate "Dates d'inscription, épreuves et pièces à fournir. Active les rappels pour ne manquer aucune échéance." %}</p>
+    </div>
+
+    <div class="filter-pills mb-4">
+        <a href="?" class="filter-pill text-decoration-none {% if not filtre %}active{% endif %}">{% translate "Tous" %}</a>
+        <a href="?statut=ouvert" class="filter-pill text-decoration-none {% if filtre == 'ouvert' %}active{% endif %}">{% translate "Inscriptions ouvertes" %}</a>
+        <a href="?statut=bientot" class="filter-pill text-decoration-none {% if filtre == 'bientot' %}active{% endif %}">{% translate "Bientôt" %}</a>
+        <a href="?statut=epreuves" class="filter-pill text-decoration-none {% if filtre == 'epreuves' %}active{% endif %}">{% translate "Épreuves à venir" %}</a>
+        <a href="?statut=a_venir" class="filter-pill text-decoration-none {% if filtre == 'a_venir' %}active{% endif %}">{% translate "Dates non publiées" %}</a>
+    </div>
+
+    <div class="row g-4">
+        {% for c in concours %}
+            {% with statut=c.statut echeance=c.prochaine_echeance %}
+            <div class="col-lg-6">
+                <div class="card-x concours-carte">
+                    <div class="d-flex justify-content-between align-items-start gap-3 mb-1">
+                        <h3 class="concours-titre">{{ c.nom }}</h3>
+                        <span class="statut statut-{{ statut.0 }}">{{ statut.1 }}</span>
+                    </div>
+                    {% if c.etablissement %}<p class="text-muted small mb-3"><i class="bi bi-building"></i> {{ c.etablissement.nom }}</p>{% endif %}
+
+                    {% if echeance %}
+                        <div class="compte-a-rebours mb-3">
+                            <span class="jours">{% if echeance.2 == 0 %}{% translate "Aujourd'hui" %}{% else %}J-{{ echeance.2 }}{% endif %}</span>
+                            <span>{{ echeance.0 }} {% translate "le" %} <strong>{{ echeance.1|date:"j F Y" }}</strong></span>
+                        </div>
+                    {% endif %}
+
+                    <ol class="frise">
+                        <li class="{% if c.date_ouverture and c.date_ouverture <= aujourdhui %}passe{% endif %}">
+                            <span class="frise-point"></span>
+                            <span class="frise-libelle">{% translate "Ouverture" %}</span>
+                            <span class="frise-date">{{ c.date_ouverture|date:"j M Y"|default:_("À publier") }}</span>
+                        </li>
+                        <li class="{% if c.date_cloture and c.date_cloture < aujourdhui %}passe{% endif %}">
+                            <span class="frise-point"></span>
+                            <span class="frise-libelle">{% translate "Clôture" %}</span>
+                            <span class="frise-date">{{ c.date_cloture|date:"j M Y"|default:_("À publier") }}</span>
+                        </li>
+                        <li class="{% if c.date_epreuves and c.date_epreuves < aujourdhui %}passe{% endif %}">
+                            <span class="frise-point"></span>
+                            <span class="frise-libelle">{% translate "Épreuves" %}</span>
+                            <span class="frise-date">{{ c.date_epreuves|date:"j M Y"|default:_("À publier") }}</span>
+                        </li>
+                    </ol>
+
+                    {% if c.filieres.all %}
+                        <div class="d-flex flex-wrap gap-1 mb-3">
+                            {% for f in c.filieres.all %}<a href="{% url 'orientation:filiere' f.slug %}" class="badge-neutral text-decoration-none">{{ f.nom }}</a>{% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if c.liste_pieces or c.conditions %}
+                        <details class="details-x mb-3">
+                            <summary>{% translate "Conditions et pièces à fournir" %}</summary>
+                            {% if c.conditions %}<p class="small mt-2 mb-2">{{ c.conditions|linebreaksbr }}</p>{% endif %}
+                            {% if c.liste_pieces %}<ul class="small mb-0">{% for p in c.liste_pieces %}<li>{{ p }}</li>{% endfor %}</ul>{% endif %}
+                        </details>
+                    {% endif %}
+
+                    <div class="d-flex flex-wrap gap-2 mt-auto">
+                        {% if user.is_authenticated %}
+                            <form method="post" action="{% url 'orientation:suivre_concours' c.pk %}" class="m-0">
+                                {% csrf_token %}
+                                <input type="hidden" name="suivant" value="{{ request.get_full_path }}">
+                                {% if c.pk in suivis %}
+                                    <button type="submit" class="btn-soft btn-sm-x"><i class="bi bi-bell-fill" style="color:var(--brand)"></i> {% translate "Rappels activés" %}</button>
+                                {% else %}
+                                    <button type="submit" class="btn-brand btn-sm-x"><i class="bi bi-bell"></i> {% translate "Me rappeler" %}</button>
+                                {% endif %}
+                            </form>
+                        {% else %}
+                            <a href="{% url 'connexion' %}?next={{ request.path|urlencode }}" class="btn-brand btn-sm-x"><i class="bi bi-bell"></i> {% translate "Me rappeler" %}</a>
+                        {% endif %}
+                        {% if c.lien_officiel %}<a href="{{ c.lien_officiel }}" target="_blank" rel="noopener" class="btn-soft btn-sm-x"><i class="bi bi-box-arrow-up-right"></i> {% translate "Site officiel" %}</a>{% endif %}
+                        <a href="{% url 'chat' %}?q={{ 'Comment se préparer au '|add:c.nom|urlencode }}" class="btn-ghost btn-sm-x"><i class="bi bi-stars"></i> {% translate "Demander à OrientIA" %}</a>
+                    </div>
+                </div>
+            </div>
+            {% endwith %}
+        {% empty %}
+            <div class="col-12"><div class="etat-vide">{% translate "Aucun concours dans cette catégorie." %}</div></div>
+        {% endfor %}
+    </div>
+
+    <p class="text-muted small mt-4"><i class="bi bi-info-circle"></i> {% translate "Les dates sont publiées chaque année par les écoles et le MINESUP. Vérifie toujours sur le communiqué officiel." %}</p>
+</div>
+{% endblock %}

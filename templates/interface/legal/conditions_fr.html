@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% comment %}Texte rédigé comme base de travail : à faire relire par un juriste avant la mise en ligne.{% endcomment %}
+{% block title %}OrientIA — Conditions d'utilisation{% endblock %}
+
+{% block content %}
+<div class="container page-legale">
+    <div class="page-head">
+        <span class="badge-soft"><i class="bi bi-file-earmark-text"></i> Règles</span>
+        <h1 class="mt-3">Conditions d'utilisation</h1>
+        <p>Dernière mise à jour : 11 octobre 2026</p>
+    </div>
+
+    <div class="card-x">
+        <h2>1. À quoi sert OrientIA</h2>
+        <p>OrientIA aide les élèves et étudiants du Cameroun à s'orienter après le bac. On y trouve un assistant d'intelligence artificielle, des fiches filières, le calendrier des concours, un espace étudiant et une communauté d'entraide. L'utilisation est gratuite.</p>
+
+        <h2>2. Les réponses d'OrientIA sont des conseils, pas des décisions officielles</h2>
+        <p>OrientIA s'appuie sur des documents officiels, mais une intelligence artificielle peut se tromper ou manquer d'informations récentes. <strong>Vérifie toujours</strong> les dates, les frais et les conditions d'admission auprès de l'établissement concerné ou du MINESUP avant de prendre une décision. OrientIA n'est pas un service officiel du ministère.</p>
+
+        <h2>3. Ton compte</h2>
+        <ul>
+            <li>Les informations que tu donnes doivent être exactes, en particulier ton année de naissance.</li>
+            <li>Ton mot de passe est personnel : ne le partage avec personne.</li>
+            <li>Si tu as moins de 18 ans, parles-en à un parent ou à un responsable avant de t'inscrire.</li>
+        </ul>
+
+        <h2>4. Les règles de la communauté</h2>
+        <p>La communauté est un lieu d'entraide. Il est interdit :</p>
+        <ul>
+            <li>d'insulter, de harceler, de menacer ou de discriminer qui que ce soit ;</li>
+            <li>de demander de l'argent, de proposer de faux concours, de fausses admissions ou de faux diplômes ;</li>
+            <li>de publier du contenu sexuel, violent ou illégal ;</li>
+            <li>de chercher à obtenir d'un mineur des photos, son adresse ou un rendez-vous ;</li>
+            <li>de faire de la publicité ou d'envoyer des messages en masse ;</li>
+            <li>de te faire passer pour quelqu'un d'autre, ou pour un membre vérifié.</li>
+        </ul>
+        <p>Chaque membre peut <strong>signaler</strong> un contenu ou un membre, et <strong>bloquer</strong> quelqu'un. Un contenu signalé par plusieurs membres est masqué en attendant la vérification de l'équipe. L'équipe peut supprimer un contenu ou suspendre un compte qui ne respecte pas ces règles. Les faits graves peuvent être signalés aux autorités.</p>
+
+        <h2>5. Les badges</h2>
+        <p>Les badges « Contributeur vérifié », « Ambassadeur » et « Conseiller d'orientation » sont attribués uniquement par l'équipe OrientIA, après vérification.</p>
+
+        <h2>6. Ce que tu publies</h2>
+        <p>Tu restes propriétaire de tes questions et réponses. En les publiant dans la communauté, tu autorises OrientIA à les afficher sur la plateforme. Tu peux les supprimer en supprimant ton compte.</p>
+
+        <h2>7. Limites d'utilisation</h2>
+        <p>Pour que le service reste disponible pour tous, le nombre de questions à OrientIA, de messages et de publications est limité par heure.</p>
+
+        <h2>8. Tes données</h2>
+        <p>Leur utilisation est expliquée dans la <a href="{% url 'confidentialite' %}">politique de confidentialité</a>.</p>
+
+        <h2>9. Modifications et contact</h2>
+        <p>Ces conditions peuvent évoluer ; la date en haut de page est alors mise à jour. Pour toute question : <a href="mailto:contact@orientia.cm">contact@orientia.cm</a>.</p>
+    </div>
+</div>
+{% endblock %}

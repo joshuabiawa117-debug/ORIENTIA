@@ -1,0 +1,21 @@
+{% extends 'account/_mise_en_page.html' %}
+{% load i18n %}
+{% block title %}OrientIA — {% translate "Confirmer mon email" %}{% endblock %}
+{% block formulaire %}
+{% if confirmation and can_confirm %}
+    <h1>{% translate "Confirme ton email" %}</h1>
+    <p class="subtitle">{% blocktranslate trimmed with email=confirmation.email_address.email %}
+        Clique sur le bouton pour confirmer que <strong>{{ email }}</strong> est bien ton adresse.
+    {% endblocktranslate %}</p>
+    <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+        {% csrf_token %}
+        <button type="submit" class="btn-gradient">{% translate "Confirmer mon email" %}</button>
+    </form>
+{% elif confirmation %}
+    <h1>{% translate "Adresse déjà utilisée" %}</h1>
+    <p class="subtitle">{% translate "Cette adresse est déjà confirmée sur un autre compte." %}</p>
+{% else %}
+    <h1>{% translate "Lien expiré" %}</h1>
+    <p class="subtitle">{% translate "Ce lien de confirmation n'est plus valable. Connecte-toi pour en recevoir un nouveau." %}</p>
+{% endif %}
+{% endblock %}

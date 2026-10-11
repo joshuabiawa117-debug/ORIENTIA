@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}OrientIA — {% translate "Inscription" %}{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block skeleton %}{% include 'interface/_squelette_auth.html' with champs="123" %}{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="form-panel">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a class="auth-brand mb-0" href="{% url 'accueil' %}">
+                <span class="brand-icon"><i class="bi bi-compass"></i></span>
+                <span>Orient<span class="text-gradient">IA</span></span>
+            </a>
+            {% include 'interface/_choix_langue.html' %}
+        </div>
+
+        <h1>{% translate "Créer un compte" %}</h1>
+        <p class="subtitle">{% translate "30 secondes suffisent. Tu compléteras ton profil ensuite, à ton rythme." %}</p>
+
+        <div class="tip mb-4">
+            <i class="bi bi-translate"></i>
+            <span>{% translate "Élève anglophone ? Clique sur EN en haut : tout le site, et OrientIA, passeront en anglais." %}</span>
+        </div>
+
+        {% if erreurs %}
+            <div class="alert alert-danger">
+                {% for erreur in erreurs %}<div>{{ erreur }}</div>{% endfor %}
+            </div>
+        {% endif %}
+
+        {% translate "S'inscrire avec Google" as libelle %}
+        {% include 'interface/_google.html' with libelle_google=libelle %}
+        {% if google_actif %}
+            <p class="small text-muted text-center mt-2">{% url 'conditions' as url_conditions %}{% url 'confidentialite' as url_confidentialite %}{% blocktranslate trimmed %}
+                En continuant avec Google, tu acceptes les <a href="{{ url_conditions }}" class="link-brand">conditions d'utilisation</a>
+                et la <a href="{{ url_confidentialite }}" class="link-brand">politique de confidentialité</a>.
+            {% endblocktranslate %}</p>
+        {% endif %}
+
+        <form method="post" data-chargement="{% translate "Création de ton compte…" %}">
+            {% csrf_token %}
+            <div class="field">
+                <label for="idEmail">{% translate "Email" %}</label>
+                <input type="email" name="email" id="idEmail" class="field-input" placeholder="{% translate "toi@exemple.com" %}"
+                       value="{{ email_saisi|default:'' }}" autocomplete="email" required>
+            </div>
+            <div class="field">
+                <label for="idUsername">{% translate "Nom d'utilisateur" %}</label>
+                <input type="text" name="username" id="idUsername" class="field-input" placeholder="{% translate "ton.pseudo" %}"
+                       value="{{ username_saisi|default:'' }}" autocomplete="username" required>
+            </div>
+            <div class="field">
+                <label for="idPassword">{% translate "Mot de passe" %}</label>
+                <div class="input-eye">
+                    <input type="password" name="password" id="idPassword" class="field-input" placeholder="{% translate "8 caractères minimum" %}"
+                           autocomplete="new-password" minlength="8" required>
+                    <button type="button" class="btn-eye" data-cible="idPassword" aria-label="{% translate "Afficher le mot de passe" %}"><i class="bi bi-eye"></i></button>
+                </div>
+            </div>
+            <label class="consentement mb-3">
+                <input type="checkbox" name="consentement" value="1" required {% if consentement_coche %}checked{% endif %}>
+                <span>{% url 'conditions' as url_conditions %}{% url 'confidentialite' as url_confidentialite %}{% blocktranslate trimmed %}
+                    J'accepte les <a href="{{ url_conditions }}" target="_blank">conditions d'utilisation</a> et la
+                    <a href="{{ url_confidentialite }}" target="_blank">politique de confidentialité</a>. Si j'ai moins de 18 ans, un parent ou un responsable est d'accord.
+                {% endblocktranslate %}</span>
+            </label>
+            <button type="submit" class="btn-gradient">{% translate "Créer mon compte" %} <i class="bi bi-arrow-right"></i></button>
+        </form>
+
+        <p class="text-center mt-4 auth-foot">
+            {% translate "Déjà un compte ?" %} <a href="{% url 'connexion' %}" class="link-brand">{% translate "Se connecter" %}</a>
+        </p>
+    </div>
+
+    <div class="showcase-panel">
+        <span class="circle-deco circle-glow float-circle" style="width:320px;height:320px;top:-120px;right:-100px;"></span>
+        <span class="circle-deco circle-glow float-circle" style="width:220px;height:220px;bottom:-90px;left:-60px;animation-delay:1.5s;"></span>
+        <div class="showcase-icon"><i class="bi bi-stars"></i></div>
+        <h2>{% translate "Rejoins la communauté OrientIA" %}</h2>
+        <p>{% translate "Avec un compte, OrientIA connaît ta série et tes centres d'intérêt et te donne des conseils vraiment adaptés à toi." %}</p>
+        <div class="etapes-apercu">
+            <div class="etape-apercu active"><span>1</span> {% translate "Crée ton compte" %}</div>
+            <div class="etape-apercu"><span>2</span> {% translate "Parle-nous de toi" %} <em>({% translate "facultatif" %})</em></div>
+            <div class="etape-apercu"><span>3</span> {% translate "Pose tes questions à OrientIA" %}</div>
+        </div>
+    </div>
+</div>
+
+{% include 'interface/_oeil.html' %}
+{% endblock %}

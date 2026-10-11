@@ -1,0 +1,25 @@
+{% load i18n %}{% comment %}
+Grille hebdomadaire 7 h – 21 h. Paramètres : elements (liste avec jour, haut, hauteur, nature, titre, debut, fin), compacte.
+{% endcomment %}
+<div class="grille-edt {% if compacte %}compacte{% endif %}">
+    <div class="grille-heures">
+        <div class="grille-entete"></div>
+        <div class="grille-corps">
+            {% for h in heures %}<span style="top: {% widthratio forloop.counter0 14 100 %}%">{{ h }}h</span>{% endfor %}
+        </div>
+    </div>
+    {% for valeur, nom in jours %}
+        <div class="grille-jour">
+            <div class="grille-entete">{{ nom|slice:":3" }}</div>
+            <div class="grille-corps">
+                {% for e in elements %}{% if e.jour == valeur %}
+                    <div class="grille-bloc bloc-{{ e.nature }}" style="top: {{ e.haut|stringformat:".3f" }}%; height: {{ e.hauteur|stringformat:".3f" }}%;"
+                         title="{{ e.debut|time:"H:i" }}–{{ e.fin|time:"H:i" }} {{ e.titre }}">
+                        <strong>{{ e.titre|default:_("Libre") }}</strong>
+                        {% if not compacte %}<span>{{ e.debut|time:"H:i" }}–{{ e.fin|time:"H:i" }}</span>{% endif %}
+                    </div>
+                {% endif %}{% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>

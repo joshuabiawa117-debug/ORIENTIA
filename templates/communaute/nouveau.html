@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% translate "OrientIA — Poser une question" %}{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 760px;">
+    <div class="page-head">
+        <a href="{% url 'communaute:liste' %}" class="arrow-link mb-3"><i class="bi bi-arrow-left"></i> {% translate "Retour à la communauté" %}</a>
+        <h1 class="mt-2">{% translate "Poser une question" %}</h1>
+        <p>{% translate "Les autres élèves et les étudiants de la communauté te répondront." %}</p>
+    </div>
+
+    <form method="post" class="card-x" style="height:auto;" data-chargement="{% translate "Publication de ta question…" %}">
+        {% csrf_token %}
+        {% for champ in form %}
+            <div class="field">
+                <label for="{{ champ.id_for_label }}">{{ champ.label }}</label>
+                {{ champ }}
+                {% for erreur in champ.errors %}<div class="text-danger small mb-2">{{ erreur }}</div>{% endfor %}
+            </div>
+        {% endfor %}
+        <div class="tip mb-3">
+            <i class="bi bi-lightbulb"></i>
+            <span>{% translate "Astuce : une question précise obtient des réponses plus rapides. Pense aussi à demander à OrientIA !" %}</span>
+        </div>
+        <div class="d-flex gap-2 justify-content-end">
+            <a href="{% url 'communaute:liste' %}" class="btn-soft">{% translate "Annuler" %}</a>
+            <button type="submit" class="btn-brand"><i class="bi bi-send"></i> {% translate "Publier ma question" %}</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

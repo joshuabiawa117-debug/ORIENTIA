@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}OrientIA — {% translate "Mes conversations" %}{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 860px;">
+    <div class="page-head">
+        <span class="badge-soft"><i class="bi bi-clock-history"></i> {% translate "Historique" %}</span>
+        <h1 class="mt-3">{% translate "Mes conversations" %}</h1>
+        <p>{% translate "Retrouve tes échanges avec OrientIA et reprends-les là où tu t'étais arrêté·e." %}</p>
+    </div>
+
+    {% for c in conversations %}
+        <div class="conversation-passee">
+            <span class="icon-tile mb-0"><i class="bi bi-chat-dots"></i></span>
+            <div class="flex-grow-1 min-w-0">
+                <a class="titre text-truncate" href="{% url 'chat' %}?conversation={{ c.id }}">{{ c.premiere_question }}</a>
+                <div class="meta">
+                    {% blocktranslate trimmed with n=c.nb %}{{ n }} question(s){% endblocktranslate %}
+                    · {% blocktranslate trimmed with duree=c.derniere|timesince %}il y a {{ duree }}{% endblocktranslate %}
+                </div>
+            </div>
+            <a class="btn-ghost btn-sm-x" href="{% url 'chat' %}?conversation={{ c.id }}">{% translate "Reprendre" %}</a>
+            <form method="post" action="{% url 'supprimer_conversation' c.id %}"
+                  onsubmit="return confirm('{{ _("Supprimer cette conversation ?")|escapejs }}');">
+                {% csrf_token %}
+                <button type="submit" class="btn-icone" title="{% translate "Supprimer" %}" aria-label="{% translate "Supprimer" %}"><i class="bi bi-trash"></i></button>
+            </form>
+        </div>
+    {% empty %}
+        <div class="etat-vide">
+            <i class="bi bi-chat-dots fs-3 d-block mb-2"></i>
+            {% translate "Aucune conversation pour le moment." %}
+            <div class="mt-2"><a href="{% url 'chat' %}" class="link-brand">{% translate "Parler à OrientIA" %}</a></div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

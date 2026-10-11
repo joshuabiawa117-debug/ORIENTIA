@@ -1,0 +1,118 @@
+{% load i18n %}
+<script>
+// Saisie vocale : un clic sur le micro démarre l'enregistrement, un second clic l'arrête.
+// L'audio est transcrit par Whisper (Groq) puis le texte est ajouté dans le champ ciblé.
+// Un enregistrement trop court ou silencieux n'est pas envoyé : sur du silence, Whisper invente du texte.
+window.SaisieVocale = (function () {
+    const TEXTES = {
+        indisponible: "{{ _('Ton navigateur ne permet pas d’enregistrer la voix (utilise Chrome, Edge ou Firefox récent).')|escapejs }}",
+        refuse: "{{ _('Accès au micro refusé. Autorise le micro dans ton navigateur pour dicter.')|escapejs }}",
+        ecoute: "{{ _('Je t’écoute… clique à nouveau pour terminer')|escapejs }}",
+        transcription: "{{ _('Transcription…')|escapejs }}",
+        erreur: "{{ _('La transcription a échoué. Réessaie.')|escapejs }}",
+        tropCourt: "{{ _('Enregistrement trop court : clique sur le micro, parle, puis clique à nouveau.')|escapejs }}",
+        silence: "{{ _('Je n’ai rien entendu. Parle plus près du micro, puis réessaie.')|escapejs }}",
+    };
+    const DUREE_MIN = 700;          // ms : en dessous, on n'a pas eu le temps de dire quoi que ce soit
+    const DUREE_MAX = 90 * 1000;    // ms : arrêt automatique (évite un enregistrement oublié)
+    const VOLUME_MIN = 0.012;       // niveau sonore (RMS) au-dessous duquel on considère que personne n'a parlé
+
+    let enregistreur = null;
+    let demarrage = false;          // vrai pendant que le navigateur demande l'accès au micro
+
+    // Mesure le niveau sonore le plus fort pendant l'enregistrement (si le navigateur le permet)
+    function mesurerVolume(flux) {
+        const Contexte = window.AudioContext || window.webkitAudioContext;
+        if (!Contexte) return { max: () => 1, arreter: () => {} };
+        const contexte = new Contexte();
+        const analyseur = contexte.createAnalyser();
+        analyseur.fftSize = 2048;
+        contexte.createMediaStreamSource(flux).connect(analyseur);
+        const echantillons = new Float32Array(analyseur.fftSize);
+        let maximum = 0;
+        const minuteur = setInterval(() => {
+            analyseur.getFloatTimeDomainData(echantillons);
+            let somme = 0;
+            for (const v of echantillons) somme += v * v;
+            maximum = Math.max(maximum, Math.sqrt(somme / echantillons.length));
+        }, 100);
+        return { max: () => maximum, arreter: () => { clearInterval(minuteur); contexte.close(); } };
+    }
+
+    function terminer(bouton) {
+        bouton.classList.remove('enregistre', 'transcrit');
+        bouton.title = '';
+        enregistreur = null;
+    }
+
+    async function demarrer(bouton, quandTermine) {
+        if (!navigator.mediaDevices || !window.MediaRecorder) { alert(TEXTES.indisponible); return; }
+        demarrage = true;
+        let flux;
+        try {
+            flux = await navigator.mediaDevices.getUserMedia({ audio: true });
+        } catch (e) {
+            alert(TEXTES.refuse);
+            return;
+        } finally {
+            demarrage = false;
+        }
+        const morceaux = [];
+        const volume = mesurerVolume(flux);
+        const debut = Date.now();
+        enregistreur = new MediaRecorder(flux);
+        const arretAuto = setTimeout(() => { if (enregistreur && enregistreur.state === 'recording') enregistreur.stop(); }, DUREE_MAX);
+        enregistreur.ondataavailable = (e) => { if (e.data.size) morceaux.push(e.data); };
+        enregistreur.onstop = async () => {
+            clearTimeout(arretAuto);
+            volume.arreter();
+            flux.getTracks().forEach(t => t.stop());
+            const typeAudio = enregistreur.mimeType || 'audio/webm';
+
+            if (Date.now() - debut < DUREE_MIN) { terminer(bouton); alert(TEXTES.tropCourt); return; }
+            if (volume.max() < VOLUME_MIN) { terminer(bouton); alert(TEXTES.silence); return; }
+
+            bouton.classList.remove('enregistre');
+            bouton.classList.add('transcrit');
+            bouton.title = TEXTES.transcription;
+            const donnees = new FormData();
+            donnees.append('audio', new Blob(morceaux, { type: typeAudio }), 'voix.' + (typeAudio.includes('ogg') ? 'ogg' : 'webm'));
+            try {
+                const reponse = await fetch("{% url 'api_transcrire' %}", {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                    body: donnees,
+                });
+                let data = {};
+                try { data = await reponse.json(); } catch (e) { /* réponse non JSON (erreur serveur) */ }
+                if (reponse.ok && data.texte) quandTermine(data.texte);
+                else alert(data.erreur || TEXTES.erreur);
+            } catch (e) {
+                alert(TEXTES.erreur);
+            } finally {
+                terminer(bouton);
+            }
+        };
+        enregistreur.start();
+        bouton.classList.add('enregistre');
+        bouton.title = TEXTES.ecoute;
+    }
+
+    function basculer(bouton, quandTermine) {
+        if (demarrage) return;  // double clic pendant la demande d'accès au micro
+        if (enregistreur && enregistreur.state === 'recording') enregistreur.stop();
+        else if (!enregistreur) demarrer(bouton, quandTermine);
+    }
+
+    // Boutons micro reliés à un champ : <button class="btn-micro" data-cible="idDuChamp">
+    document.querySelectorAll('.btn-micro[data-cible]').forEach(bouton => {
+        bouton.addEventListener('click', () => basculer(bouton, (texte) => {
+            const champ = document.getElementById(bouton.dataset.cible);
+            champ.value = (champ.value ? champ.value.trimEnd() + ' ' : '') + texte;
+            champ.focus();
+        }));
+    });
+
+    return { basculer };
+})();
+</script>

@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ fiche.nom }} {% translate "— Fiches filières OrientIA" %}{% endblock %}
+
+{% block content %}
+<div class="container pt-4">
+    <a href="{% url 'orientation:filieres' %}" class="arrow-link"><i class="bi bi-arrow-left"></i> {% translate "Toutes les filières" %}</a>
+
+    <!-- En-tête -->
+    <div class="dash-hero mt-3 mb-4">
+        <span class="circle-deco circle-glow float-circle" style="width:280px;height:280px;top:-130px;right:-60px;"></span>
+        <div class="position-relative">
+            <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="badge-soft">{{ fiche.get_domaine_display }}</span>
+                <span class="badge-neutral">{{ fiche.get_niveau_display }}</span>
+            </div>
+            <h1 class="mb-2">{{ fiche.nom }}</h1>
+            {% if fiche.famille %}<p class="mb-3">{% translate "Filière :" %} {{ fiche.famille }}</p>{% endif %}
+            <div class="fiche-chiffres">
+                {% if fiche.duree %}<div><strong>{{ fiche.duree }}</strong><span>{% translate "Durée" %}</span></div>{% endif %}
+                {% if totaux.credits %}<div><strong>{{ totaux.credits }}</strong><span>{% translate "crédits" %}</span></div>{% endif %}
+                {% if totaux.heures %}<div><strong>{{ totaux.heures }} {% translate "h" %}</strong><span>{% translate "de cours" %}</span></div>{% endif %}
+                {% if fiche.liste_series %}<div><strong>{% translate "Bac" %} {{ fiche.liste_series|join:", " }}</strong><span>{% translate "Séries conseillées" %}</span></div>{% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            {% if fiche.objectif %}
+                <section class="card-x mb-4" style="height:auto;">
+                    <h2 class="h5 fw-bold mb-3"><i class="bi bi-bullseye text-gradient"></i> {% translate "Objectif de la formation" %}</h2>
+                    <p class="mb-0 sujet-contenu">{{ fiche.objectif }}</p>
+                </section>
+            {% endif %}
+
+            {% if semestres %}
+                <section class="card-x mb-4" style="height:auto;">
+                    <h2 class="h5 fw-bold mb-3"><i class="bi bi-journal-text text-gradient"></i> {% translate "Les matières, semestre par semestre" %}</h2>
+                    <div class="onglets mb-3" role="tablist">
+                        {% for numero, ues in semestres %}
+                            <button type="button" class="onglet onglet-btn {% if forloop.first %}actif{% endif %}" data-semestre="{{ numero }}" role="tab">{% translate "Semestre" %} {{ numero }}</button>
+                        {% endfor %}
+                    </div>
+                    {% for numero, ues in semestres %}
+                        <div class="semestre-panel {% if not forloop.first %}d-none{% endif %}" data-panel="{{ numero }}">
+                            <div class="table-responsive">
+                                <table class="table-ue">
+                                    <thead><tr><th>{% translate "Matière" %}</th><th>{% translate "Type" %}</th><th class="text-end">{% translate "Heures" %}</th><th class="text-end">{% translate "Crédits" %}</th></tr></thead>
+                                    <tbody>
+                                        {% for ue in ues %}
+                                            <tr>
+                                                <td><span class="ue-code">{{ ue.code }}</span> {{ ue.intitule }}</td>
+                                                <td>{% if ue.categorie %}<span class="cat cat-{{ ue.categorie }}">{{ ue.get_categorie_display }}</span>{% endif %}</td>
+                                                <td class="text-end">{{ ue.heures|default:"—" }}</td>
+                                                <td class="text-end fw-semibold">{{ ue.credits|default:"—" }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+
+            {% if fiche.liste_debouches %}
+                <section class="card-x mb-4" style="height:auto;">
+                    <h2 class="h5 fw-bold mb-3"><i class="bi bi-briefcase text-gradient"></i> {% translate "Débouchés" %}</h2>
+                    <div class="chips">
+                        {% for d in fiche.liste_debouches %}<span class="chip" style="cursor:default;">{{ d }}</span>{% endfor %}
+                    </div>
+                </section>
+            {% endif %}
+
+            <section class="card-x mb-4" style="height:auto;">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                    <h2 class="h5 fw-bold mb-0"><i class="bi bi-people text-gradient"></i> {% translate "Questions des élèves" %}</h2>
+                    <a href="{% url 'communaute:nouveau' %}?filiere={{ fiche.pk }}" class="btn-soft btn-sm-x"><i class="bi bi-plus-lg"></i> {% translate "Poser une question" %}</a>
+                </div>
+                {% for s in sujets %}
+                    <a href="{% url 'communaute:detail' s.pk %}" class="d-block link-brand mb-2">{{ s.titre }}</a>
+                {% empty %}
+                    <p class="text-muted mb-0">{% translate "Pas encore de question sur cette filière. Lance la discussion !" %}</p>
+                {% endfor %}
+            </section>
+
+            {% if fiche.source %}<p class="text-muted small"><i class="bi bi-info-circle"></i> {% translate "Source :" %} {{ fiche.source }}</p>{% endif %}
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card-x mb-4" style="height:auto;">
+                <h6 class="fw-bold mb-1"><i class="bi bi-geo-alt text-gradient"></i> {% translate "Où l'étudier ?" %}</h6>
+                {% if lieu %}<p class="text-muted small mb-3">{% translate "Triées par distance depuis" %} {{ lieu }}</p>{% else %}<p class="text-muted small mb-3">{% translate "Indique ta région dans ton profil pour les trier par distance." %}</p>{% endif %}
+                {% for e in ecoles|slice:":5" %}
+                    <div class="ecole-ligne">
+                        <span class="icon-tile mb-0"><i class="bi bi-building"></i></span>
+                        <div class="flex-grow-1 min-w-0">
+                            <div class="fw-semibold small">{{ e.nom }}</div>
+                            <div class="text-muted small">{{ e.ville|default:e.adresse }}{% if e.distance %} · {{ e.distance.km|floatformat:0 }} {% translate "km" %}{% endif %}</div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-muted small mb-0">{% translate "Aucune école enregistrée pour cette filière pour le moment." %}</p>
+                {% endfor %}
+                {% if ecoles %}<a href="{% url 'orientation:ecoles_proches' %}?filiere={{ fiche.slug }}" class="btn-soft btn-sm-x mt-3 w-100">{% translate "Voir sur la carte" %}</a>{% endif %}
+            </div>
+
+            {% if concours %}
+                <div class="card-x mb-4" style="height:auto;">
+                    <h6 class="fw-bold mb-3"><i class="bi bi-calendar-event text-gradient"></i> {% translate "Concours d'entrée" %}</h6>
+                    {% for c in concours %}
+                        <div class="mb-2"><a href="{% url 'orientation:concours' %}" class="link-brand small">{{ c.nom }}</a>
+                            <div class="text-muted small">{{ c.statut.1 }}</div></div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="card-x" style="height:auto;">
+                <h6 class="fw-bold mb-2"><i class="bi bi-stars text-gradient"></i> {% translate "Une question sur cette filière ?" %}</h6>
+                <p class="text-muted small">{% translate "OrientIA te répond à partir des documents officiels." %}</p>
+                <a href="{% url 'chat' %}?q={{ 'Parle-moi de la filière '|add:fiche.nom|urlencode }}" class="btn-brand btn-sm-x w-100">{% translate "Demander à OrientIA" %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.querySelectorAll('.onglet-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.onglet-btn').forEach(b => b.classList.toggle('actif', b === btn));
+        document.querySelectorAll('.semestre-panel').forEach(p => p.classList.toggle('d-none', p.dataset.panel !== btn.dataset.semestre));
+    });
+});
+</script>
+{% endblock %}

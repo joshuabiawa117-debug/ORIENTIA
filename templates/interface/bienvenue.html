@@ -1,0 +1,321 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}OrientIA — {% translate "Bienvenue" %}{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block skeleton %}
+<div class="auth-page">
+    <div class="form-panel">
+        <div class="d-flex align-items-center gap-2 mb-5"><div class="sk" style="width:36px;height:36px;border-radius:11px;"></div><div class="sk" style="width:90px;height:16px;"></div></div>
+        <div class="sk" style="width:60%;height:34px;"></div>
+        <div class="sk mt-2 mb-4" style="width:85%;height:14px;"></div>
+        <div class="sk mb-4" style="width:100%;height:8px;"></div>
+        <div class="sk mb-3" style="width:200px;height:18px;"></div>
+        <div class="row g-2 mb-4">{% for i in "12" %}<div class="col-6"><div class="sk" style="height:96px;border-radius:12px;"></div></div>{% endfor %}</div>
+        <div class="d-flex gap-2"><div class="sk" style="width:110px;height:46px;border-radius:10px;"></div><div class="sk flex-grow-1" style="height:46px;border-radius:10px;"></div></div>
+    </div>
+    <div class="showcase-panel">
+        <div class="sk sk-dark" style="width:84px;height:84px;border-radius:24px;"></div>
+        <div class="sk sk-dark mt-4" style="width:320px;height:28px;"></div>
+        <div class="sk sk-dark mt-3" style="width:360px;height:12px;"></div>
+        <div class="sk sk-dark mt-2" style="width:300px;height:12px;"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="form-panel">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a class="auth-brand mb-0" href="{% url 'accueil' %}">
+                <span class="brand-icon"><i class="bi bi-compass"></i></span>
+                <span>Orient<span class="text-gradient">IA</span></span>
+            </a>
+            <form method="post" class="m-0" data-chargement="{% translate "Préparation de ton espace…" %}">
+                {% csrf_token %}
+                <input type="hidden" name="terminer" value="1">
+                <button type="submit" class="btn-plus-tard">{% translate "Je finirai plus tard" %}</button>
+            </form>
+        </div>
+
+        <h1>{% blocktranslate trimmed with nom=user.first_name|default:user.username %}Bienvenue, {{ nom }}{% endblocktranslate %} 👋</h1>
+        <p class="subtitle">{% translate "Quelques questions rapides pour qu'OrientIA te connaisse. Tout est facultatif et modifiable plus tard." %}</p>
+
+        <div class="progression-profil mb-4">
+            <div class="d-flex justify-content-between mb-1">
+                <span>{% translate "Profil complété" %}</span>
+                <strong id="progressionTexte">{{ profil.progression }}%</strong>
+            </div>
+            <div class="barre"><div class="barre-remplie" id="progressionBarre" style="width: {{ profil.progression }}%"></div></div>
+        </div>
+
+        <form method="post" id="formBienvenue">
+            {% csrf_token %}
+
+            <!-- ÉTAPE 1 : Sous-système (fixe la langue et les séries des questions suivantes) -->
+            <div class="step-panel" data-panel="1">
+                <p class="question-etape"><span class="num-etape">1/6</span> {% translate "Dans quel sous-système es-tu ?" %}</p>
+                <div class="row g-2 mb-2 choice-group" data-input="sous_systeme">
+                    <div class="col-6">
+                        <div class="profile-choice {% if profil.sous_systeme == 'francophone' %}selected{% endif %}" data-value="francophone">
+                            <div class="choice-icon">🇫🇷</div>
+                            <div class="choice-title">{% translate "Francophone" %}</div>
+                            <div class="small text-muted mt-1" lang="fr">Baccalauréat · en français</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="profile-choice {% if profil.sous_systeme == 'anglophone' %}selected{% endif %}" data-value="anglophone">
+                            <div class="choice-icon">🇬🇧</div>
+                            <div class="choice-title">{% translate "Anglophone" %}</div>
+                            <div class="small text-muted mt-1" lang="en">GCE O & A Level · in English</div>
+                        </div>
+                    </div>
+                </div>
+                <p class="small text-muted mb-3"><i class="bi bi-translate"></i> {% translate "Les questions suivantes et OrientIA s'adapteront à ta langue." %}</p>
+                <input type="hidden" name="sous_systeme" value="{{ profil.sous_systeme }}">
+            </div>
+
+            <!-- ÉTAPE 2 : Profil -->
+            <div class="step-panel d-none" data-panel="2">
+                <p class="question-etape"><span class="num-etape">2/6</span> {% translate "Tu es plutôt…" %}</p>
+                <div class="row g-2 mb-3 choice-group" data-input="type_profil">
+                    <div class="col-6">
+                        <div class="profile-choice {% if profil.type_profil == 'eleve' %}selected{% endif %}" data-value="eleve">
+                            <div class="choice-icon"><i class="bi bi-mortarboard"></i></div>
+                            <div class="choice-title">{% translate "Élève / Futur bachelier" %}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="profile-choice {% if profil.type_profil == 'contributeur' %}selected{% endif %}" data-value="contributeur">
+                            <div class="choice-icon"><i class="bi bi-person-badge"></i></div>
+                            <div class="choice-title">{% translate "Contributeur" %}</div>
+                            <div class="small text-muted mt-1">{% translate "Étudiant·e, enseignant·e, conseiller·e…" %}</div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="type_profil" value="{{ profil.type_profil }}">
+                <div class="field">
+                    <label for="idAnneeNaissance">{% translate "Ton année de naissance" %}</label>
+                    <select class="field-input" name="annee_naissance" id="idAnneeNaissance">
+                        <option value="">—</option>
+                        {% for annee in annees_naissance %}
+                            <option value="{{ annee }}" {% if profil.annee_naissance == annee %}selected{% endif %}>{{ annee }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <p class="small text-muted mt-2 mb-0"><i class="bi bi-shield-check"></i> {% translate "Elle n'est jamais affichée. Elle sert à protéger les plus jeunes dans la messagerie." %}</p>
+            </div>
+
+            <!-- ÉTAPE 3 : Série du bac ou combinaison du GCE -->
+            <div class="step-panel d-none" data-panel="3">
+                <p class="question-etape"><span class="num-etape">3/6</span>
+                    {% if profil.sous_systeme == 'anglophone' %}{% translate "Quelle est ta combinaison au GCE A Level ?" %}{% else %}{% translate "Quelle est ta série de bac ?" %}{% endif %}
+                </p>
+                <div class="row g-2 mb-3 choice-group" data-input="serie_bac">
+                    {% for valeur, libelle in series %}
+                        <div class="col-6">
+                            <div class="profile-choice compact {% if profil.serie_bac == valeur %}selected{% endif %}" data-value="{{ valeur }}">
+                                <div class="choice-title">{{ libelle }}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="serie_bac" value="{{ profil.serie_bac }}">
+            </div>
+
+            <!-- ÉTAPE 4 : Centres d'intérêt -->
+            <div class="step-panel d-none" data-panel="4">
+                <p class="question-etape"><span class="num-etape">4/6</span> {% translate "Qu'est-ce qui te plaît ?" %} <small>({% translate "plusieurs choix possibles" %})</small></p>
+                <div class="chips mb-3" id="chipsInterets"></div>
+                <div class="field">
+                    <label for="idAutreInteret">{% translate "Autre chose ?" %}</label>
+                    <input type="text" id="idAutreInteret" class="field-input" placeholder="{% translate "Ex : aéronautique, cinéma..." %}">
+                </div>
+                <input type="hidden" name="centres_interet" value="{{ profil.centres_interet }}">
+            </div>
+
+            <!-- ÉTAPE 5 : Région -->
+            <div class="step-panel d-none" data-panel="5">
+                <p class="question-etape"><span class="num-etape">5/6</span> {% translate "Dans quelle région vis-tu ?" %}</p>
+                <div class="row g-2 mb-3 choice-group" data-input="region">
+                    {% for valeur, libelle in regions %}
+                        <div class="col-6 col-sm-4">
+                            <div class="profile-choice compact {% if profil.region == valeur %}selected{% endif %}" data-value="{{ valeur }}">
+                                <div class="choice-title">{{ libelle }}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="region" value="{{ profil.region }}">
+            </div>
+
+            <!-- ÉTAPE 6 : Projet d'études -->
+            <div class="step-panel d-none" data-panel="6">
+                <p class="question-etape"><span class="num-etape">6/6</span> {% translate "Et après le bac, qu'aimerais-tu faire ?" %}</p>
+                <div class="chips mb-3" id="chipsProjet">
+                    {% for idee in idees_projet %}
+                        <button type="button" class="chip">{{ idee }}</button>
+                    {% endfor %}
+                </div>
+                <div class="field">
+                    <label for="idProjet">{% translate "Ton projet, en quelques mots" %}</label>
+                    <input type="text" name="projet_etudes" id="idProjet" class="field-input" maxlength="255"
+                           value="{{ profil.projet_etudes }}" placeholder="{% translate "Ex : devenir ingénieur·e en informatique, travailler dans la santé…" %}">
+                </div>
+                <div class="field">
+                    <label for="idEcole">{% translate "As-tu une idée d'école où poursuivre tes études ?" %}</label>
+                    <input type="text" name="ecole_souhaitee" id="idEcole" class="field-input mb-2" maxlength="255" list="listeEcoles"
+                           value="{{ profil.ecole_souhaitee }}" placeholder="{% translate "Ex : ENSP Yaoundé, Université de Buea…" %}" autocomplete="off">
+                    <datalist id="listeEcoles">
+                        {% for ecole in ecoles %}<option value="{{ ecole }}">{% endfor %}
+                    </datalist>
+                    <button type="button" class="chip mb-3" id="btnPasEcole">{% translate "Pas encore d'idée" %}</button>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 align-items-center mt-2">
+                <button type="button" class="btn-soft" id="btnPrecedent">{% translate "Précédent" %}</button>
+                <button type="button" class="btn-passer" id="btnPasser">{% translate "Passer" %}</button>
+                <button type="button" class="btn-gradient flex-grow-1" id="btnSuivant">{% translate "Suivant" %} <i class="bi bi-arrow-right"></i></button>
+            </div>
+        </form>
+    </div>
+
+    <div class="showcase-panel">
+        <span class="circle-deco circle-glow float-circle" style="width:320px;height:320px;top:-120px;right:-100px;"></span>
+        <span class="circle-deco circle-glow float-circle" style="width:220px;height:220px;bottom:-90px;left:-60px;animation-delay:1.5s;"></span>
+        <div class="showcase-icon"><i class="bi bi-chat-heart"></i></div>
+        <h2>{% translate "Plus OrientIA te connaît, mieux il te conseille" %}</h2>
+        <p>{% translate "Ta série, tes centres d'intérêt et ton projet l'aident à te proposer des filières et des établissements qui te correspondent vraiment." %}</p>
+    </div>
+</div>
+
+{{ interets|json_script:"donnees-interets" }}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const NB_ETAPES = 6;
+    // [valeur enregistrée (français), libellé affiché (langue de l'élève)]
+    const INTERETS = JSON.parse(document.getElementById('donnees-interets').textContent);
+    const VALEURS = INTERETS.map(i => i[0]);
+    const TEXTES = {
+        suivant: "{{ _('Suivant')|escapejs }}",
+        terminer: "{{ _('Terminer')|escapejs }}",
+        pasDIdee: "{{ _('Pas de souci, OrientIA t’aidera à trouver !')|escapejs }}",
+        preparation: "{{ _("Préparation de ton espace…")|escapejs }}",
+        langue: "{{ _("On passe à ta langue…")|escapejs }}",
+    };
+
+    const form = document.getElementById('formBienvenue');
+    const panels = document.querySelectorAll('.step-panel');
+    const btnPrecedent = document.getElementById('btnPrecedent');
+    const btnPasser = document.getElementById('btnPasser');
+    const btnSuivant = document.getElementById('btnSuivant');
+    const champInterets = form.querySelector('[name=centres_interet]');
+    const champAutre = document.getElementById('idAutreInteret');
+
+    let etape = Math.min(Math.max(parseInt("{{ etape_depart|escapejs }}") || 1, 1), NB_ETAPES);
+
+    // --- Choix uniques (sous-système, profil, série, région) ---
+    document.querySelectorAll('.choice-group').forEach(groupe => {
+        const champ = form.querySelector(`[name=${groupe.dataset.input}]`);
+        groupe.querySelectorAll('.profile-choice').forEach(choix => {
+            choix.addEventListener('click', () => {
+                groupe.querySelectorAll('.profile-choice').forEach(c => c.classList.remove('selected'));
+                choix.classList.add('selected');
+                champ.value = choix.dataset.value;
+            });
+        });
+    });
+
+    // --- Centres d'intérêt (choix multiples + champ libre) ---
+    const dejaChoisis = champInterets.value.split(',').map(s => s.trim()).filter(Boolean);
+    const zoneChips = document.getElementById('chipsInterets');
+    INTERETS.forEach(([valeur, libelle]) => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'chip' + (dejaChoisis.includes(valeur) ? ' selected' : '');
+        chip.textContent = libelle;
+        chip.dataset.valeur = valeur;
+        chip.addEventListener('click', () => chip.classList.toggle('selected'));
+        zoneChips.appendChild(chip);
+    });
+    champAutre.value = dejaChoisis.filter(i => !VALEURS.includes(i)).join(', ');
+
+    function majInterets() {
+        const choisis = [...zoneChips.querySelectorAll('.chip.selected')].map(c => c.dataset.valeur);
+        const autres = champAutre.value.split(',').map(s => s.trim()).filter(Boolean);
+        champInterets.value = [...choisis, ...autres].join(', ');
+    }
+
+    // --- Projet d'études : les suggestions remplissent le champ ---
+    const champProjet = document.getElementById('idProjet');
+    const champEcole = document.getElementById('idEcole');
+    document.querySelectorAll('#chipsProjet .chip').forEach(chip => {
+        chip.classList.toggle('selected', champProjet.value === chip.textContent);
+        chip.addEventListener('click', () => {
+            document.querySelectorAll('#chipsProjet .chip').forEach(c => c.classList.remove('selected'));
+            chip.classList.add('selected');
+            champProjet.value = chip.textContent;
+        });
+    });
+    document.getElementById('btnPasEcole').addEventListener('click', () => {
+        champEcole.value = '';
+        champEcole.placeholder = TEXTES.pasDIdee;
+    });
+
+    // --- Navigation entre les étapes ---
+    function afficherEtape(n) {
+        etape = n;
+        panels.forEach(p => p.classList.toggle('d-none', parseInt(p.dataset.panel) !== n));
+        btnPrecedent.classList.toggle('invisible', n === 1);
+        btnSuivant.innerHTML = (n === NB_ETAPES ? TEXTES.terminer + ' <i class="bi bi-check-lg"></i>' : TEXTES.suivant + ' <i class="bi bi-arrow-right"></i>');
+    }
+
+    async function enregistrer() {
+        majInterets();
+        try {
+            const reponse = await fetch(window.location.pathname, {
+                method: 'POST',
+                headers: { 'X-Requested-With': 'fetch' },
+                body: new FormData(form),
+            });
+            const data = await reponse.json();
+            document.getElementById('progressionTexte').textContent = data.progression + '%';
+            document.getElementById('progressionBarre').style.width = data.progression + '%';
+            return data;
+        } catch (e) {
+            return {};  // Pas grave : tout sera renvoyé à la dernière étape
+        }
+    }
+
+    function terminer() {
+        majInterets();
+        const fin = document.createElement('input');
+        fin.type = 'hidden'; fin.name = 'terminer'; fin.value = '1';
+        form.appendChild(fin);
+        OrientIA.afficher(TEXTES.preparation);
+        form.submit();
+    }
+
+    btnSuivant.addEventListener('click', async () => {
+        if (etape === NB_ETAPES) return terminer();
+        const data = await enregistrer();
+        // La langue vient de changer (francophone ↔ anglophone) : on recharge la suite des questions dans la bonne langue
+        if (data.recharger) {
+            OrientIA.afficher(TEXTES.langue);
+            window.location.href = window.location.pathname + '?etape=' + (etape + 1);
+            return;
+        }
+        afficherEtape(etape + 1);
+    });
+    btnPasser.addEventListener('click', () => {
+        if (etape === NB_ETAPES) return terminer();
+        afficherEtape(etape + 1);
+    });
+    btnPrecedent.addEventListener('click', () => afficherEtape(etape - 1));
+
+    afficherEtape(etape);
+});
+</script>
+{% endblock %}

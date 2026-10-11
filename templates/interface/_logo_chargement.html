@@ -1,0 +1,36 @@
+{% load i18n %}{% comment %}
+Logo OrientIA dont l'aiguille de la boussole tourne : affiché pendant certains chargements
+(OrientIA réfléchit, préparation d'un quiz, connexion...).
+Paramètres : message (texte sous le logo, facultatif), taille ("sm", "md" ou "lg").
+{% endcomment %}
+<div class="logo-chargement logo-chargement-{{ taille|default:'md' }}" role="status" aria-live="polite">
+    <div class="logo-chargement-icone">
+        <span class="logo-chargement-halo"></span>
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+            <defs>
+                <linearGradient id="degrade-logo-{{ taille|default:'md' }}" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#6a5cf6"></stop>
+                    <stop offset="100%" stop-color="#b16ef6"></stop>
+                </linearGradient>
+            </defs>
+            <!-- Carré arrondi du logo -->
+            <rect x="0" y="0" width="48" height="48" rx="14" fill="url(#degrade-logo-{{ taille|default:'md' }})"></rect>
+            <!-- Cadran de la boussole -->
+            <circle cx="24" cy="24" r="14.5" fill="none" stroke="#fff" stroke-width="2.6"></circle>
+            <g fill="#fff" opacity=".55">
+                <circle cx="24" cy="12.6" r="1.1"></circle>
+                <circle cx="35.4" cy="24" r="1.1"></circle>
+                <circle cx="24" cy="35.4" r="1.1"></circle>
+                <circle cx="12.6" cy="24" r="1.1"></circle>
+            </g>
+            <!-- Aiguille qui tourne -->
+            <g class="logo-chargement-aiguille">
+                <path d="M24 13.5 L27.6 24 L20.4 24 Z" fill="#fff"></path>
+                <path d="M24 34.5 L27.6 24 L20.4 24 Z" fill="#fff" opacity=".45"></path>
+                <circle cx="24" cy="24" r="2.2" fill="#fff"></circle>
+                <circle cx="24" cy="24" r="1" fill="#6a5cf6"></circle>
+            </g>
+        </svg>
+    </div>
+    {% if message %}<p class="logo-chargement-texte text-gradient">{{ message }}</p>{% endif %}
+</div>

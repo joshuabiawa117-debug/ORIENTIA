@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}OrientIA — {% translate "Connexion" %}{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block skeleton %}{% include 'interface/_squelette_auth.html' with champs="12" %}{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="form-panel">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a class="auth-brand mb-0" href="{% url 'accueil' %}">
+                <span class="brand-icon"><i class="bi bi-compass"></i></span>
+                <span>Orient<span class="text-gradient">IA</span></span>
+            </a>
+            {% include 'interface/_choix_langue.html' %}
+        </div>
+
+        <h1>{% translate "Bon retour" %}</h1>
+        <p class="subtitle">{% translate "Connecte-toi pour retrouver ton espace et les conseils d'OrientIA." %}</p>
+
+        {% if erreur %}
+            <div class="alert alert-danger">{{ erreur }}</div>
+        {% endif %}
+
+        {% include 'interface/_google.html' %}
+
+        <form method="post" data-chargement="{% translate "Connexion à ton espace…" %}">
+            {% csrf_token %}
+            <div class="field">
+                <label for="idIdentifiant">{% translate "Email ou nom d'utilisateur" %}</label>
+                <input type="text" name="identifiant" id="idIdentifiant" class="field-input" placeholder="{% translate "toi@exemple.com" %}"
+                       value="{{ identifiant_saisi|default:'' }}" autocomplete="username" required autofocus>
+            </div>
+            <div class="field">
+                <label for="idPassword">{% translate "Mot de passe" %}</label>
+                <div class="input-eye">
+                    <input type="password" name="password" id="idPassword" class="field-input" placeholder="••••••••" autocomplete="current-password" required>
+                    <button type="button" class="btn-eye" data-cible="idPassword" aria-label="{% translate "Afficher le mot de passe" %}"><i class="bi bi-eye"></i></button>
+                </div>
+                <div class="text-end mt-2"><a href="{% url 'account_reset_password' %}" class="link-brand small">{% translate "Mot de passe oublié ?" %}</a></div>
+            </div>
+            <button type="submit" class="btn-gradient">{% translate "Se connecter" %}</button>
+        </form>
+
+        <p class="text-center mt-4 auth-foot">
+            {% translate "Pas encore de compte ?" %} <a href="{% url 'inscription' %}" class="link-brand">{% translate "Créer un compte" %}</a>
+        </p>
+        <p class="text-center auth-foot small">
+            {% translate "Tu peux aussi" %} <a href="{% url 'chat' %}" class="link-brand">{% translate "parler à OrientIA sans compte" %}</a>.
+        </p>
+    </div>
+
+    <div class="showcase-panel">
+        <span class="circle-deco circle-glow float-circle" style="width:320px;height:320px;top:-120px;right:-100px;"></span>
+        <span class="circle-deco circle-glow float-circle" style="width:220px;height:220px;bottom:-90px;left:-60px;animation-delay:1.5s;"></span>
+        <div class="showcase-icon"><i class="bi bi-mortarboard-fill"></i></div>
+        <h2>{% translate "Trouve ta voie, en toute confiance" %}</h2>
+        <p>{% translate "OrientIA, ton assistant d'orientation, s'appuie sur des documents officiels pour t'aider à choisir sereinement." %}</p>
+        <div class="showcase-stats">
+            <div>
+                <div class="stat-value">250+</div>
+                <div class="stat-label">{% translate "établissements" %}</div>
+            </div>
+            <div>
+                <div class="stat-value">FR · EN</div>
+                <div class="stat-label">{% translate "francophones et anglophones" %}</div>
+            </div>
+            <div>
+                <div class="stat-value">24/7</div>
+                <div class="stat-label">{% translate "OrientIA disponible" %}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'interface/_oeil.html' %}
+{% endblock %}

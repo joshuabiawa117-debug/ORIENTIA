@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ autre.first_name|default:autre.username }} — {% translate "Messages" %}{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 860px;">
+    <div class="pt-4 mb-3">
+        <a href="{% url 'communaute:messagerie' %}" class="arrow-link"><i class="bi bi-arrow-left"></i> {% translate "Tous mes messages" %}</a>
+    </div>
+
+    <div class="chat-shell">
+        <div class="chat-head">
+            <span class="membre-avatar grand">{{ autre.first_name|default:autre.username|first|upper }}</span>
+            <div class="flex-grow-1">
+                <a href="{% url 'communaute:membre' autre.username %}" class="fw-semibold text-reset text-decoration-none">{{ autre.first_name|default:autre.username }}</a>
+                <div class="chat-status">@{{ autre.username }}</div>
+            </div>
+            <form method="post" action="{% url 'communaute:bloquer' autre.username %}" class="m-0">
+                {% csrf_token %}
+                <input type="hidden" name="suivant" value="{{ request.path }}">
+                <button type="submit" class="lien-signaler"><i class="bi bi-slash-circle"></i> {% if bloque %}{% translate "Débloquer" %}{% else %}{% translate "Bloquer" %}{% endif %}</button>
+            </form>
+        </div>
+
+        <div class="chat-messages" id="filMessages">
+            {% for m in fil %}
+                <div class="message {% if m.expediteur_id == user.id %}user{% else %}assistant{% endif %}">
+                    <div class="message-bubble">{{ m.contenu }}<span class="heure-message">{{ m.date|date:"d/m H:i" }}</span></div>
+                    {% if m.expediteur_id != user.id %}
+                        <a class="lien-signaler" href="{% url 'communaute:signaler' 'message' m.pk %}" title="{% translate "Signaler ce message" %}" aria-label="{% translate "Signaler ce message" %}"><i class="bi bi-flag"></i></a>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <div class="etat-vide">{% blocktranslate trimmed with nom=autre.first_name|default:autre.username %}Écris ton premier message à {{ nom }}.{% endblocktranslate %}</div>
+            {% endfor %}
+        </div>
+
+        <div class="chat-input-zone">
+            {% if refus_message %}
+            <div class="bandeau-refus"><i class="bi bi-shield-lock"></i><span>{{ refus_message }}</span></div>
+            {% else %}
+            <form method="post" class="chat-input">
+                {% csrf_token %}
+                <input type="text" name="contenu" id="idContenu" placeholder="{% translate "Ton message…" %}" maxlength="3000" required autocomplete="off" autofocus>
+                <button type="button" class="btn-outil btn-micro" data-cible="idContenu" title="{% translate "Dicter" %}" aria-label="{% translate "Dicter" %}"><i class="bi bi-mic"></i></button>
+                <button type="submit" class="send-btn" aria-label="{% translate "Envoyer" %}"><i class="bi bi-arrow-up"></i></button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    <p class="text-muted small mt-2"><i class="bi bi-shield-lock"></i> {% translate "Reste prudent·e : ne partage jamais ton mot de passe ni d'informations bancaires." %}</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% include 'interface/_saisie_vocale.html' %}
+<script>
+// Afficher les messages les plus récents
+const fil = document.getElementById('filMessages');
+fil.scrollTop = fil.scrollHeight;
+document.addEventListener('contenu-affiche', () => { fil.scrollTop = fil.scrollHeight; });
+</script>
+{% endblock %}

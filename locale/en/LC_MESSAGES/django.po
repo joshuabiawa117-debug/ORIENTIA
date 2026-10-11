@@ -1,0 +1,3892 @@
+#
+msgid ""
+msgstr ""
+"Language: en\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates\interface\chat.html
+msgid ""
+"! Je suis OrientIA, ton assistant d'orientation académique. Pose-moi une "
+"question sur les filières, les débouchés ou les établissements au Cameroun."
+msgstr ""
+"! I'm OrientIA, your academic guidance assistant. Ask me about programmes, "
+"careers or institutions in Cameroon."
+
+#: espace\views.py
+msgid ""
+"%(n)s créneau(x) ajouté(s) à ton emploi du temps. Vérifie-les dans la liste."
+msgstr "%(n)s slot(s) added to your timetable. Check them in the list."
+
+#: templates\espace\suivi.html
+msgid "%(n)s en cours"
+msgstr "%(n)s in progress"
+
+#: templates\interface\historique_chat.html
+msgid "%(n)s question(s)"
+msgstr "%(n)s question(s)"
+
+#: templates\espace\suivi.html
+msgid "%(v)s validées sur %(t)s"
+msgstr "%(v)s passed out of %(t)s"
+
+#: orientation\services.py
+msgid "%(ville)s (région %(region)s)"
+msgstr "%(ville)s (%(region)s region)"
+
+#: templates\orientation\annales.html
+msgid "(facultatif)"
+msgstr "(optional)"
+
+#: templates\interface\dashboard.html
+msgid "+ Ajouter"
+msgstr "+ Add"
+
+#: templates\interface\dashboard.html
+msgid ", dans tes domaines"
+msgstr ", in your fields"
+
+#: templates\orientation\annales.html
+msgid "1. Choisis une matière"
+msgstr "1. Choose a subject"
+
+#: templates\orientation\annales.html
+msgid "2. Pour quel concours ?"
+msgstr "2. For which entrance exam?"
+
+#: templates\interface\dashboard.html
+msgid ""
+"3 minutes pour découvrir les domaines qui te correspondent. OrientIA s'en "
+"servira pour mieux te conseiller."
+msgstr ""
+"3 minutes to discover the fields that suit you. OrientIA will use it to give"
+" you better advice."
+
+#: templates\interface\inscription.html
+msgid ""
+"30 secondes suffisent. Tu compléteras ton profil ensuite, à ton rythme."
+msgstr ""
+"It takes 30 seconds. You'll complete your profile later, at your own pace."
+
+#: templates\orientation\annales.html
+msgid ""
+"5 questions à choix multiples préparées par OrientIA. Un nouveau quiz à "
+"chaque fois !"
+msgstr ""
+"5 multiple-choice questions prepared by OrientIA. A new quiz every time!"
+
+#: templates\interface\inscription.html
+msgid "8 caractères minimum"
+msgstr "At least 8 characters"
+
+#: interface\views.py
+msgid ""
+"Accepte les conditions d'utilisation et la politique de confidentialité pour"
+" créer ton compte."
+msgstr ""
+"Accept the terms of use and the privacy policy to create your account."
+
+#: templates\base.html
+msgid "Accueil"
+msgstr "Home"
+
+#: templates\interface\_saisie_vocale.html
+msgid ""
+"Accès au micro refusé. Autorise le micro dans ton navigateur pour dicter."
+msgstr ""
+"Microphone access denied. Allow the microphone in your browser to dictate."
+
+#: templates\interface\dashboard.html
+msgid ""
+"Active les rappels sur les concours qui t'intéressent pour ne rater aucune "
+"date."
+msgstr ""
+"Turn on reminders for the exams you're interested in so you never miss a "
+"date."
+
+#: interface\models.py
+msgid "Adamaoua"
+msgstr "Adamawa"
+
+#: templates\orientation\comparateur.html
+msgid "Admission"
+msgstr "Admission"
+
+#: espace\models.py
+msgid "Admis·e"
+msgstr "Admitted"
+
+#: templates\account\email_confirm.html
+msgid "Adresse déjà utilisée"
+msgstr "Address already in use"
+
+#: templates\interface\carte.html
+msgid "Adresse non renseignée"
+msgstr "Address not provided"
+
+#: templates\interface\carte.html
+msgid "Afficher le fond de carte"
+msgstr "Show the map background"
+
+#: templates\account\password_reset_from_key.html
+msgid "Afficher le mot de passe"
+msgstr "Show password"
+
+#: interface\views.py
+msgid "Agriculture"
+msgstr "Agriculture"
+
+#: orientation\test_orientation.py
+msgid "Agronome ou éleveur·se moderne"
+msgstr "Agronomist or modern livestock farmer"
+
+#: orientation\models.py
+msgid "Agropastoral"
+msgstr "Agriculture & livestock"
+
+#: orientation\views.py
+msgid ""
+"Aide-moi à choisir entre %(ecoles)s et %(derniere)s : quelles différences et"
+" laquelle me conseilles-tu ?"
+msgstr ""
+"Help me choose between %(ecoles)s and %(derniere)s: what are the differences"
+" and which do you recommend?"
+
+#: templates\espace\emploi_du_temps.html
+msgid ""
+"Ajoute d'abord tes disponibilités : c'est là qu'OrientIA placera tes "
+"révisions."
+msgstr ""
+"Add your free time first: that's where OrientIA will place your study "
+"sessions."
+
+#: templates\interface\dashboard.html
+msgid ""
+"Ajoute des écoles en favoris depuis le comparateur pour les retrouver ici."
+msgstr ""
+"Add schools to your favourites from the comparison tool to find them here."
+
+#: templates\espace\suivi.html
+msgid "Ajoute les filières que tu vises pour suivre tes démarches."
+msgstr "Add the programmes you're aiming for to track your applications."
+
+#: templates\espace\emploi_du_temps.html
+msgid "Ajouter"
+msgstr "Add"
+
+#: templates\espace\suivi.html
+msgid "Ajouter la note"
+msgstr "Add grade"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Ajouter un créneau"
+msgstr "Add a slot"
+
+#: templates\communaute\messagerie.html
+msgid "Aller dans la communauté"
+msgstr "Go to the community"
+
+#: interface\views.py
+msgid "Aller à l'université"
+msgstr "Go to university"
+
+#: interface\models.py
+msgid "Ambassadeur"
+msgstr "Ambassador"
+
+#: orientation\test_orientation.py
+msgid "Améliorer l'accès à l'eau potable dans les villages"
+msgstr "Improve access to clean water in villages"
+
+#: templates\interface\bienvenue.html
+msgid "Anglophone"
+msgstr "English-speaking"
+
+#: interface\models.py
+msgid "Anglophone (GCE)"
+msgstr "English-speaking (GCE)"
+
+#: templates\orientation\annales.html
+msgid "Annales"
+msgstr "Past papers"
+
+#: templates\base.html
+msgid "Annales et quiz"
+msgstr "Past papers & quizzes"
+
+#: templates\communaute\nouveau.html
+msgid "Annuler"
+msgstr "Cancel"
+
+#: orientation\test_orientation.py
+msgid "Argumenter et défendre une position"
+msgstr "Arguing and defending a position"
+
+#: communaute\models.py
+msgid "Arnaque ou demande d'argent"
+msgstr "Scam or request for money"
+
+#: templates\interface\chat.html
+msgid "Arrêter"
+msgstr "Stop"
+
+#: interface\views.py
+msgid "Arts"
+msgstr "Arts"
+
+#: templates\interface\bienvenue.html
+msgid "As-tu une idée d'école où poursuivre tes études ?"
+msgstr "Do you have a school in mind for your studies?"
+
+#: templates\base.html
+msgid "Assistant intelligent d'orientation académique"
+msgstr "Smart academic guidance assistant"
+
+#: templates\interface\chat.html
+msgid "Assistante IA"
+msgstr "AI assistant"
+
+#: templates\interface\accueil.html
+msgid "Assistante d'orientation"
+msgstr "Guidance assistant"
+
+#: templates\orientation\comparateur.html
+msgid "Astuce : tes écoles favorites s'affichent automatiquement ici."
+msgstr "Tip: your favourite schools appear here automatically."
+
+#: templates\communaute\nouveau.html
+msgid ""
+"Astuce : une question précise obtient des réponses plus rapides. Pense aussi"
+" à demander à OrientIA !"
+msgstr ""
+"Tip: a specific question gets faster answers. You can also ask OrientIA!"
+
+#: templates\orientation\concours.html
+msgid "Aucun concours dans cette catégorie."
+msgstr "No exams in this category."
+
+#: espace\views.py
+msgid ""
+"Aucun créneau trouvé. Précise les jours et les heures (ex : lundi 8h-10h "
+"maths)."
+msgstr "No slots found. Specify days and times (e.g. Monday 8-10am maths)."
+
+#: interface\views.py
+msgid ""
+"Aucun document n'est indexé. Lance d'abord : python manage.py "
+"indexer_documents"
+msgstr ""
+"No documents are indexed. First run: python manage.py indexer_documents"
+
+#: interface\views.py
+msgid "Aucun enregistrement reçu."
+msgstr "No recording received."
+
+#: templates\interface\carte.html
+msgid "Aucun établissement enregistré pour le moment."
+msgstr "No institutions yet."
+
+#: templates\interface\carte.html
+msgid "Aucun établissement ne correspond à ta recherche."
+msgstr "No institution matches your search."
+
+#: templates\orientation\annales.html
+msgid "Aucune annale pour le moment."
+msgstr "No past papers yet."
+
+#: templates\communaute\messagerie.html
+msgid "Aucune conversation pour le moment."
+msgstr "No conversations yet."
+
+#: templates\orientation\filieres.html
+msgid "Aucune filière ne correspond. Essaie un autre mot, ou demande à"
+msgstr "No programme matches. Try another word, or ask"
+
+#: templates\espace\suivi.html
+msgid "Aucune note pour l'instant. Ajoute ta première note ci-dessous."
+msgstr "No grades yet. Add your first grade below."
+
+#: templates\communaute\liste.html
+msgid "Aucune question ne correspond à ta recherche."
+msgstr "No question matches your search."
+
+#: templates\communaute\membre.html
+msgid "Aucune question pour le moment."
+msgstr "No questions yet."
+
+#: templates\communaute\liste.html
+msgid ""
+"Aucune question pour le moment. Sois le premier ou la première à lancer la "
+"discussion !"
+msgstr "No questions yet. Be the first to start the conversation!"
+
+#: templates\orientation\ecoles_proches.html
+msgid "Aucune école enregistrée pour ce choix pour le moment."
+msgstr "No schools listed for this choice yet."
+
+#: templates\orientation\filiere.html
+msgid "Aucune école enregistrée pour cette filière pour le moment."
+msgstr "No schools listed for this programme yet."
+
+#: templates\orientation\concours.html
+msgid "Aujourd'hui"
+msgstr "Today"
+
+#: orientation\models.py
+msgid "Autre"
+msgstr "Other"
+
+#: interface\models.py
+msgid "Autre / En cours de détermination"
+msgstr "Other / Not decided yet"
+
+#: templates\interface\bienvenue.html
+msgid "Autre chose ?"
+msgstr "Anything else?"
+
+#: templates\espace\filiere.html
+msgid "Avancement"
+msgstr "Progress"
+
+#: templates\espace\suivi.html
+msgid "Avancement des matières"
+msgstr "Subject progress"
+
+#: templates\interface\accueil.html
+msgid ""
+"Avec un bac C, tu peux viser l'ENSP de Yaoundé ou l'IUT de Douala en génie "
+"informatique. L'admission se fait sur concours…"
+msgstr ""
+"With a Bac C, you can aim for ENSP Yaoundé or IUT Douala in computer "
+"engineering. Admission is by entrance exam…"
+
+#: templates\interface\inscription.html
+msgid ""
+"Avec un compte, OrientIA connaît ta série et tes centres d'intérêt et te "
+"donne des conseils vraiment adaptés à toi."
+msgstr ""
+"With an account, OrientIA knows your subjects and interests and gives you "
+"advice that truly fits you."
+
+#: orientation\test_orientation.py
+msgid "Avoir un poste stable dans l'administration"
+msgstr "Having a stable job in the civil service"
+
+#: orientation\models.py
+msgid "BTS (2 ans)"
+msgstr "BTS / HND (2 years)"
+
+#: templates\orientation\filiere.html
+msgid "Bac"
+msgstr "Bac"
+
+#: interface\models.py
+msgid "Bac A4 (Littéraire)"
+msgstr "Bac A4 (Literature)"
+
+#: interface\models.py
+msgid "Bac B (Économie)"
+msgstr "Bac B (Economics)"
+
+#: interface\models.py
+msgid "Bac C (Maths-Physique-Chimie)"
+msgstr "Bac C (Maths-Physics-Chemistry)"
+
+#: interface\models.py
+msgid "Bac D (Maths-Physique-SVT)"
+msgstr "Bac D (Maths-Physics-Biology)"
+
+#: interface\models.py
+msgid "Bac F (Technique industriel)"
+msgstr "Bac F (Industrial technology)"
+
+#: interface\models.py
+msgid "Bac TI (Technique)"
+msgstr "Bac TI (Technical)"
+
+#: espace\models.py
+msgid "Bachelier / futur étudiant"
+msgstr "School leaver / future student"
+
+#: templates\communaute\_auteur.html
+msgid "Badge vérifié par l'équipe OrientIA"
+msgstr "Badge verified by the OrientIA team"
+
+#: orientation\test_orientation.py
+msgid "Bien gagner ma vie"
+msgstr "Earning a good living"
+
+#: orientation\test_orientation.py
+msgid "Bien, mais je veux aussi pratiquer rapidement"
+msgstr "Fine, but I also want hands-on practice early"
+
+#: templates\orientation\concours.html
+msgid "Bientôt"
+msgstr "Coming soon"
+
+#: templates\interface\bienvenue.html
+msgid "Bienvenue"
+msgstr "Welcome"
+
+#: templates\interface\bienvenue.html
+msgid "Bienvenue, %(nom)s"
+msgstr "Welcome, %(nom)s"
+
+#: interface\views.py
+msgid "Biologie"
+msgstr "Biology"
+
+#: templates\communaute\conversation.html
+msgid "Bloquer"
+msgstr "Block"
+
+#: templates\interface\connexion.html
+msgid "Bon retour"
+msgstr "Welcome back"
+
+#: templates\interface\chat.html
+msgid "Bonjour"
+msgstr "Hello"
+
+#: templates\interface\dashboard.html
+msgid "Bonjour,"
+msgstr "Hello,"
+
+#: orientation\test_orientation.py
+msgid "Bricoler, démonter ou réparer des objets"
+msgstr "Tinkering, taking apart or fixing things"
+
+#: orientation\test_orientation.py
+msgid "C'est essentiel, j'aimerais travailler pour les protéger"
+msgstr "It's essential, I'd like to work to protect them"
+
+#: templates\account\password_reset_from_key_done.html
+msgid ""
+"C'est fait ! Tu peux maintenant te connecter avec ton nouveau mot de passe."
+msgstr "Done! You can now log in with your new password."
+
+#: orientation\test_orientation.py
+msgid "C'est important pour mieux cultiver et nourrir le pays"
+msgstr "It matters for better farming and feeding the country"
+
+#: orientation\views.py
+msgid ""
+"C'est noté ! Tu recevras un rappel par email avant chaque date clé de « "
+"%(nom)s »."
+msgstr "Done! You'll get an email reminder before each key date of “%(nom)s”."
+
+#: templates\orientation\concours.html
+msgid "Calendrier"
+msgstr "Calendar"
+
+#: templates\base.html
+msgid "Calendrier des concours"
+msgstr "Entrance exam calendar"
+
+#: templates\base.html
+msgid "Cameroun"
+msgstr "Cameroon"
+
+#: espace\models.py
+msgid "Candidature déposée"
+msgstr "Application submitted"
+
+#: templates\base.html
+msgid "Carte des établissements"
+msgstr "Map of institutions"
+
+#: templates\interface\carte.html
+msgid "Carte interactive"
+msgstr "Interactive map"
+
+#: templates\account\email_confirm.html
+msgid ""
+"Ce lien de confirmation n'est plus valable. Connecte-toi pour en recevoir un"
+" nouveau."
+msgstr ""
+"This confirmation link is no longer valid. Log in to receive a new one."
+
+#: templates\account\password_reset_from_key.html
+msgid ""
+"Ce lien n'est plus valable : il a peut-être déjà été utilisé. Demande un "
+"nouveau lien."
+msgstr ""
+"This link is no longer valid: it may have already been used. Request a new "
+"link."
+
+#: communaute\views.py
+msgid "Ce membre est bloqué : il ne peut plus t'écrire."
+msgstr "This member is blocked: they can no longer write to you."
+
+#: interface\views.py
+msgid "Ce nom d'utilisateur est déjà pris."
+msgstr "This username is already taken."
+
+#: orientation\test_orientation.py
+msgid "Ce que tu veux avant tout dans ton futur métier…"
+msgstr "What you want most from your future job…"
+
+#: orientation\views.py
+msgid "Ce résultat n'est pas le tien."
+msgstr "This result isn't yours."
+
+#: interface\models.py
+msgid "Centre"
+msgstr "Centre"
+
+#: templates\interface\dashboard.html
+msgid "Centres d'intérêt"
+msgstr "Interests"
+
+#: templates\account\email_confirm.html
+msgid "Cette adresse est déjà confirmée sur un autre compte."
+msgstr "This address is already confirmed on another account."
+
+#: templates\interface\hors_ligne.html
+msgid ""
+"Cette page n'a pas encore été enregistrée sur ton téléphone. Les pages que "
+"tu as déjà consultées (fiches filières, concours, ton emploi du temps…) "
+"restent disponibles hors connexion."
+msgstr ""
+"This page hasn't been saved on your phone yet. Pages you've already visited "
+"(programme guides, entrance exams, your timetable…) remain available "
+"offline."
+
+#: templates\communaute\detail.html
+msgid ""
+"Cette question est masquée en attendant la vérification de l'équipe "
+"OrientIA."
+msgstr "This question is hidden until the OrientIA team reviews it."
+
+#: templates\interface\_choix_langue.html
+msgid "Changement de langue…"
+msgstr "Switching language…"
+
+#: templates\orientation\annales.html
+msgid "Changer de matière"
+msgstr "Change subject"
+
+#: templates\base.html
+msgid "Changer de thème (clair / sombre)"
+msgstr "Switch theme (light / dark)"
+
+#: templates\base.html
+msgid "Chargement…"
+msgstr "Loading…"
+
+#: orientation\test_orientation.py
+msgid "Chef·fe d'entreprise ou banquier·ère"
+msgstr "Business owner or banker"
+
+#: orientation\test_orientation.py
+msgid "Chercher l'info sur internet pour l'aider"
+msgstr "Search the internet to help them"
+
+#: orientation\test_orientation.py
+msgid "Chercher une solution concrète et efficace"
+msgstr "Look for a practical, effective solution"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Choisir"
+msgstr "Choose"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Choisir un fichier (photo, PDF, texte)"
+msgstr "Choose a file (photo, PDF, text)"
+
+#: templates\orientation\comparateur.html
+msgid "Choisis au moins une école ci-dessus pour commencer la comparaison."
+msgstr "Choose at least one school above to start comparing."
+
+#: templates\orientation\comparateur.html
+msgid ""
+"Choisis jusqu'à 3 écoles pour comparer leurs filières, leur mode "
+"d'admission, leurs frais et leur distance."
+msgstr ""
+"Choose up to 3 schools to compare their programmes, admission, fees and "
+"distance."
+
+#: templates\espace\emploi_du_temps.html
+msgid "Choisis l'emploi du temps qui te convient"
+msgstr "Choose the timetable that suits you"
+
+#: templates\espace\filiere.html
+msgid "Choisis ta filière et ton semestre pour voir tes matières officielles."
+msgstr "Choose your programme and semester to see your official subjects."
+
+#: espace\views.py
+msgid "Choisis un fichier ou décris ton emploi du temps."
+msgstr "Choose a file or describe your timetable."
+
+#: templates\account\password_reset_from_key.html
+msgid ""
+"Choisis un mot de passe d'au moins 8 caractères, que tu n'utilises pas "
+"ailleurs."
+msgstr ""
+"Choose a password of at least 8 characters that you don't use anywhere else."
+
+#: templates\communaute\signaler.html
+msgid "Choisis un motif."
+msgstr "Choose a reason."
+
+#: templates\orientation\ecoles_proches.html
+msgid "Choisis une filière…"
+msgstr "Choose a programme…"
+
+#: orientation\views.py
+msgid "Choisis une matière dans la liste."
+msgstr "Choose a subject from the list."
+
+#: templates\espace\filiere.html
+msgid ""
+"Classe jusqu'à 3 filières par ordre de préférence et suis l'avancement de "
+"tes démarches."
+msgstr ""
+"Rank up to 3 programmes in order of preference and track your applications."
+
+#: templates\account\email_confirm.html
+msgid ""
+"Clique sur le bouton pour confirmer que <strong>%(email)s</strong> est bien "
+"ton adresse."
+msgstr ""
+"Click the button to confirm that <strong>%(email)s</strong> is your address."
+
+#: templates\orientation\concours.html
+msgid "Clôture"
+msgstr "Closing"
+
+#: orientation\models.py
+msgid "Clôture des inscriptions"
+msgstr "Registration closes"
+
+#: templates\espace\suivi.html
+msgid "Cocher"
+msgstr "Tick"
+
+#: templates\espace\suivi.html
+msgid "Coef."
+msgstr "Weight"
+
+#: templates\interface\dashboard.html
+msgid "Commencer"
+msgstr "Start"
+
+#: templates\interface\accueil.html
+msgid "Commencer maintenant"
+msgstr "Get started"
+
+#: interface\views.py
+msgid "Comment entrer à %(ecole)s ?"
+msgstr "How do I get into %(ecole)s?"
+
+#: templates\interface\chat.html
+msgid "Comment entrer à l'ENSP ?"
+msgstr "How do I get into ENSP?"
+
+#: interface\views.py
+msgid "Comment se passent les concours d'entrée ?"
+msgstr "How do entrance exams work?"
+
+#: templates\interface\accueil.html
+msgid "Comment ça marche"
+msgstr "How it works"
+
+#: interface\views.py
+msgid "Commerce"
+msgstr "Business"
+
+#: templates\base.html
+msgid "Communauté"
+msgstr "Community"
+
+#: interface\views.py
+msgid "Communication"
+msgstr "Communication"
+
+#: orientation\models.py
+msgid "Communication, langues et lettres"
+msgstr "Communication, languages & literature"
+
+#: templates\orientation\comparateur.html
+msgid "Comparateur"
+msgstr "Comparison"
+
+#: templates\orientation\comparateur.html
+msgid "Compare les écoles"
+msgstr "Compare schools"
+
+#: templates\base.html
+msgid "Comparer des écoles"
+msgstr "Compare schools"
+
+#: templates\interface\dashboard.html
+msgid "Comparer mes favoris"
+msgstr "Compare my favourites"
+
+#: templates\interface\dashboard.html
+msgid ""
+"Complète ton profil pour qu'OrientIA te donne des conseils adaptés à ta "
+"série et à tes goûts."
+msgstr ""
+"Complete your profile so OrientIA can give you advice suited to your "
+"subjects and tastes."
+
+#: templates\communaute\membre.html
+msgid "Compléter mon profil"
+msgstr "Complete my profile"
+
+#: communaute\models.py
+msgid "Comportement inquiétant envers un mineur"
+msgstr "Worrying behaviour towards a minor"
+
+#: templates\base.html
+msgid "Concours"
+msgstr "Entrance exams"
+
+#: templates\orientation\filiere.html
+msgid "Concours d'entrée"
+msgstr "Entrance exams"
+
+#: templates\orientation\annales.html
+msgid "Concours des grandes écoles en général"
+msgstr "Top professional schools' exams in general"
+
+#: espace\models.py
+msgid "Concours passé"
+msgstr "Exam taken"
+
+#: templates\base.html
+msgid "Conditions d'utilisation"
+msgstr "Terms of use"
+
+#: templates\orientation\concours.html
+msgid "Conditions et pièces à fournir"
+msgstr "Requirements and documents"
+
+#: templates\base.html
+msgid "Confidentialité"
+msgstr "Privacy"
+
+#: templates\account\password_reset_from_key.html
+msgid "Confirme le mot de passe"
+msgstr "Confirm the password"
+
+#: templates\account\email_confirm.html
+msgid "Confirme ton email"
+msgstr "Confirm your email"
+
+#: templates\account\email_confirm.html
+msgid "Confirmer mon email"
+msgstr "Confirm my email"
+
+#: templates\interface\chat.html
+msgid ""
+"Connecte-toi pour qu'OrientIA adapte ses conseils à ta série et à tes "
+"centres d'intérêt."
+msgstr ""
+"Log in so OrientIA can tailor its advice to your subjects and interests."
+
+#: templates\interface\connexion.html
+msgid "Connecte-toi pour retrouver ton espace et les conseils d'OrientIA."
+msgstr "Log in to get back to your dashboard and OrientIA's advice."
+
+#: templates\communaute\detail.html
+msgid "Connecte-toi pour répondre et aider les autres bacheliers."
+msgstr "Log in to answer and help other students."
+
+#: templates\interface\connexion.html
+msgid "Connexion"
+msgstr "Log in"
+
+#: templates\interface\_google.html
+msgid "Connexion avec Google…"
+msgstr "Signing in with Google…"
+
+#: templates\interface\connexion.html
+msgid "Connexion à ton espace…"
+msgstr "Logging you in…"
+
+#: interface\models.py
+msgid "Conseiller d'orientation"
+msgstr "Guidance counsellor"
+
+#: templates\base.html
+msgid "Contact"
+msgstr "Contact"
+
+#: communaute\models.py
+msgid "Contenu sexuel ou inapproprié"
+msgstr "Sexual or inappropriate content"
+
+#: templates\interface\_google.html
+msgid "Continuer avec Google"
+msgstr "Continue with Google"
+
+#: templates\interface\bienvenue.html
+msgid "Contributeur"
+msgstr "Contributor"
+
+#: interface\models.py
+msgid "Contributeur vérifié"
+msgstr "Verified contributor"
+
+#: orientation\test_orientation.py
+msgid "Convaincre et négocier"
+msgstr "Persuading and negotiating"
+
+#: interface\views.py
+msgid "Conversation supprimée."
+msgstr "Conversation deleted."
+
+#: templates\espace\emploi_du_temps.html
+msgid "Cours"
+msgstr "Class"
+
+#: templates\interface\inscription.html
+msgid "Création de ton compte…"
+msgstr "Creating your account…"
+
+#: templates\espace\suivi.html
+msgid "Crédits"
+msgstr "Credits"
+
+#: templates\interface\accueil.html
+msgid "Crée ton compte"
+msgstr "Create your account"
+
+#: templates\orientation\resultat_test.html
+msgid ""
+"Crée ton compte pour qu'OrientIA s'en souvienne et te propose des écoles "
+"proches de chez toi."
+msgstr ""
+"Create your account so OrientIA remembers it and suggests schools near you."
+
+#: templates\interface\inscription.html
+msgid "Créer mon compte"
+msgstr "Create my account"
+
+#: templates\base.html
+msgid "Créer un compte"
+msgstr "Sign up"
+
+#: orientation\test_orientation.py
+msgid "Créer une application utile pour les Camerounais"
+msgstr "Build a useful app for Cameroonians"
+
+#: orientation\test_orientation.py
+msgid "Créer, innover"
+msgstr "Creating, innovating"
+
+#: espace\views.py
+msgid ""
+"Créneau invalide : vérifie le jour et que l'heure de fin est après l'heure "
+"de début."
+msgstr ""
+"Invalid slot: check the day and that the end time is after the start time."
+
+#: templates\orientation\resultat_test.html
+msgid ""
+"D'après tes réponses, voici les domaines qui te correspondent le mieux."
+msgstr "Based on your answers, here are the fields that suit you best."
+
+#: templates\orientation\filieres.html
+msgid "D'après ton profil, regarde du côté de :"
+msgstr "Based on your profile, take a look at:"
+
+#: templates\interface\bienvenue.html
+msgid "Dans quel sous-système es-tu ?"
+msgstr "Which subsystem are you in?"
+
+#: templates\interface\bienvenue.html
+msgid "Dans quelle région vis-tu ?"
+msgstr "Which region do you live in?"
+
+#: templates\orientation\ecoles_proches.html
+msgid "Dans tes domaines :"
+msgstr "In your fields:"
+
+#: orientation\test_orientation.py
+msgid "Dans un bureau, avec des dossiers et des chiffres"
+msgstr "In an office, with files and figures"
+
+#: orientation\test_orientation.py
+msgid "Dans un chantier ou une usine"
+msgstr "To a construction site or a factory"
+
+#: orientation\test_orientation.py
+msgid "Dans un laboratoire ou un hôpital"
+msgstr "In a laboratory or a hospital"
+
+#: orientation\test_orientation.py
+msgid "Dans un ministère ou une ambassade"
+msgstr "To a ministry or an embassy"
+
+#: orientation\test_orientation.py
+msgid "Dans un travail de groupe, tu es celui ou celle qui…"
+msgstr "In a group project, you're the one who…"
+
+#: orientation\test_orientation.py
+msgid "Dans une startup du numérique à Douala ou Yaoundé"
+msgstr "To a tech start-up in Douala or Yaoundé"
+
+#: orientation\test_orientation.py
+msgid "Dans une station agricole ou forestière"
+msgstr "To an agricultural or forestry station"
+
+#: templates\espace\suivi.html
+msgid "Date"
+msgstr "Date"
+
+#: templates\orientation\concours.html
+msgid ""
+"Dates d'inscription, épreuves et pièces à fournir. Active les rappels pour "
+"ne manquer aucune échéance."
+msgstr ""
+"Registration dates, exams and required documents. Turn on reminders so you "
+"never miss a deadline."
+
+#: templates\orientation\concours.html
+msgid "Dates non publiées"
+msgstr "Dates not published"
+
+#: orientation\models.py
+msgid "Dates pas encore publiées"
+msgstr "Dates not yet published"
+
+#: templates\communaute\detail.html
+msgid "Demande aussi à OrientIA"
+msgstr "Ask OrientIA too"
+
+#: templates\orientation\comparateur.html
+msgid "Demander l'avis d'OrientIA"
+msgstr "Ask OrientIA's opinion"
+
+#: templates\orientation\concours.html
+msgid "Demander à OrientIA"
+msgstr "Ask OrientIA"
+
+#: templates\orientation\comparateur.html
+msgid "Demander à la communauté"
+msgstr "Ask the community"
+
+#: templates\interface\dashboard.html
+msgid "Depuis"
+msgstr "From"
+
+#: templates\interface\accueil.html
+msgid "Des conseils pour toi"
+msgstr "Advice for you"
+
+#: templates\orientation\resultat_test.html
+msgid "Des filières pour toi :"
+msgstr "Programmes for you:"
+
+#: templates\orientation\annales.html
+msgid ""
+"Des quiz générés par OrientIA pour t'entraîner, et les sujets des années "
+"passées à télécharger."
+msgstr "Practice quizzes generated by OrientIA, and past papers to download."
+
+#: templates\interface\accueil.html
+msgid ""
+"Des réponses fiables, une carte des écoles et des conseils adaptés à ton "
+"profil."
+msgstr ""
+"Reliable answers, a map of schools and advice tailored to your profile."
+
+#: espace\services.py
+msgid ""
+"Des séances d'une heure réparties sur la semaine, sans surcharger tes "
+"journées."
+msgstr ""
+"One-hour sessions spread over the week, without overloading your days."
+
+#: interface\views.py
+msgid "Devenir ingénieur·e"
+msgstr "Become an engineer"
+
+#: espace\models.py
+msgid "Devoir / contrôle continu"
+msgstr "Assignment / continuous assessment"
+
+#: templates\communaute\conversation.html
+msgid "Dicter"
+msgstr "Dictate"
+
+#: templates\interface\chat.html
+msgid "Dicter ma question"
+msgstr "Dictate my question"
+
+#: espace\models.py
+msgid "Dimanche"
+msgstr "Sunday"
+
+#: orientation\test_orientation.py
+msgid "Diplomate, magistrat·e ou administrateur·trice"
+msgstr "Diplomat, magistrate or civil administrator"
+
+#: orientation\models.py
+msgid "Diplôme d'ingénieur (5 ans)"
+msgstr "Engineering degree (5 years)"
+
+#: templates\interface\chat.html
+msgid "Discute avec"
+msgstr "Chat with"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Disponibilité"
+msgstr "Free time"
+
+#: templates\interface\accueil.html
+msgid "Disponible 24h/24"
+msgstr "Available 24/7"
+
+#: templates\orientation\comparateur.html
+msgid "Distance"
+msgstr "Distance"
+
+#: templates\interface\accueil.html
+msgid "Documents MINESUP"
+msgstr "MINESUP documents"
+
+#: templates\interface\chat.html
+msgid "Documents consultés :"
+msgstr "Documents consulted:"
+
+#: templates\communaute\liste.html
+msgid "Domaine"
+msgstr "Field"
+
+#: templates\orientation\ecoles_proches.html
+msgid "Domaines de mon profil"
+msgstr "My profile's fields"
+
+#: templates\communaute\liste.html
+msgid "Donne des infos vérifiables (site de l'école, arrêté du MINESUP…)."
+msgstr "Share verifiable information (school website, MINESUP decree…)."
+
+#: communaute\views.py
+msgid "Donne quelques détails"
+msgstr "Give a few details"
+
+#: templates\base.html
+msgid "Données protégées"
+msgstr "Protected data"
+
+#: espace\models.py
+msgid "Dossier en préparation"
+msgstr "Preparing my application"
+
+#: interface\views.py
+msgid "Droit"
+msgstr "Law"
+
+#: orientation\models.py
+msgid "Droit et administration"
+msgstr "Law & public administration"
+
+#: templates\orientation\filiere.html
+msgid "Durée"
+msgstr "Duration"
+
+#: templates\communaute\conversation.html
+msgid "Débloquer"
+msgstr "Unblock"
+
+#: templates\orientation\filiere.html
+msgid "Débouchés"
+msgstr "Career prospects"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Début"
+msgstr "Start"
+
+#: templates\orientation\filieres.html
+msgid "Découvre ce que tu vas"
+msgstr "Discover what you'll"
+
+#: templates\base.html
+msgid "Découvre les domaines qui te correspondent"
+msgstr "Find the fields that suit you"
+
+#: templates\interface\inscription.html
+msgid "Déjà un compte ?"
+msgstr "Already have an account?"
+
+#: orientation\test_orientation.py
+msgid "Développeur·se ou expert·e en cybersécurité"
+msgstr "Software developer or cybersecurity expert"
+
+#: orientation\models.py
+msgid "Eau et environnement"
+msgstr "Water & environment"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Effacer le planning de révision"
+msgstr "Clear the study plan"
+
+#: templates\interface\bienvenue.html
+msgid ""
+"Elle n'est jamais affichée. Elle sert à protéger les plus jeunes dans la "
+"messagerie."
+msgstr ""
+"It is never displayed. It helps protect younger members in private messages."
+
+#: templates\account\password_reset.html
+msgid "Email"
+msgstr "Email"
+
+#: templates\interface\connexion.html
+msgid "Email ou nom d'utilisateur"
+msgstr "Email or username"
+
+#: templates\base.html
+msgid "Emploi du temps"
+msgstr "Timetable"
+
+#: templates\communaute\signaler.html
+msgid ""
+"En cas de danger immédiat, contacte un adulte de confiance ou la police "
+"(117)."
+msgstr ""
+"If you are in immediate danger, contact a trusted adult or the police (117)."
+
+#: templates\interface\inscription.html
+msgid ""
+"En continuant avec Google, tu acceptes les <a href=\"%(url_conditions)s\" "
+"class=\"link-brand\">conditions d'utilisation</a> et la <a "
+"href=\"%(url_confidentialite)s\" class=\"link-brand\">politique de "
+"confidentialité</a>."
+msgstr ""
+"By continuing with Google, you accept the <a href=\"%(url_conditions)s\" "
+"class=\"link-brand\">terms of use</a> and the <a "
+"href=\"%(url_confidentialite)s\" class=\"link-brand\">privacy policy</a>."
+
+#: espace\models.py
+msgid "En cours"
+msgstr "In progress"
+
+#: templates\interface\chat.html
+msgid "En ligne · répond en quelques secondes"
+msgstr "Online · replies in a few seconds"
+
+#: templates\orientation\resultat_test.html
+msgid "En parler à OrientIA"
+msgstr "Talk about it with OrientIA"
+
+#: templates\interface\chat.html
+msgid "En savoir plus"
+msgstr "Learn more"
+
+#: templates\interface\accueil.html
+msgid "En un clic avec Google, ou avec ton email. Ça prend 30 secondes."
+msgstr "In one click with Google, or with your email. It takes 30 seconds."
+
+#: templates\interface\_saisie_vocale.html
+msgid ""
+"Enregistrement trop court : clique sur le micro, parle, puis clique à "
+"nouveau."
+msgstr "Recording too short: click the microphone, speak, then click again."
+
+#: interface\views.py
+msgid "Enregistrement trop long."
+msgstr "Recording too long."
+
+#: templates\account\password_reset_from_key.html
+msgid "Enregistrement…"
+msgstr "Saving…"
+
+#: templates\account\password_reset_from_key.html
+msgid "Enregistrer"
+msgstr "Save"
+
+#: orientation\test_orientation.py
+msgid "Enseignant·e ou chercheur·se"
+msgstr "Teacher or researcher"
+
+#: orientation\models.py
+msgid "Enseignement"
+msgstr "Teaching"
+
+#: templates\communaute\liste.html
+msgid "Entraide entre"
+msgstr "Peer support among"
+
+#: templates\orientation\annales.html
+msgid "Entraînement"
+msgstr "Practice"
+
+#: templates\account\password_reset.html
+msgid ""
+"Entre l'email de ton compte : nous t'envoyons un lien pour choisir un "
+"nouveau mot de passe."
+msgstr ""
+"Enter your account email: we'll send you a link to choose a new password."
+
+#: templates\account\password_reset.html
+msgid "Envoi du lien…"
+msgstr "Sending the link…"
+
+#: templates\espace\emploi_du_temps.html
+msgid ""
+"Envoie ton emploi du temps et tes disponibilités : OrientIA te propose "
+"plusieurs plannings de révision."
+msgstr ""
+"Send your timetable and free time: OrientIA suggests several study plans."
+
+#: templates\espace\emploi_du_temps.html
+msgid ""
+"Envoie une photo ou un PDF de ton emploi du temps, ou décris-le à l'écrit ou"
+" à la voix. OrientIA ajoute les créneaux pour toi."
+msgstr ""
+"Send a photo or PDF of your timetable, or describe it in writing or by "
+"voice. OrientIA adds the slots for you."
+
+#: templates\communaute\conversation.html
+msgid "Envoyer"
+msgstr "Send"
+
+#: templates\communaute\signaler.html
+msgid "Envoyer le signalement"
+msgstr "Send report"
+
+#: templates\communaute\membre.html
+msgid "Envoyer un message"
+msgstr "Send a message"
+
+#: templates\interface\chat.html
+msgid "Erreur du serveur (code %s)."
+msgstr "Server error (code %s)."
+
+#: interface\models.py
+msgid "Est"
+msgstr "East"
+
+#: templates\interface\bienvenue.html
+msgid "Et après le bac, qu'aimerais-tu faire ?"
+msgstr "After secondary school, what would you like to do?"
+
+#: orientation\test_orientation.py
+msgid "Et parmi ceux-là ?"
+msgstr "And among these?"
+
+#: templates\interface\bienvenue.html
+msgid "Ex : ENSP Yaoundé, Université de Buea…"
+msgstr "E.g. University of Buea, ENSP Yaoundé…"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Ex : Mathématiques"
+msgstr "E.g. Mathematics"
+
+#: communaute\views.py
+msgid "Ex : Quelles matières faut-il travailler pour le concours de l'ENSP ?"
+msgstr "E.g. Which subjects should I study for the ENSP entrance exam?"
+
+#: templates\espace\suivi.html
+msgid "Ex : Réviser le chapitre 3 de chimie"
+msgstr "E.g. Revise chemistry chapter 3"
+
+#: templates\interface\bienvenue.html
+msgid "Ex : aéronautique, cinéma..."
+msgstr "E.g. aeronautics, cinema..."
+
+#: templates\interface\bienvenue.html
+msgid "Ex : devenir ingénieur·e en informatique, travailler dans la santé…"
+msgstr "E.g. become a software engineer, work in healthcare…"
+
+#: templates\espace\filiere.html
+msgid "Ex : dossier à déposer avant le 15 juin"
+msgstr "E.g. application due before 15 June"
+
+#: templates\espace\emploi_du_temps.html
+msgid ""
+"Ex : maths le lundi de 8h à 10h, anglais le mardi 14h-16h. Je suis libre le "
+"soir après 18h et le samedi matin."
+msgstr ""
+"E.g. maths on Monday 8am-10am, English on Tuesday 2pm-4pm. I'm free in the "
+"evening after 6pm and on Saturday morning."
+
+#: espace\models.py
+msgid "Examen"
+msgstr "Exam"
+
+#: communaute\views.py
+msgid ""
+"Explique ta situation : ta série, ce que tu as déjà trouvé, ce qui te "
+"bloque…"
+msgstr ""
+"Explain your situation: your subjects, what you've found so far, what's "
+"holding you back…"
+
+#: orientation\test_orientation.py
+msgid "Expliquer quelque chose à quelqu'un qui n'a pas compris"
+msgstr "Explaining something to someone who didn't understand"
+
+#: interface\models.py
+msgid "Extrême-Nord"
+msgstr "Far North"
+
+#: orientation\test_orientation.py
+msgid "Face à un public, une classe ou une caméra"
+msgstr "In front of an audience, a class or a camera"
+
+#: templates\interface\dashboard.html
+msgid "Faire le test"
+msgstr "Take the test"
+
+#: interface\views.py
+msgid "Faire un BTS / HND"
+msgstr "Do a BTS / HND"
+
+#: interface\views.py
+msgid "Faire une grande école"
+msgstr "Attend a top professional school"
+
+#: templates\base.html
+msgid "Fait avec"
+msgstr "Made with"
+
+#: orientation\test_orientation.py
+msgid "Fait les calculs et vérifie les résultats"
+msgstr "Does the calculations and checks the results"
+
+#: orientation\test_orientation.py
+msgid "Fatigue, je préfère les mots aux chiffres"
+msgstr "Tires me, I prefer words to numbers"
+
+#: communaute\models.py
+msgid "Fausse information"
+msgstr "False information"
+
+#: templates\base.html
+msgid "Fiches filières"
+msgstr "Programme guides"
+
+#: templates\interface\chat.html
+msgid "Fichier trop lourd (8 Mo maximum)."
+msgstr "File too large (8 MB maximum)."
+
+#: templates\espace\filiere.html
+msgid "Filière"
+msgstr "Programme"
+
+#: templates\orientation\filiere.html
+msgid "Filière :"
+msgstr "Field:"
+
+#: communaute\views.py
+msgid "Filière concernée (facultatif)"
+msgstr "Related programme (optional)"
+
+#: templates\orientation\comparateur.html
+msgid "Filières"
+msgstr "Programmes"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Fin"
+msgstr "End"
+
+#: orientation\models.py
+msgid "Fondamentale"
+msgstr "Core"
+
+#: interface\views.py
+msgid ""
+"Format non pris en charge : envoie une photo, un PDF ou un fichier texte."
+msgstr "Unsupported format: send a photo, a PDF or a text file."
+
+#: templates\orientation\comparateur.html
+msgid "Frais par an"
+msgstr "Fees per year"
+
+#: templates\interface\bienvenue.html
+msgid "Francophone"
+msgstr "French-speaking"
+
+#: interface\models.py
+msgid "Francophone (Baccalauréat)"
+msgstr "French-speaking (Baccalauréat)"
+
+#: templates\base.html
+msgid "Francophone et anglophone"
+msgstr "French- and English-speaking"
+
+#: interface\models.py
+msgid "GCE A Level – Arts"
+msgstr "GCE A Level – Arts"
+
+#: interface\models.py
+msgid "GCE A Level – Commercial"
+msgstr "GCE A Level – Commercial"
+
+#: interface\models.py
+msgid "GCE A Level – Sciences"
+msgstr "GCE A Level – Sciences"
+
+#: interface\models.py
+msgid "GCE A Level – Technical"
+msgstr "GCE A Level – Technical"
+
+#: templates\orientation\resultat_test.html
+msgid "Garde ton résultat"
+msgstr "Keep your result"
+
+#: orientation\models.py
+msgid "Gestion, commerce et finance"
+msgstr "Management, business & finance"
+
+#: interface\views.py
+msgid "Grande école publique"
+msgstr "Public grande école"
+
+#: templates\interface\accueil.html
+msgid "Guide d'orientation post-bac"
+msgstr "Post-secondary guidance handbook"
+
+#: templates\espace\filiere.html
+msgid ""
+"Gère ta filière : les vœux que tu vises, ou la formation que tu suis déjà."
+msgstr ""
+"Manage your programme: the choices you're aiming for, or the course you're "
+"already taking."
+
+#: interface\views.py
+msgid "Génie civil"
+msgstr "Civil engineering"
+
+#: orientation\models.py
+msgid "Génie et industrie"
+msgstr "Engineering & industry"
+
+#: templates\espace\suivi.html
+msgid "Gérer mes vœux"
+msgstr "Manage my choices"
+
+#: communaute\models.py
+msgid "Harcèlement ou insultes"
+msgstr "Harassment or insults"
+
+#: templates\orientation\filiere.html
+msgid "Heures"
+msgstr "Hours"
+
+#: templates\interface\chat.html
+msgid "Historique"
+msgstr "History"
+
+#: templates\interface\hors_ligne.html
+msgid "Hors connexion"
+msgstr "Offline"
+
+#: interface\views.py
+msgid "Identifiant ou mot de passe incorrect."
+msgstr "Incorrect username or password."
+
+#: templates\interface\dashboard.html
+msgid "Idées de questions à poser à OrientIA"
+msgstr "Question ideas for OrientIA"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Importer avec OrientIA"
+msgstr "Import with OrientIA"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Importer en un clic"
+msgstr "One-click import"
+
+#: templates\orientation\annales.html
+msgid "Impossible de joindre le serveur."
+msgstr "Can't reach the server."
+
+#: templates\interface\chat.html
+msgid "Impossible de joindre le serveur. Vérifie que « runserver » tourne."
+msgstr "Can't reach the server. Check that “runserver” is running."
+
+#: templates\orientation\filiere.html
+msgid "Indique ta région dans ton profil pour les trier par distance."
+msgstr "Add your region to your profile to sort them by distance."
+
+#: templates\interface\dashboard.html
+msgid ""
+"Indique ta région et tes centres d'intérêt pour voir les écoles les plus "
+"proches."
+msgstr "Add your region and interests to see the nearest schools."
+
+#: templates\interface\accueil.html
+msgid ""
+"Indique ta série, tes centres d'intérêt et ta région : OrientIA adapte ses "
+"réponses à ton profil."
+msgstr ""
+"Tell us your subjects, interests and region: OrientIA tailors its answers to"
+" your profile."
+
+#: communaute\moderation.py
+msgid ""
+"Indique ton année de naissance dans ton profil pour utiliser la messagerie. "
+"Elle n'est jamais affichée."
+msgstr ""
+"Add your year of birth to your profile to use private messages. It is never "
+"displayed."
+
+#: interface\views.py
+msgid "Informatique"
+msgstr "Computer science"
+
+#: orientation\models.py
+msgid "Informatique et numérique"
+msgstr "Computing & digital"
+
+#: orientation\test_orientation.py
+msgid "Ingénieur·e qui construit des routes ou des barrages"
+msgstr "Engineer building roads or dams"
+
+#: templates\interface\inscription.html
+msgid "Inscription"
+msgstr "Sign up"
+
+#: etablissements\models.py
+msgid "Inscription directe"
+msgstr "Direct enrolment"
+
+#: orientation\models.py
+msgid "Inscriptions bientôt ouvertes"
+msgstr "Registration opening soon"
+
+#: orientation\models.py
+msgid "Inscriptions closes, épreuves à venir"
+msgstr "Registration closed, exams coming up"
+
+#: templates\orientation\concours.html
+msgid "Inscriptions ouvertes"
+msgstr "Registration open"
+
+#: interface\views.py
+msgid "Institut"
+msgstr "Institute"
+
+#: interface\views.py
+msgid "Institut privé (IPES)"
+msgstr "Private institute (IPES)"
+
+#: espace\services.py
+msgid "Intensive"
+msgstr "Intensive"
+
+#: templates\interface\inscription.html
+msgid ""
+"J'accepte les <a href=\"%(url_conditions)s\" target=\"_blank\">conditions "
+"d'utilisation</a> et la <a href=\"%(url_confidentialite)s\" "
+"target=\"_blank\">politique de confidentialité</a>. Si j'ai moins de 18 ans,"
+" un parent ou un responsable est d'accord."
+msgstr ""
+"I accept the <a href=\"%(url_conditions)s\" target=\"_blank\">terms of "
+"use</a> and the <a href=\"%(url_confidentialite)s\" "
+"target=\"_blank\">privacy policy</a>. If I am under 18, a parent or guardian"
+" agrees."
+
+#: templates\interface\accueil.html
+msgid ""
+"J'ai un bac C, j'aime l'informatique. Quelles écoles me conseilles-tu ?"
+msgstr ""
+"I have a Bac C and I like computer science. Which schools do you recommend?"
+
+#: templates\interface\bienvenue.html
+msgid "Je finirai plus tard"
+msgstr "I'll finish later"
+
+#: espace\models.py
+msgid "Je me renseigne"
+msgstr "Researching"
+
+#: interface\views.py
+msgid ""
+"Je n'ai pas réussi à comprendre l'enregistrement. Réessaie en parlant plus "
+"près du micro."
+msgstr ""
+"I couldn't understand the recording. Try again speaking closer to the "
+"microphone."
+
+#: interface\views.py
+msgid "Je n'ai rien entendu. Parle plus près du micro, puis réessaie."
+msgstr ""
+"I didn't hear anything. Speak closer to the microphone, then try again."
+
+#: interface\views.py
+msgid "Je ne sais pas encore"
+msgstr "I don't know yet"
+
+#: templates\interface\_saisie_vocale.html
+msgid "Je n’ai rien entendu. Parle plus près du micro, puis réessaie."
+msgstr ""
+"I didn't hear anything. Speak closer to the microphone, then try again."
+
+#: orientation\test_orientation.py
+msgid "Je préfère une formation courte et pro (BTS…)"
+msgstr "I prefer a short, practical course (HND / BTS…)"
+
+#: templates\interface\_saisie_vocale.html
+msgid "Je t’écoute… clique à nouveau pour terminer"
+msgstr "I'm listening… click again to finish"
+
+#: espace\models.py
+msgid "Jeudi"
+msgstr "Thursday"
+
+#: templates\interface\chat.html
+msgid "Joindre un fichier (photo, PDF, texte)"
+msgstr "Attach a file (photo, PDF, text)"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Jour"
+msgstr "Day"
+
+#: orientation\test_orientation.py
+msgid "Journaliste ou communicant·e"
+msgstr "Journalist or communications officer"
+
+#: orientation\test_orientation.py
+msgid "L'environnement et le climat, pour toi…"
+msgstr "The environment and climate, for you…"
+
+#: orientation\test_orientation.py
+msgid "L'histoire des mathématiques"
+msgstr "The history of mathematics"
+
+#: espace\views.py
+msgid ""
+"L'import utilise OrientIA : ajoute la clé GROQ_API_KEY dans config/.env."
+msgstr "Import uses OrientIA: add the GROQ_API_KEY to config/.env."
+
+#: orientation\test_orientation.py
+msgid "L'économie et les affaires"
+msgstr "Economy and business"
+
+#: orientation\test_orientation.py
+msgid "L'écouter et le rassurer"
+msgstr "Listen and reassure them"
+
+#: templates\communaute\liste.html
+msgid "La communauté en chiffres"
+msgstr "The community in numbers"
+
+#: orientation\test_orientation.py
+msgid "La physique-chimie"
+msgstr "Physics and chemistry"
+
+#: orientation\test_orientation.py
+msgid "La place des femmes dans les médias"
+msgstr "The place of women in the media"
+
+#: templates\base.html
+msgid ""
+"La plateforme d'orientation post-bac au Cameroun. Notre assistant IA "
+"s'appuie sur des documents officiels pour t'aider à choisir ta voie."
+msgstr ""
+"The post-secondary guidance platform for Cameroon. Our AI assistant relies "
+"on official documents to help you choose your path."
+
+#: orientation\test_orientation.py
+msgid "La politique et les relations internationales"
+msgstr "Politics and international relations"
+
+#: orientation\test_orientation.py
+msgid "La santé et les découvertes scientifiques"
+msgstr "Health and scientific discoveries"
+
+#: templates\interface\_saisie_vocale.html
+msgid "La transcription a échoué. Réessaie."
+msgstr "Transcription failed. Try again."
+
+#: templates\orientation\annales.html
+msgid "Lancer le quiz"
+msgstr "Start the quiz"
+
+#: templates\interface\_choix_langue.html
+msgid "Langue"
+msgstr "Language"
+
+#: interface\views.py
+msgid "Langues"
+msgstr "Languages"
+
+#: orientation\test_orientation.py
+msgid "Le fonctionnement d'un moteur ou d'une centrale électrique"
+msgstr "How an engine or a power plant works"
+
+#: orientation\test_orientation.py
+msgid "Le français, l'histoire ou les langues"
+msgstr "Literature, history or languages"
+
+#: orientation\test_orientation.py
+msgid "Le paludisme et comment le soigner"
+msgstr "Malaria and how to treat it"
+
+#: templates\espace\filiere.html
+msgid ""
+"Le programme officiel de cette filière n'est pas encore disponible pour ce "
+"semestre."
+msgstr ""
+"The official curriculum for this programme isn't available for this semester"
+" yet."
+
+#: templates\orientation\concours.html
+msgid "Les"
+msgstr "The"
+
+#: orientation\test_orientation.py
+msgid "Les SVT / la biologie"
+msgstr "Biology"
+
+#: templates\communaute\nouveau.html
+msgid "Les autres élèves et les étudiants de la communauté te répondront."
+msgstr "Other students in the community will answer you."
+
+#: templates\interface\accueil.html
+msgid ""
+"Les dates d'inscription et d'épreuves, avec des rappels pour ne rien rater."
+msgstr ""
+"Registration and exam dates, with reminders so you never miss a thing."
+
+#: templates\orientation\concours.html
+msgid ""
+"Les dates sont publiées chaque année par les écoles et le MINESUP. Vérifie "
+"toujours sur le communiqué officiel."
+msgstr ""
+"Dates are published every year by the schools and MINESUP. Always check the "
+"official announcement."
+
+#: orientation\test_orientation.py
+msgid "Les mathématiques"
+msgstr "Mathematics"
+
+#: templates\interface\accueil.html
+msgid ""
+"Les matières semestre par semestre, les débouchés et les écoles qui forment,"
+" d'après les programmes officiels."
+msgstr ""
+"Subjects semester by semester, career prospects and the schools that teach "
+"them, from the official curricula."
+
+#: templates\orientation\filiere.html
+msgid "Les matières, semestre par semestre"
+msgstr "Subjects, semester by semester"
+
+#: orientation\test_orientation.py
+msgid "Les nouvelles technologies"
+msgstr "New technologies"
+
+#: templates\orientation\annales.html
+msgid ""
+"Les questions sont générées par une IA : elles peuvent contenir des erreurs."
+" Vérifie avec tes cours et les annales officielles."
+msgstr ""
+"Questions are generated by AI: they may contain mistakes. Check them against"
+" your lessons and official past papers."
+
+#: templates\interface\bienvenue.html
+msgid "Les questions suivantes et OrientIA s'adapteront à ta langue."
+msgstr "The next questions and OrientIA will adapt to your language."
+
+#: orientation\views.py
+msgid ""
+"Les quiz utilisent OrientIA : ajoute la clé GROQ_API_KEY dans config/.env."
+msgstr "Quizzes use OrientIA: add the GROQ_API_KEY to config/.env."
+
+#: templates\communaute\liste.html
+msgid "Les règles de l'entraide"
+msgstr "Community rules"
+
+#: orientation\test_orientation.py
+msgid ""
+"Les règles, la justice et le service public t'intéressent : droit, "
+"administration, diplomatie."
+msgstr ""
+"Rules, justice and public service interest you: law, administration, "
+"diplomacy."
+
+#: templates\orientation\ecoles_proches.html
+msgid "Les écoles"
+msgstr "The"
+
+#: orientation\test_orientation.py
+msgid "Les études longues (5 ans ou plus), c'est…"
+msgstr "Long studies (5 years or more) are…"
+
+#: interface\views.py
+msgid "Lettres"
+msgstr "Literature"
+
+#: templates\espace\_grille.html
+msgid "Libre"
+msgstr "Free"
+
+#: orientation\models.py
+msgid "Licence (3 ans)"
+msgstr "Bachelor's degree (3 years)"
+
+#: templates\account\email_confirm.html
+msgid "Lien expiré"
+msgstr "Link expired"
+
+#: interface\limites.py
+msgid ""
+"Limite atteinte pour les visiteurs. Réessaie dans %(minutes)s min, ou crée "
+"un compte gratuit pour en profiter davantage."
+msgstr ""
+"Visitor limit reached. Try again in %(minutes)s min, or create a free "
+"account to use it more."
+
+#: orientation\test_orientation.py
+msgid "Lire, écrire ou regarder des débats"
+msgstr "Reading, writing or watching debates"
+
+#: interface\models.py
+msgid "Littoral"
+msgstr "Littoral"
+
+#: templates\orientation\ecoles_proches.html
+msgid "Localisation…"
+msgstr "Locating…"
+
+#: orientation\test_orientation.py
+msgid "Lui expliquer ses droits et les règles"
+msgstr "Explain their rights and the rules"
+
+#: espace\models.py
+msgid "Lundi"
+msgstr "Monday"
+
+#: espace\services.py
+msgid "Légère"
+msgstr "Light"
+
+#: templates\base.html
+msgid "Ma filière"
+msgstr "My programme"
+
+#: templates\espace\filiere.html
+msgid "Ma formation actuelle"
+msgstr "My current programme"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Ma semaine"
+msgstr "My week"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Ma semaine — formule %(nom)s"
+msgstr "My week — %(nom)s plan"
+
+#: espace\models.py
+msgid "Mardi"
+msgstr "Tuesday"
+
+#: templates\communaute\liste.html
+msgid "Marque la réponse qui t'a le plus aidé comme"
+msgstr "Mark the answer that helped you most as the"
+
+#: orientation\models.py
+msgid "Master (5 ans)"
+msgstr "Master's degree (5 years)"
+
+#: interface\views.py
+msgid "Mathématiques"
+msgstr "Mathematics"
+
+#: templates\espace\suivi.html
+msgid "Matière"
+msgstr "Subject"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Matière / remarque"
+msgstr "Subject / note"
+
+#: templates\orientation\filieres.html
+msgid ""
+"Matières semestre par semestre, débouchés, écoles qui forment : tout pour "
+"choisir ta filière en connaissance de cause."
+msgstr ""
+"Subjects semester by semester, career prospects, schools that teach them: "
+"everything to choose your programme with full knowledge."
+
+#: templates\base.html
+msgid "Matières, débouchés, écoles"
+msgstr "Subjects, careers, schools"
+
+#: templates\orientation\concours.html
+msgid "Me rappeler"
+msgstr "Remind me"
+
+#: templates\communaute\detail.html
+msgid "Meilleure réponse"
+msgstr "Best answer"
+
+#: templates\base.html
+msgid "Menu"
+msgstr "Menu"
+
+#: templates\interface\chat.html
+msgid "Merci ! Cette réponse sera relue pour améliorer OrientIA."
+msgstr "Thanks! This answer will be reviewed to improve OrientIA."
+
+#: communaute\views.py
+msgid "Merci pour ta réponse !"
+msgstr "Thanks for your answer!"
+
+#: templates\interface\chat.html
+msgid "Merci pour ton avis !"
+msgstr "Thanks for your feedback!"
+
+#: communaute\views.py
+msgid "Merci. L'équipe OrientIA va examiner ce signalement."
+msgstr "Thank you. The OrientIA team will review this report."
+
+#: espace\models.py
+msgid "Mercredi"
+msgstr "Wednesday"
+
+#: templates\interface\dashboard.html
+msgid "Mes concours"
+msgstr "My entrance exams"
+
+#: templates\base.html
+msgid "Mes conversations"
+msgstr "My conversations"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Mes créneaux"
+msgstr "My slots"
+
+#: templates\base.html
+msgid "Mes données"
+msgstr "My data"
+
+#: templates\espace\suivi.html
+msgid "Mes démarches d'orientation"
+msgstr "My applications"
+
+#: templates\espace\filiere.html
+msgid "Mes matières du semestre %(n)s"
+msgstr "My semester %(n)s subjects"
+
+#: templates\communaute\messagerie.html
+msgid "Mes messages"
+msgstr "My messages"
+
+#: templates\interface\dashboard.html
+msgid "Mes écoles favorites"
+msgstr "My favourite schools"
+
+#: templates\communaute\messagerie.html
+msgid "Messagerie"
+msgstr "Messaging"
+
+#: templates\base.html
+msgid "Messages"
+msgstr "Messages"
+
+#: templates\base.html
+msgid "Messages non lus"
+msgstr "Unread messages"
+
+#: templates\espace\suivi.html
+msgid "Mettre à jour"
+msgstr "Update"
+
+#: templates\base.html
+msgid "Mode clair / sombre"
+msgstr "Light / dark mode"
+
+#: templates\interface\dashboard.html
+msgid "Modifier"
+msgstr "Edit"
+
+#: templates\base.html
+msgid "Mon compte"
+msgstr "My account"
+
+#: templates\base.html
+msgid "Mon espace"
+msgstr "My dashboard"
+
+#: templates\espace\_onglets.html
+msgid "Mon espace étudiant"
+msgstr "My student space"
+
+#: templates\base.html
+msgid "Mon profil"
+msgstr "My profile"
+
+#: templates\base.html
+msgid "Mon suivi"
+msgstr "My progress"
+
+#: templates\interface\dashboard.html
+msgid "Mon test d'orientation"
+msgstr "My career test"
+
+#: orientation\views.py
+msgid ""
+"Mon test d'orientation montre que je suis fait·e pour le domaine « "
+"%(domaine)s ». Quelles études et quelles écoles me conseilles-tu ?"
+msgstr ""
+"My career test shows I'm suited to the field “%(domaine)s”. Which studies "
+"and schools do you recommend?"
+
+#: orientation\test_orientation.py
+msgid "Monter une ferme moderne ou une pisciculture"
+msgstr "Set up a modern farm or fish farm"
+
+#: templates\interface\connexion.html
+msgid "Mot de passe"
+msgstr "Password"
+
+#: templates\account\password_reset_from_key_done.html
+msgid "Mot de passe modifié"
+msgstr "Password changed"
+
+#: templates\account\_mise_en_page.html
+msgid "Mot de passe oublié"
+msgstr "Forgot password"
+
+#: templates\account\password_reset.html
+msgid "Mot de passe oublié ?"
+msgstr "Forgot your password?"
+
+#: templates\espace\suivi.html
+msgid "Moyenne"
+msgstr "Average"
+
+#: orientation\test_orientation.py
+msgid "Médecin, pharmacien·ne ou infirmier·ère"
+msgstr "Doctor, pharmacist or nurse"
+
+#: interface\views.py
+msgid "Méthode non autorisée"
+msgstr "Method not allowed"
+
+#: templates\communaute\liste.html
+msgid "Ne partage jamais ton numéro ou tes mots de passe."
+msgstr "Never share your phone number or passwords."
+
+#: templates\orientation\filieres.html
+msgid "Niveau"
+msgstr "Level"
+
+#: templates\interface\inscription.html
+msgid "Nom d'utilisateur"
+msgstr "Username"
+
+#: templates\orientation\comparateur.html
+msgid "Non renseigné"
+msgstr "Not provided"
+
+#: templates\orientation\comparateur.html
+msgid "Non renseignée"
+msgstr "Not provided"
+
+#: templates\orientation\comparateur.html
+msgid "Non renseignés"
+msgstr "Not provided"
+
+#: espace\models.py
+msgid "Non retenu·e"
+msgstr "Not admitted"
+
+#: interface\models.py
+msgid "Nord"
+msgstr "North"
+
+#: interface\models.py
+msgid "Nord-Ouest"
+msgstr "North-West"
+
+#: templates\espace\suivi.html
+msgid "Note /20"
+msgstr "Grade /20"
+
+#: espace\views.py
+msgid "Note ajoutée."
+msgstr "Grade added."
+
+#: espace\views.py
+msgid "Note invalide : elle doit être comprise entre 0 et 20."
+msgstr "Invalid grade: it must be between 0 and 20."
+
+#: templates\espace\suivi.html
+msgid "Notes et moyennes"
+msgstr "Grades and averages"
+
+#: templates\base.html
+msgid "Nous écrire"
+msgstr "Write to us"
+
+#: templates\account\password_reset_from_key.html
+msgid "Nouveau mot de passe"
+msgstr "New password"
+
+#: templates\orientation\annales.html
+msgid "Nouveau quiz"
+msgstr "New quiz"
+
+#: templates\interface\chat.html
+msgid "Nouvelle conversation"
+msgstr "New conversation"
+
+#: templates\orientation\filiere.html
+msgid "Objectif de la formation"
+msgstr "Programme objective"
+
+#: templates\espace\suivi.html
+msgid "Objectifs et tâches"
+msgstr "Goals and tasks"
+
+#: templates\orientation\ecoles_proches.html
+msgid "On cherche les écoles autour de toi…"
+msgstr "Finding schools around you…"
+
+#: templates\interface\bienvenue.html
+msgid "On passe à ta langue…"
+msgstr "Switching to your language…"
+
+#: orientation\test_orientation.py
+msgid "Organise et répartit les tâches"
+msgstr "Organises and shares out the tasks"
+
+#: templates\interface\connexion.html
+msgid "OrientIA disponible"
+msgstr "OrientIA available"
+
+#: templates\orientation\resultat_test.html
+msgid ""
+"OrientIA en tient compte pour te conseiller des filières et des écoles "
+"proches de chez toi."
+msgstr "OrientIA uses it to suggest programmes and schools near you."
+
+#: templates\interface\accueil.html
+msgid "OrientIA est en ligne, gratuitement"
+msgstr "OrientIA is online, for free"
+
+#: interface\views.py
+msgid ""
+"OrientIA est momentanément indisponible. Réessaie dans quelques secondes."
+msgstr "OrientIA is temporarily unavailable. Try again in a few seconds."
+
+#: templates\espace\emploi_du_temps.html
+msgid "OrientIA lit ton emploi du temps…"
+msgstr "OrientIA is reading your timetable…"
+
+#: orientation\views.py
+msgid "OrientIA n'a pas pu préparer le quiz. Réessaie dans quelques secondes."
+msgstr "OrientIA couldn't prepare the quiz. Try again in a few seconds."
+
+#: espace\views.py
+msgid ""
+"OrientIA n'a pas réussi à lire ton emploi du temps. Réessaie ou ajoute les "
+"créneaux à la main."
+msgstr ""
+"OrientIA couldn't read your timetable. Try again or add the slots manually."
+
+#: interface\views.py
+msgid ""
+"OrientIA n'est pas encore configuré : la clé GROQ_API_KEY est vide dans "
+"config/.env."
+msgstr ""
+"OrientIA is not configured yet: the GROQ_API_KEY is empty in config/.env."
+
+#: templates\interface\chat.html
+msgid ""
+"OrientIA peut se tromper : vérifie les informations importantes auprès des "
+"écoles. Tes questions et fichiers sont traités par Groq (États-Unis) : n'y "
+"mets pas d'informations sensibles."
+msgstr ""
+"OrientIA can make mistakes: check important information with the schools. "
+"Your questions and files are processed by Groq (United States): don't "
+"include sensitive information."
+
+#: templates\communaute\detail.html
+msgid ""
+"OrientIA peut te répondre tout de suite à partir des documents officiels."
+msgstr "OrientIA can answer you right away using official documents."
+
+#: templates\orientation\annales.html
+msgid "OrientIA prépare ton quiz de %s…"
+msgstr "OrientIA is preparing your %s quiz…"
+
+#: templates\interface\chat.html
+msgid "OrientIA réfléchit…"
+msgstr "OrientIA is thinking…"
+
+#: templates\interface\accueil.html
+msgid ""
+"OrientIA te répond avec les documents officiels et te guide vers les bons "
+"établissements."
+msgstr ""
+"OrientIA answers using official documents and guides you to the right "
+"institutions."
+
+#: templates\orientation\filiere.html
+msgid "OrientIA te répond à partir des documents officiels."
+msgstr "OrientIA answers you using official documents."
+
+#: templates\interface\accueil.html
+msgid "OrientIA toujours disponible"
+msgstr "OrientIA always available"
+
+#: templates\orientation\annales.html
+msgid "OrientIA — Annales et quiz"
+msgstr "OrientIA — Past papers & quizzes"
+
+#: templates\orientation\concours.html
+msgid "OrientIA — Calendrier des concours"
+msgstr "OrientIA — Entrance exam calendar"
+
+#: templates\communaute\liste.html
+msgid "OrientIA — Communauté"
+msgstr "OrientIA — Community"
+
+#: templates\orientation\comparateur.html
+msgid "OrientIA — Comparer des écoles"
+msgstr "OrientIA — Compare schools"
+
+#: templates\orientation\filieres.html
+msgid "OrientIA — Fiches filières"
+msgstr "OrientIA — Programme guides"
+
+#: templates\interface\dashboard.html
+msgid "OrientIA — Mon espace"
+msgstr "OrientIA — My dashboard"
+
+#: templates\interface\chat.html
+msgid "OrientIA — Parler à OrientIA"
+msgstr "OrientIA — Talk to OrientIA"
+
+#: templates\communaute\nouveau.html
+msgid "OrientIA — Poser une question"
+msgstr "OrientIA — Ask a question"
+
+#: templates\orientation\test.html
+msgid "OrientIA — Test d'orientation"
+msgstr "OrientIA — Career test"
+
+#: templates\orientation\resultat_test.html
+msgid "OrientIA — Ton résultat"
+msgstr "OrientIA — Your result"
+
+#: templates\interface\accueil.html
+msgid "OrientIA — Trouve ta voie après le bac"
+msgstr "OrientIA — Find your path after secondary school"
+
+#: templates\orientation\ecoles_proches.html
+msgid "OrientIA — Écoles pour toi"
+msgstr "OrientIA — Schools for you"
+
+#: templates\interface\carte.html
+msgid "OrientIA — Établissements"
+msgstr "OrientIA — Institutions"
+
+#: templates\interface\accueil.html
+msgid "OrientIA, ton assistant IA"
+msgstr "OrientIA, your AI assistant"
+
+#: templates\base.html
+msgid ""
+"OrientIA, ton assistant IA, t'aide à choisir ta filière après le bac au "
+"Cameroun."
+msgstr ""
+"OrientIA, your AI assistant, helps you choose your programme after secondary"
+" school in Cameroon."
+
+#: templates\interface\connexion.html
+msgid ""
+"OrientIA, ton assistant d'orientation, s'appuie sur des documents officiels "
+"pour t'aider à choisir sereinement."
+msgstr ""
+"OrientIA, your guidance assistant, relies on official documents to help you "
+"choose with peace of mind."
+
+#: templates\base.html
+msgid "Orientation"
+msgstr "Guidance"
+
+#: templates\base.html
+msgid "Orientation post-bac au Cameroun"
+msgstr "Post-secondary guidance in Cameroon"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Ou décris tes cours et disponibilités"
+msgstr "Or describe your classes and free time"
+
+#: interface\models.py
+msgid "Ouest"
+msgstr "West"
+
+#: templates\orientation\concours.html
+msgid "Ouverture"
+msgstr "Opening"
+
+#: orientation\models.py
+msgid "Ouverture des inscriptions"
+msgstr "Registration opens"
+
+#: templates\interface\dashboard.html
+msgid "Ouvrir le comparateur"
+msgstr "Open the comparison tool"
+
+#: orientation\test_orientation.py
+msgid "Ouvrir ma propre entreprise ou mon commerce"
+msgstr "Start my own business or shop"
+
+#: templates\espace\filiere.html
+msgid "Où en es-tu ?"
+msgstr "Where are you at?"
+
+#: templates\orientation\filiere.html
+msgid "Où l'étudier ?"
+msgstr "Where to study it?"
+
+#: templates\interface\accueil.html
+msgid "Parle-nous de toi"
+msgstr "Tell us about yourself"
+
+#: templates\base.html
+msgid "Parler à OrientIA"
+msgstr "Talk to OrientIA"
+
+#: templates\communaute\detail.html
+msgid "Partage ton expérience ou une information fiable…"
+msgstr "Share your experience or reliable information…"
+
+#: templates\espace\emploi_du_temps.html
+msgid ""
+"Pas assez de temps libre pour cette formule. Ajoute des disponibilités."
+msgstr "Not enough free time for this plan. Add more free time."
+
+#: templates\interface\hors_ligne.html
+msgid "Pas de connexion pour le moment"
+msgstr "No connection right now"
+
+#: templates\account\_mise_en_page.html
+msgid "Pas de panique"
+msgstr "Don't panic"
+
+#: templates\interface\bienvenue.html
+msgid "Pas de souci, OrientIA t’aidera à trouver !"
+msgstr "No worries, OrientIA will help you find one!"
+
+#: templates\interface\bienvenue.html
+msgid "Pas encore d'idée"
+msgstr "No idea yet"
+
+#: templates\interface\connexion.html
+msgid "Pas encore de compte ?"
+msgstr "No account yet?"
+
+#: templates\orientation\filiere.html
+msgid "Pas encore de question sur cette filière. Lance la discussion !"
+msgstr "No questions about this programme yet. Start the conversation!"
+
+#: templates\communaute\detail.html
+msgid "Pas encore de réponse. Tu connais la réponse ? Aide ce bachelier !"
+msgstr "No answers yet. Know the answer? Help this student!"
+
+#: orientation\test_orientation.py
+msgid "Pas spécialement mon sujet"
+msgstr "Not really my thing"
+
+#: orientation\test_orientation.py
+msgid "Pas un problème si c'est pour un beau métier"
+msgstr "Not a problem if it leads to a great job"
+
+#: templates\interface\bienvenue.html
+msgid "Passer"
+msgstr "Skip"
+
+#: orientation\test_orientation.py
+msgid "Passionne, j'adore les défis logiques"
+msgstr "Excites me, I love logic challenges"
+
+#: orientation\test_orientation.py
+msgid "Pendant ton temps libre, tu préfères…"
+msgstr "In your free time, you prefer…"
+
+#: interface\views.py
+msgid "Physique-Chimie"
+msgstr "Physics & Chemistry"
+
+#: templates\orientation\comparateur.html
+msgid "Places par an"
+msgstr "Places per year"
+
+#: templates\base.html
+msgid "Plateforme"
+msgstr "Platform"
+
+#: orientation\test_orientation.py
+msgid "Plaît si ça sert à quelque chose de concret"
+msgstr "Is fine if it's useful for something concrete"
+
+#: templates\interface\bienvenue.html
+msgid "Plus OrientIA te connaît, mieux il te conseille"
+msgstr "The better OrientIA knows you, the better its advice"
+
+#: templates\interface\mes_donnees.html
+msgid "Politique de confidentialité"
+msgstr "Privacy policy"
+
+#: templates\interface\accueil.html
+msgid ""
+"Pose ta première question à OrientIA, c'est gratuit et sans engagement."
+msgstr ""
+"Ask OrientIA your first question, it's free and there's no commitment."
+
+#: templates\interface\chat.html
+msgid ""
+"Pose ta question : OrientIA s'appuie sur des documents officiels pour te "
+"répondre."
+msgstr ""
+"Ask your question: OrientIA relies on official documents to answer you."
+
+#: templates\interface\accueil.html
+msgid "Pose tes questions"
+msgstr "Ask your questions"
+
+#: templates\communaute\liste.html
+msgid ""
+"Pose tes questions aux autres élèves et aux étudiants, partage ce que tu "
+"sais."
+msgstr "Ask other students your questions and share what you know."
+
+#: templates\interface\dashboard.html
+msgid "Pose tes questions sur les filières, les débouchés et les admissions."
+msgstr "Ask about programmes, careers and admissions."
+
+#: templates\interface\accueil.html
+msgid ""
+"Pose tes questions sur les filières, les débouchés et les conditions "
+"d'admission, comme à une conseillère."
+msgstr ""
+"Ask about programmes, careers and admission requirements, just like you "
+"would a guidance counsellor."
+
+#: templates\interface\inscription.html
+msgid "Pose tes questions à OrientIA"
+msgstr "Ask OrientIA your questions"
+
+#: templates\interface\accueil.html
+msgid ""
+"Pose tes questions à OrientIA, ton assistant d'orientation. Il s'appuie sur "
+"les documents officiels pour te parler filières, débouchés et établissements"
+" au Cameroun."
+msgstr ""
+"Ask OrientIA, your guidance assistant. It relies on official documents to "
+"tell you about programmes, careers and institutions in Cameroon."
+
+#: templates\communaute\detail.html
+msgid "Poser cette question à OrientIA"
+msgstr "Ask OrientIA this question"
+
+#: templates\communaute\liste.html
+msgid "Poser une question"
+msgstr "Ask a question"
+
+#: templates\interface\carte.html
+msgid "Position approximative (centre de la ville ou de la région)"
+msgstr "Approximate position (centre of the town or region)"
+
+#: templates\orientation\ecoles_proches.html
+msgid "Position indisponible"
+msgstr "Location unavailable"
+
+#: templates\orientation\ecoles_proches.html
+msgid "Position refusée"
+msgstr "Location denied"
+
+#: espace\services.py
+msgid ""
+"Pour les périodes d'examens ou de concours : des séances longues et plus "
+"nombreuses."
+msgstr "For exam or entrance-exam periods: longer and more frequent sessions."
+
+#: communaute\moderation.py
+msgid ""
+"Pour protéger les plus jeunes, les messages privés entre adultes et mineurs "
+"sont réservés aux membres vérifiés par l'équipe OrientIA. Tu peux poser ta "
+"question publiquement dans la communauté."
+msgstr ""
+"To protect younger members, private messages between adults and minors are "
+"limited to members verified by the OrientIA team. You can ask your question "
+"publicly in the community."
+
+#: templates\orientation\ecoles_proches.html
+msgid "Pour trier par distance, clique sur « Utiliser ma position »"
+msgstr "To sort by distance, click “Use my location”"
+
+#: templates\interface\accueil.html
+msgid "Pourquoi OrientIA"
+msgstr "Why OrientIA"
+
+#: communaute\views.py
+msgid "Pourquoi signales-tu ce contenu ?"
+msgstr "Why are you reporting this?"
+
+#: orientation\test_orientation.py
+msgid ""
+"Prendre soin des autres te motive : médecine, pharmacie, soins infirmiers, "
+"laboratoires."
+msgstr ""
+"Caring for others drives you: medicine, pharmacy, nursing, laboratories."
+
+#: etablissements\models.py
+msgid "Privé"
+msgstr "Private"
+
+#: orientation\models.py
+msgid "Professionnelle"
+msgstr "Professional"
+
+#: templates\interface\dashboard.html
+msgid "Profil"
+msgstr "Profile"
+
+#: templates\interface\bienvenue.html
+msgid "Profil complété"
+msgstr "Profile completed"
+
+#: templates\interface\dashboard.html
+msgid "Projet après le bac"
+msgstr "Plans after secondary school"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Proposer des emplois du temps"
+msgstr "Suggest timetables"
+
+#: communaute\views.py
+msgid "Précisions (facultatif)"
+msgstr "Details (optional)"
+
+#: templates\interface\bienvenue.html
+msgid "Précédent"
+msgstr "Back"
+
+#: templates\interface\bienvenue.html
+msgid "Préparation de ton espace…"
+msgstr "Setting up your dashboard…"
+
+#: orientation\test_orientation.py
+msgid "Prépare les tableaux, schémas et documents sur ordinateur"
+msgstr "Prepares tables, diagrams and documents on the computer"
+
+#: templates\orientation\annales.html
+msgid "Prépare tes"
+msgstr "Prepare for your"
+
+#: orientation\test_orientation.py
+msgid "Présente le travail devant la classe"
+msgstr "Presents the work to the class"
+
+#: templates\interface\accueil.html
+msgid "Prêt à trouver ta voie ?"
+msgstr "Ready to find your path?"
+
+#: templates\interface\dashboard.html
+msgid "Prêt·e à avancer sur ton orientation aujourd'hui ?"
+msgstr "Ready to move forward with your plans today?"
+
+#: etablissements\models.py
+msgid "Public"
+msgstr "Public"
+
+#: templates\communaute\nouveau.html
+msgid "Publication de ta question…"
+msgstr "Posting your question…"
+
+#: communaute\models.py
+msgid "Publicité ou spam"
+msgstr "Advertising or spam"
+
+#: templates\communaute\nouveau.html
+msgid "Publier ma question"
+msgstr "Post my question"
+
+#: templates\communaute\detail.html
+msgid "Publier ma réponse"
+msgstr "Post my answer"
+
+#: templates\interface\chat.html
+msgid "Qu'est-ce qu'un IPES ?"
+msgstr "What is an IPES (private institution)?"
+
+#: templates\interface\bienvenue.html
+msgid "Qu'est-ce qui te plaît ?"
+msgstr "What do you enjoy?"
+
+#: templates\interface\chat.html
+msgid "Que peux-tu me dire sur ce document pour mon orientation ?"
+msgstr "What can you tell me about this document for my studies?"
+
+#: orientation\test_orientation.py
+msgid "Quel métier te fait le plus rêver ?"
+msgstr "Which job do you dream of most?"
+
+#: orientation\test_orientation.py
+msgid "Quel projet aimerais-tu mener ?"
+msgstr "Which project would you like to lead?"
+
+#: orientation\test_orientation.py
+msgid "Quelle actualité lis-tu en premier ?"
+msgstr "Which news do you read first?"
+
+#: templates\interface\bienvenue.html
+msgid "Quelle est ta combinaison au GCE A Level ?"
+msgstr "What is your GCE A Level combination?"
+
+#: templates\interface\bienvenue.html
+msgid "Quelle est ta série de bac ?"
+msgstr "What is your Bac series?"
+
+#: templates\interface\chat.html
+msgid "Quelles filières après un bac C ?"
+msgstr "Which programmes after a Bac C?"
+
+#: interface\views.py
+msgid "Quelles écoles après %(diplome)s ?"
+msgstr "Which schools after %(diplome)s?"
+
+#: templates\interface\bienvenue.html
+msgid ""
+"Quelques questions rapides pour qu'OrientIA te connaisse. Tout est "
+"facultatif et modifiable plus tard."
+msgstr ""
+"A few quick questions so OrientIA gets to know you. Everything is optional "
+"and can be changed later."
+
+#: templates\interface\chat.html
+msgid "Quels BTS existent en informatique ?"
+msgstr "Which HND / BTS exist in computer science?"
+
+#: templates\orientation\test.html
+msgid "Quels domaines"
+msgstr "Which fields"
+
+#: interface\views.py
+msgid "Quels métiers en %(domaine)s ?"
+msgstr "Which careers in %(domaine)s?"
+
+#: templates\orientation\test.html
+msgid "Question"
+msgstr "Question"
+
+#: interface\views.py
+msgid "Question vide"
+msgstr "Empty question"
+
+#: templates\orientation\comparateur.html
+msgid "Questions de la communauté"
+msgstr "Community questions"
+
+#: templates\orientation\filiere.html
+msgid "Questions des élèves"
+msgstr "Students' questions"
+
+#: templates\communaute\detail.html
+msgid "Questions sur la même filière"
+msgstr "Questions about the same programme"
+
+#: templates\orientation\ecoles_proches.html
+msgid "Qui proposent"
+msgstr "Offering"
+
+#: templates\orientation\annales.html
+msgid "Quiz d'entraînement"
+msgstr "Practice quiz"
+
+#: templates\orientation\concours.html
+msgid "Rappels activés"
+msgstr "Reminders on"
+
+#: templates\account\password_reset.html
+msgid "Recevoir le lien"
+msgstr "Send me the link"
+
+#: templates\account\password_reset_from_key.html
+msgid "Recevoir un nouveau lien"
+msgstr "Get a new link"
+
+#: templates\interface\carte.html
+msgid ""
+"Recherche une école, filtre par type et situe-la sur la carte du Cameroun."
+msgstr ""
+"Search for a school, filter by type and locate it on the map of Cameroon."
+
+#: templates\communaute\liste.html
+msgid "Rechercher"
+msgstr "Search"
+
+#: templates\interface\carte.html
+msgid "Rechercher un établissement, une ville…"
+msgstr "Search for an institution, a city…"
+
+#: templates\communaute\liste.html
+msgid "Rechercher une question…"
+msgstr "Search questions…"
+
+#: templates\interface\dashboard.html
+msgid "Refaire le test"
+msgstr "Retake the test"
+
+#: templates\account\password_reset_done.html
+msgid "Regarde tes emails"
+msgstr "Check your email"
+
+#: templates\interface\dashboard.html
+msgid "Rejoindre"
+msgstr "Join"
+
+#: templates\interface\inscription.html
+msgid "Rejoins la communauté OrientIA"
+msgstr "Join the OrientIA community"
+
+#: templates\espace\filiere.html
+msgid "Remarque"
+msgstr "Note"
+
+#: templates\account\password_reset_done.html
+msgid "Renvoyer un lien"
+msgstr "Send another link"
+
+#: templates\interface\historique_chat.html
+msgid "Reprendre"
+msgstr "Resume"
+
+#: interface\views.py
+msgid "Requête invalide."
+msgstr "Invalid request."
+
+#: templates\communaute\conversation.html
+msgid ""
+"Reste prudent·e : ne partage jamais ton mot de passe ni d'informations "
+"bancaires."
+msgstr "Stay safe: never share your password or banking details."
+
+#: templates\communaute\detail.html
+msgid "Retirer"
+msgstr "Remove"
+
+#: templates\espace\filiere.html
+msgid "Retirer ce vœu"
+msgstr "Remove this choice"
+
+#: templates\interface\chat.html
+msgid "Retirer le fichier"
+msgstr "Remove file"
+
+#: templates\communaute\signaler.html
+msgid "Retour"
+msgstr "Back"
+
+#: templates\communaute\membre.html
+msgid "Retour à la communauté"
+msgstr "Back to the community"
+
+#: templates\account\_mise_en_page.html
+msgid "Retour à la connexion"
+msgstr "Back to login"
+
+#: templates\interface\accueil.html
+msgid ""
+"Retrouve les écoles et instituts du supérieur, recherche par nom ou par "
+"ville, et situe-les en un clic."
+msgstr ""
+"Find higher education schools and institutes, search by name or city, and "
+"locate them in one click."
+
+#: templates\interface\historique_chat.html
+msgid ""
+"Retrouve tes échanges avec OrientIA et reprends-les là où tu t'étais "
+"arrêté·e."
+msgstr "Find your conversations with OrientIA and pick up where you left off."
+
+#: templates\communaute\liste.html
+msgid "Récentes"
+msgstr "Recent"
+
+#: templates\interface\hors_ligne.html
+msgid "Réessayer"
+msgstr "Try again"
+
+#: templates\interface\dashboard.html
+msgid "Région"
+msgstr "Region"
+
+#: orientation\views.py
+msgid "Réponds au moins à la moitié des questions pour obtenir un résultat."
+msgstr "Answer at least half of the questions to get a result."
+
+#: templates\interface\chat.html
+msgid "Réponse pas utile"
+msgstr "Unhelpful answer"
+
+#: templates\interface\chat.html
+msgid "Réponse utile"
+msgstr "Helpful answer"
+
+#: templates\interface\accueil.html
+msgid "Réponses vérifiables"
+msgstr "Verifiable answers"
+
+#: templates\communaute\liste.html
+msgid "Résolues"
+msgstr "Solved"
+
+#: orientation\test_orientation.py
+msgid "Résoudre une équation difficile, ça te…"
+msgstr "Solving a hard equation…"
+
+#: templates\orientation\resultat_test.html
+msgid "Résultat enregistré dans ton profil"
+msgstr "Result saved to your profile"
+
+#: templates\espace\emploi_du_temps.html
+msgid "Révision"
+msgstr "Study"
+
+#: templates\base.html
+msgid "S'inscrire"
+msgstr "Sign up"
+
+#: templates\interface\inscription.html
+msgid "S'inscrire avec Google"
+msgstr "Sign up with Google"
+
+#: espace\models.py
+msgid "Samedi"
+msgstr "Saturday"
+
+#: templates\communaute\liste.html
+msgid "Sans réponse"
+msgstr "Unanswered"
+
+#: orientation\models.py
+msgid "Santé"
+msgstr "Health"
+
+#: interface\views.py
+msgid "Santé / Médecine"
+msgstr "Health / Medicine"
+
+#: orientation\models.py
+msgid "Sciences fondamentales"
+msgstr "Pure sciences"
+
+#: templates\orientation\annales.html
+msgid "Score :"
+msgstr "Score:"
+
+#: templates\account\password_reset_from_key_done.html
+msgid "Se connecter"
+msgstr "Log in"
+
+#: templates\communaute\membre.html
+msgid "Se connecter pour écrire"
+msgstr "Log in to write"
+
+#: templates\base.html
+msgid "Se déconnecter"
+msgstr "Log out"
+
+#: templates\espace\suivi.html
+msgid "Sem."
+msgstr "Sem."
+
+#: templates\espace\suivi.html
+msgid "Semestre"
+msgstr "Semester"
+
+#: templates\espace\filiere.html
+msgid "Semestre en cours"
+msgstr "Current semester"
+
+#: templates\espace\filiere.html
+msgid "Semestres disponibles :"
+msgstr "Available semesters:"
+
+#: templates\communaute\membre.html
+msgid "Ses questions"
+msgstr "Their questions"
+
+#: communaute\views.py
+msgid "Seul l'auteur de la question peut choisir la meilleure réponse."
+msgstr "Only the person who asked can choose the best answer."
+
+#: orientation\test_orientation.py
+msgid "Si tu gagnais un stage d'été, tu irais…"
+msgstr "If you won a summer internship, you'd go…"
+
+#: templates\account\password_reset_done.html
+msgid ""
+"Si un compte existe avec cette adresse, tu vas recevoir un lien pour choisir"
+" un nouveau mot de passe. Il peut mettre quelques minutes à arriver : pense "
+"à regarder dans tes spams."
+msgstr ""
+"If an account exists with this address, you'll receive a link to choose a "
+"new password. It may take a few minutes: remember to check your spam folder."
+
+#: templates\communaute\detail.html
+msgid "Signaler"
+msgstr "Report"
+
+#: templates\communaute\conversation.html
+msgid "Signaler ce message"
+msgstr "Report this message"
+
+#: templates\communaute\signaler.html
+msgid "Signaler à l'équipe OrientIA"
+msgstr "Report to the OrientIA team"
+
+#: templates\orientation\concours.html
+msgid "Site officiel"
+msgstr "Official website"
+
+#: templates\orientation\comparateur.html
+msgid "Site web"
+msgstr "Website"
+
+#: orientation\test_orientation.py
+msgid "Soigner ou prendre soin des autres"
+msgstr "Treating or caring for others"
+
+#: templates\communaute\liste.html
+msgid "Sois bienveillant·e : tout le monde a commencé un jour."
+msgstr "Be kind: everyone was a beginner once."
+
+#: templates\orientation\filiere.html
+msgid "Source :"
+msgstr "Source:"
+
+#: templates\base.html
+msgid "Sources MINESUP"
+msgstr "MINESUP sources"
+
+#: templates\interface\accueil.html
+msgid "Sources officielles"
+msgstr "Official sources"
+
+#: templates\orientation\comparateur.html
+msgid "Statut"
+msgstr "Status"
+
+#: interface\models.py
+msgid "Sud"
+msgstr "South"
+
+#: interface\models.py
+msgid "Sud-Ouest"
+msgstr "South-West"
+
+#: templates\interface\bienvenue.html
+msgid "Suivant"
+msgstr "Next"
+
+#: templates\orientation\annales.html
+msgid "Sujet"
+msgstr "Paper"
+
+#: interface\donnees.py
+msgid ""
+"Suppression annulée : tape SUPPRIMER et ton mot de passe pour confirmer."
+msgstr "Deletion cancelled: type DELETE and your password to confirm."
+
+#: templates\espace\emploi_du_temps.html
+msgid "Supprimer"
+msgstr "Delete"
+
+#: templates\interface\historique_chat.html
+msgid "Supprimer cette conversation ?"
+msgstr "Delete this conversation?"
+
+#: templates\interface\mes_donnees.html
+msgid "Supprimer définitivement ton compte ?"
+msgstr "Permanently delete your account?"
+
+#: templates\interface\mes_donnees.html
+msgid "Supprimer mon compte"
+msgstr "Delete my account"
+
+#: etablissements\models.py
+msgid "Sur concours"
+msgstr "By entrance exam"
+
+#: orientation\test_orientation.py
+msgid "Sur le terrain, en plein air"
+msgstr "In the field, outdoors"
+
+#: etablissements\models.py
+msgid "Sur étude de dossier"
+msgstr "By application review"
+
+#: templates\interface\dashboard.html
+msgid "Série du bac"
+msgstr "Bac series / GCE"
+
+#: templates\orientation\filiere.html
+msgid "Séries conseillées"
+msgstr "Recommended series"
+
+#: espace\models.py
+msgid "TP"
+msgstr "Practical"
+
+#: espace\views.py
+msgid "Ta filière est enregistrée."
+msgstr "Your programme has been saved."
+
+#: orientation\test_orientation.py
+msgid "Ta matière préférée au lycée, c'est plutôt…"
+msgstr "Your favourite subject at school is…"
+
+#: communaute\views.py
+msgid "Ta question"
+msgstr "Your question"
+
+#: communaute\views.py
+msgid "Ta question est en ligne ! Les autres élèves vont pouvoir te répondre."
+msgstr "Your question is live! Other students can now answer you."
+
+#: templates\communaute\detail.html
+msgid "Ta réponse"
+msgstr "Your answer"
+
+#: communaute\views.py
+msgid "Ta réponse est vide."
+msgstr "Your answer is empty."
+
+#: templates\interface\chat.html
+msgid "Ta session a expiré. Recharge la page puis réessaie."
+msgstr "Your session has expired. Reload the page and try again."
+
+#: templates\interface\bienvenue.html
+msgid ""
+"Ta série, tes centres d'intérêt et ton projet l'aident à te proposer des "
+"filières et des établissements qui te correspondent vraiment."
+msgstr ""
+"Your subjects, interests and plans help it suggest programmes and "
+"institutions that truly suit you."
+
+#: templates\interface\accueil.html
+msgid "Ta série, tes matières préférées, ta région. Tout est facultatif."
+msgstr "Your subjects, favourite topics, region. Everything is optional."
+
+#: templates\espace\_onglets.html
+msgid "Tableau de bord"
+msgstr "Dashboard"
+
+#: templates\interface\mes_donnees.html
+msgid "Tape SUPPRIMER pour confirmer"
+msgstr "Type DELETE to confirm"
+
+#: templates\interface\bienvenue.html
+msgid "Terminer"
+msgstr "Finish"
+
+#: orientation\models.py
+msgid "Terminé"
+msgstr "Over"
+
+#: templates\orientation\resultat_test.html
+msgid "Tes autres domaines"
+msgstr "Your other fields"
+
+#: templates\orientation\resultat_test.html
+msgid "Tes domaines"
+msgstr "Your"
+
+#: templates\interface\mes_donnees.html
+msgid ""
+"Tes données t'appartiennent : télécharge-les ou supprime ton compte quand tu"
+" veux."
+msgstr ""
+"Your data belongs to you: download it or delete your account whenever you "
+"want."
+
+#: templates\espace\suivi.html
+msgid ""
+"Tes notes, l'avancement de tes matières, tes objectifs et tes démarches, au "
+"même endroit."
+msgstr ""
+"Your grades, subject progress, goals and applications, all in one place."
+
+#: templates\base.html
+msgid "Test d'orientation"
+msgstr "Career test"
+
+#: templates\orientation\ecoles_proches.html
+msgid "Toi"
+msgstr "You"
+
+#: templates\communaute\messagerie.html
+msgid "Toi :"
+msgstr "You:"
+
+#: templates\interface\bienvenue.html
+msgid "Ton année de naissance"
+msgstr "Your year of birth"
+
+#: interface\donnees.py
+msgid ""
+"Ton compte et toutes tes données ont été supprimés. Bonne continuation !"
+msgstr "Your account and all your data have been deleted. All the best!"
+
+#: espace\views.py
+msgid "Ton emploi du temps « %(nom)s » est enregistré !"
+msgstr "Your “%(nom)s” timetable has been saved!"
+
+#: templates\communaute\conversation.html
+msgid "Ton message…"
+msgstr "Your message…"
+
+#: templates\interface\mes_donnees.html
+msgid "Ton mot de passe"
+msgstr "Your password"
+
+#: templates\interface\_saisie_vocale.html
+msgid ""
+"Ton navigateur ne permet pas d’enregistrer la voix (utilise Chrome, Edge ou "
+"Firefox récent)."
+msgstr ""
+"Your browser can't record audio (use a recent Chrome, Edge or Firefox)."
+
+#: templates\interface\bienvenue.html
+msgid "Ton projet, en quelques mots"
+msgstr "Your plan, in a few words"
+
+#: templates\orientation\resultat_test.html
+msgid "Ton résultat"
+msgstr "Your result"
+
+#: templates\communaute\signaler.html
+msgid ""
+"Ton signalement reste anonyme : la personne concernée ne saura pas qui l'a "
+"fait."
+msgstr ""
+"Your report stays anonymous: the person concerned won't know who made it."
+
+#: espace\views.py
+msgid "Ton vœu n°%(rang)s est enregistré."
+msgstr "Your choice #%(rang)s has been saved."
+
+#: templates\interface\carte.html
+msgid "Tous"
+msgstr "All"
+
+#: interface\views.py
+msgid "Tous les champs sont obligatoires."
+msgstr "All fields are required."
+
+#: templates\orientation\annales.html
+msgid "Tous les concours"
+msgstr "All entrance exams"
+
+#: templates\communaute\liste.html
+msgid "Tous les domaines"
+msgstr "All fields"
+
+#: templates\orientation\filieres.html
+msgid "Tous les niveaux"
+msgstr "All levels"
+
+#: templates\communaute\conversation.html
+msgid "Tous mes messages"
+msgstr "All my messages"
+
+#: templates\interface\accueil.html
+msgid "Tout ce qu'il te faut pour bien t'orienter"
+msgstr "Everything you need to choose well"
+
+#: templates\interface\mes_donnees.html
+msgid ""
+"Tout sera effacé définitivement : profil, notes, emploi du temps, "
+"conversations, questions, réponses et messages. Cette action est "
+"irréversible."
+msgstr ""
+"Everything will be permanently erased: profile, grades, timetable, "
+"conversations, questions, answers and messages. This cannot be undone."
+
+#: templates\orientation\ecoles_proches.html
+msgid "Toutes filières confondues"
+msgstr "All programmes"
+
+#: templates\orientation\filiere.html
+msgid "Toutes les filières"
+msgstr "All programmes"
+
+#: templates\communaute\detail.html
+msgid "Toutes les questions"
+msgstr "All questions"
+
+#: templates\espace\suivi.html
+msgid "Toutes mes notes"
+msgstr "All my grades"
+
+#: templates\interface\accueil.html
+msgid "Toutes séries de bac"
+msgstr "All Bac series & GCE"
+
+#: templates\interface\_saisie_vocale.html
+msgid "Transcription…"
+msgstr "Transcribing…"
+
+#: orientation\test_orientation.py
+msgid "Transmettre te plaît : enseignement général ou technique, formation."
+msgstr ""
+"You enjoy passing on knowledge: general or technical teaching, training."
+
+#: orientation\models.py
+msgid "Transversale"
+msgstr "Cross-cutting"
+
+#: interface\views.py
+msgid "Travailler dans la santé"
+msgstr "Work in healthcare"
+
+#: templates\orientation\filiere.html
+msgid "Triées par distance depuis"
+msgstr "Sorted by distance from"
+
+#: templates\interface\accueil.html
+msgid "Trois étapes, c'est tout"
+msgstr "Three steps, that's all"
+
+#: templates\interface\accueil.html
+msgid "Trouve ta voie après le bac,"
+msgstr "Find your path after secondary school,"
+
+#: templates\interface\connexion.html
+msgid "Trouve ta voie, en toute confiance"
+msgstr "Find your path, with confidence"
+
+#: templates\interface\carte.html
+msgid "Trouver les écoles près de chez moi"
+msgstr "Find schools near me"
+
+#: orientation\test_orientation.py
+msgid ""
+"Tu aimes comprendre comment les choses fonctionnent et les construire : "
+"génie civil, électrique, mécanique."
+msgstr ""
+"You like understanding how things work and building them: civil, electrical "
+"and mechanical engineering."
+
+#: interface\limites.py
+msgid ""
+"Tu as beaucoup utilisé OrientIA cette heure-ci. Réessaie dans %(minutes)s "
+"min."
+msgstr "You've used OrientIA a lot this hour. Try again in %(minutes)s min."
+
+#: communaute\views.py
+msgid "Tu as débloqué ce membre."
+msgstr "You have unblocked this member."
+
+#: orientation\test_orientation.py
+msgid ""
+"Tu as l'esprit d'entreprise : gestion, commerce, finance, comptabilité."
+msgstr ""
+"You have an entrepreneurial spirit: management, business, finance, "
+"accounting."
+
+#: orientation\test_orientation.py
+msgid ""
+"Tu as la fibre de la terre et du vivant : agriculture, élevage, "
+"pisciculture… un secteur clé pour le Cameroun."
+msgstr ""
+"You have a feel for the land and living things: farming, livestock, fish "
+"farming… a key sector for Cameroon."
+
+#: orientation\test_orientation.py
+msgid ""
+"Tu as le goût des mots et des idées : journalisme, communication, langues, "
+"lettres."
+msgstr ""
+"You love words and ideas: journalism, communication, languages, literature."
+
+#: orientation\test_orientation.py
+msgid ""
+"Tu as un esprit scientifique : mathématiques, physique, chimie, recherche."
+msgstr ""
+"You have a scientific mind: mathematics, physics, chemistry, research."
+
+#: templates\orientation\annales.html
+msgid "Tu en as ? Partage-les dans la"
+msgstr "Have some? Share them in the"
+
+#: orientation\test_orientation.py
+msgid ""
+"Tu es attiré·e par le numérique : développement, réseaux, télécoms, données."
+msgstr ""
+"You're drawn to digital tech: software development, networks, telecoms, "
+"data."
+
+#: templates\interface\bienvenue.html
+msgid "Tu es plutôt…"
+msgstr "You are…"
+
+#: communaute\views.py
+msgid "Tu ne peux pas t'écrire à toi-même."
+msgstr "You can't write to yourself."
+
+#: communaute\views.py
+msgid "Tu ne peux pas te signaler toi-même."
+msgstr "You can't report yourself."
+
+#: communaute\views.py
+msgid "Tu ne peux pas voter pour ta propre réponse."
+msgstr "You can't vote for your own answer."
+
+#: orientation\views.py
+msgid "Tu ne recevras plus de rappels pour « %(nom)s »."
+msgstr "You will no longer receive reminders for “%(nom)s”."
+
+#: templates\interface\connexion.html
+msgid "Tu peux aussi"
+msgstr "You can also"
+
+#: templates\interface\chat.html
+msgid ""
+"Tu peux joindre un relevé de notes, une brochure d'école ou une photo, et "
+"parler au lieu d'écrire."
+msgstr ""
+"You can attach a transcript, a school brochure or a photo, and speak instead"
+" of typing."
+
+#: orientation\test_orientation.py
+msgid "Tu préfères travailler…"
+msgstr "You'd rather work…"
+
+#: templates\account\_mise_en_page.html
+msgid ""
+"Tu reçois un lien par email pour choisir un nouveau mot de passe. Pense à "
+"regarder dans tes spams."
+msgstr ""
+"You'll receive a link by email to choose a new password. Remember to check "
+"your spam folder."
+
+#: orientation\test_orientation.py
+msgid "Tu te sens à l'aise pour…"
+msgstr "You feel comfortable…"
+
+#: orientation\test_orientation.py
+msgid ""
+"Tu veux protéger les ressources naturelles : eau, forêts, climat, "
+"assainissement."
+msgstr ""
+"You want to protect natural resources: water, forests, climate, sanitation."
+
+#: templates\espace\suivi.html
+msgid "Type"
+msgstr "Type"
+
+#: templates\interface\mes_donnees.html
+msgid "Télécharger (JSON)"
+msgstr "Download (JSON)"
+
+#: templates\orientation\annales.html
+msgid "Télécharger le corrigé"
+msgstr "Download the answers"
+
+#: templates\orientation\annales.html
+msgid "Télécharger le sujet"
+msgstr "Download the paper"
+
+#: templates\interface\mes_donnees.html
+msgid "Télécharger mes données"
+msgstr "Download my data"
+
+#: orientation\test_orientation.py
+msgid "Un ami a un problème. Ton premier réflexe ?"
+msgstr "A friend has a problem. Your first reaction?"
+
+#: interface\views.py
+msgid "Un compte existe déjà avec cet email. Connecte-toi plutôt."
+msgstr "An account already exists with this email. Please log in instead."
+
+#: orientation\test_orientation.py
+msgid "Un exposé à préparer : tu choisis comme sujet…"
+msgstr "A presentation to prepare: you choose…"
+
+#: templates\interface\mes_donnees.html
+msgid ""
+"Un fichier contenant ton profil, ton espace étudiant, tes conversations avec"
+" OrientIA, tes publications et tes messages."
+msgstr ""
+"A file containing your profile, your student space, your conversations with "
+"OrientIA, your posts and your messages."
+
+#: templates\orientation\filieres.html
+msgid "Une filière, un métier, une matière…"
+msgstr "A programme, a job, a subject…"
+
+#: templates\orientation\filiere.html
+msgid "Une question sur cette filière ?"
+msgstr "A question about this programme?"
+
+#: espace\services.py
+msgid ""
+"Une séance courte par jour pour garder le rythme, avec le dimanche libre."
+msgstr "One short session a day to keep the pace, with Sunday off."
+
+#: interface\views.py
+msgid "Université d'État"
+msgstr "State university"
+
+#: templates\communaute\detail.html
+msgid "Utile"
+msgstr "Helpful"
+
+#: templates\orientation\ecoles_proches.html
+msgid "Utiliser ma position"
+msgstr "Use my location"
+
+#: orientation\test_orientation.py
+msgid "Va, sans plus"
+msgstr "Is okay, nothing more"
+
+#: espace\models.py
+msgid "Validée"
+msgstr "Passed"
+
+#: espace\models.py
+msgid "Vendredi"
+msgstr "Friday"
+
+#: templates\orientation\comparateur.html
+msgid "Ville"
+msgstr "City"
+
+#: templates\orientation\comparateur.html
+msgid "Visiter"
+msgstr "Visit"
+
+#: templates\orientation\filieres.html
+msgid "Voir la fiche"
+msgstr "See the guide"
+
+#: templates\interface\dashboard.html
+msgid "Voir le détail"
+msgstr "See details"
+
+#: templates\interface\accueil.html
+msgid "Voir les établissements"
+msgstr "See institutions"
+
+#: templates\orientation\test.html
+msgid "Voir mon résultat"
+msgstr "See my result"
+
+#: templates\interface\dashboard.html
+msgid "Voir sur la carte"
+msgstr "See on the map"
+
+#: templates\orientation\ecoles_proches.html
+msgid "Voir toutes les écoles"
+msgstr "See all schools"
+
+#: communaute\moderation.py
+msgid ""
+"Vous ne pouvez pas échanger de messages : l'un de vous a bloqué l'autre."
+msgstr "You can't exchange messages: one of you has blocked the other."
+
+#: templates\espace\filiere.html
+msgid "Vœu n°%(rang)s"
+msgstr "Choice #%(rang)s"
+
+#: templates\base.html
+msgid "au Cameroun"
+msgstr "in Cameroon"
+
+#: templates\communaute\liste.html
+msgid "bacheliers"
+msgstr "students"
+
+#: templates\orientation\annales.html
+msgid "communauté"
+msgstr "community"
+
+#: templates\orientation\annales.html
+msgid "concours"
+msgstr "entrance exams"
+
+#: templates\espace\filiere.html
+msgid "crédits"
+msgstr "credits"
+
+#: templates\orientation\comparateur.html
+msgid "côte à côte"
+msgstr "side by side"
+
+#: templates\orientation\ecoles_proches.html
+msgid "de chez toi"
+msgstr "to you"
+
+#: templates\orientation\filiere.html
+msgid "de cours"
+msgstr "of classes"
+
+#: templates\orientation\resultat_test.html
+msgid "de prédilection"
+msgstr "favourite fields"
+
+#: templates\orientation\comparateur.html
+msgid "depuis"
+msgstr "from"
+
+#: templates\interface\accueil.html
+msgid "documents officiels analysés"
+msgstr "official documents analysed"
+
+#: templates\orientation\filieres.html
+msgid "débouché"
+msgstr "career path"
+
+#: templates\interface\accueil.html
+msgid "en toute confiance."
+msgstr "with confidence."
+
+#: templates\interface\inscription.html
+msgid "facultatif"
+msgstr "optional"
+
+#: templates\interface\connexion.html
+msgid "francophones et anglophones"
+msgstr "French & English speakers"
+
+#: templates\espace\filiere.html
+msgid "h"
+msgstr "h"
+
+#: templates\espace\emploi_du_temps.html
+msgid "h / semaine"
+msgstr "h / week"
+
+#: templates\communaute\detail.html
+msgid "il y a %(duree)s"
+msgstr "%(duree)s ago"
+
+#: templates\orientation\ecoles_proches.html
+msgid "indique ta région"
+msgstr "set your region"
+
+#: interface\views.py
+msgid "informatique"
+msgstr "computer science"
+
+#: templates\interface\dashboard.html
+msgid "km"
+msgstr "km"
+
+#: templates\orientation\concours.html
+msgid "le"
+msgstr "on"
+
+#: templates\orientation\ecoles_proches.html
+msgid "les plus proches"
+msgstr "closest schools"
+
+#: templates\orientation\filieres.html
+msgid "matières"
+msgstr "subjects"
+
+#: templates\communaute\liste.html
+msgid "meilleure réponse"
+msgstr "best answer"
+
+#: templates\communaute\membre.html
+msgid "meilleures réponses"
+msgstr "best answers"
+
+#: templates\communaute\liste.html
+msgid "membres actifs"
+msgstr "active members"
+
+#: interface\views.py
+msgid "mon bac"
+msgstr "my Bac / GCE"
+
+#: templates\orientation\ecoles_proches.html
+msgid "ou"
+msgstr "or"
+
+#: templates\interface\_google.html
+msgid "ou avec ton email"
+msgstr "or with your email"
+
+#: templates\interface\connexion.html
+msgid "parler à OrientIA sans compte"
+msgstr "talk to OrientIA without an account"
+
+#: templates\interface\bienvenue.html
+msgid "plusieurs choix possibles"
+msgstr "several choices possible"
+
+#: templates\communaute\liste.html
+msgid "question"
+msgstr "question"
+
+#: templates\communaute\membre.html
+msgid "questions posées"
+msgstr "questions asked"
+
+#: templates\orientation\test.html
+msgid ""
+"questions rapides, environ 3 minutes. Il n'y a pas de bonne ou de mauvaise "
+"réponse !"
+msgstr ""
+"quick questions, about 3 minutes. There are no right or wrong answers!"
+
+#: templates\interface\carte.html
+msgid "référencés"
+msgstr "on OrientIA"
+
+#: templates\communaute\detail.html
+msgid "réponse"
+msgstr "answer"
+
+#: templates\communaute\membre.html
+msgid "réponses données"
+msgstr "answers given"
+
+#: templates\interface\accueil.html
+msgid "sur la carte"
+msgstr "on the map"
+
+#: orientation\views.py
+msgid "ta position actuelle"
+msgstr "your current location"
+
+#: templates\orientation\test.html
+msgid "te ressemblent"
+msgstr "suit you"
+
+#: templates\account\password_reset.html
+msgid "toi@exemple.com"
+msgstr "you@example.com"
+
+#: templates\interface\inscription.html
+msgid "ton.pseudo"
+msgstr "your.username"
+
+#: templates\orientation\filieres.html
+msgid "vraiment étudier"
+msgstr "really study"
+
+#: orientation\views.py
+msgid "« %(nom)s » ajoutée à tes favoris."
+msgstr "“%(nom)s” added to your favourites."
+
+#: orientation\views.py
+msgid "« %(nom)s » retirée de tes favoris."
+msgstr "“%(nom)s” removed from your favourites."
+
+#: espace\models.py
+msgid "À commencer"
+msgstr "Not started"
+
+#: templates\orientation\concours.html
+msgid "À publier"
+msgstr "To be announced"
+
+#: orientation\test_orientation.py
+msgid "Ça m'intéresse surtout à travers la science"
+msgstr "It interests me mainly through science"
+
+#: templates\interface\accueil.html
+msgid ""
+"Échange avec les autres bacheliers et les étudiants : questions, conseils, "
+"retours d'expérience."
+msgstr "Talk with other students: questions, tips and first-hand experience."
+
+#: templates\interface\dashboard.html
+msgid "Échange avec les autres bacheliers et les étudiants."
+msgstr "Talk with other students."
+
+#: interface\views.py
+msgid "Échange introuvable."
+msgstr "Conversation not found."
+
+#: templates\espace\suivi.html
+msgid "Échéance"
+msgstr "Due date"
+
+#: templates\orientation\comparateur.html
+msgid "École"
+msgstr "School"
+
+#: communaute\views.py
+msgid "École concernée (facultatif)"
+msgstr "Related school (optional)"
+
+#: templates\espace\filiere.html
+msgid "École visée"
+msgstr "Target school"
+
+#: templates\base.html
+msgid "Écoles"
+msgstr "Schools"
+
+#: templates\orientation\ecoles_proches.html
+msgid "Écoles pour toi"
+msgstr "Schools for you"
+
+#: templates\orientation\resultat_test.html
+msgid "Écoles proches"
+msgstr "Nearby schools"
+
+#: templates\interface\dashboard.html
+msgid "Écoles proches de toi"
+msgstr "Schools near you"
+
+#: templates\base.html
+msgid "Écoles près de chez moi"
+msgstr "Schools near me"
+
+#: templates\orientation\ecoles_proches.html
+msgid "Écoles trouvées :"
+msgstr "Schools found:"
+
+#: interface\views.py
+msgid "Économie / Gestion"
+msgstr "Economics / Management"
+
+#: templates\interface\chat.html
+msgid "Écouter"
+msgstr "Listen"
+
+#: templates\communaute\messagerie.html
+msgid ""
+"Écris en privé aux autres élèves et étudiants. Pour démarrer une "
+"conversation, clique sur le nom d'un membre dans la communauté."
+msgstr ""
+"Write privately to other students. To start a conversation, click a member's"
+" name in the community."
+
+#: templates\interface\chat.html
+msgid "Écris ta question ici…"
+msgstr "Type your question here…"
+
+#: templates\communaute\conversation.html
+msgid "Écris ton premier message à %(nom)s."
+msgstr "Write your first message to %(nom)s."
+
+#: templates\interface\bienvenue.html
+msgid "Élève / Futur bachelier"
+msgstr "Student / future graduate"
+
+#: interface\models.py
+msgid "Élève / futur bachelier"
+msgstr "Student / future graduate"
+
+#: templates\interface\inscription.html
+msgid ""
+"Élève anglophone ? Clique sur EN en haut : tout le site, et OrientIA, "
+"passeront en anglais."
+msgstr ""
+"English-speaking student? Click EN at the top: the whole site, and OrientIA,"
+" will switch to English."
+
+#: templates\orientation\concours.html
+msgid "Épreuves"
+msgstr "Exams"
+
+#: templates\orientation\concours.html
+msgid "Épreuves à venir"
+msgstr "Exams coming up"
+
+#: espace\services.py
+msgid "Équilibrée"
+msgstr "Balanced"
+
+#: templates\espace\filiere.html
+msgid "Établissement"
+msgstr "Institution"
+
+#: templates\base.html
+msgid "Établissements"
+msgstr "Institutions"
+
+#: templates\interface\accueil.html
+msgid "Établissements sur la carte"
+msgstr "Institutions on the map"
+
+#: templates\interface\carte.html
+msgid "Établissements trouvés :"
+msgstr "Institutions found:"
+
+#: espace\models.py
+msgid "Étudiant déjà inscrit"
+msgstr "Already enrolled student"
+
+#: templates\interface\bienvenue.html
+msgid "Étudiant·e, enseignant·e, conseiller·e…"
+msgstr "Student, teacher, counsellor…"
+
+#: orientation\test_orientation.py
+msgid "Être dehors, au champ ou avec des animaux"
+msgstr "Being outdoors, on a farm or with animals"
+
+#: orientation\test_orientation.py
+msgid "Être sur un ordinateur ou ton téléphone à explorer des applis"
+msgstr "Being on a computer or your phone exploring apps"
+
+#: orientation\test_orientation.py
+msgid "Être utile à ma communauté"
+msgstr "Being useful to my community"
+
+#: templates\orientation\concours.html
+msgid "à ne pas rater"
+msgstr "not to miss"
+
+#: templates\orientation\filieres.html
+msgid "école"
+msgstr "school"
+
+#: templates\interface\accueil.html
+msgid "établissement"
+msgstr "institution"
+
+#: templates\interface\connexion.html
+msgid "établissements"
+msgstr "institutions"
+
+#: templates\interface\accueil.html
+msgid "établissements référencés"
+msgstr "institutions listed"
+
+#: communaute\views.py
+msgid "— Aucune en particulier —"
+msgstr "— None in particular —"
+
+#: templates\communaute\detail.html
+msgid "— Communauté OrientIA"
+msgstr "— OrientIA Community"
+
+#: templates\orientation\filiere.html
+msgid "— Fiches filières OrientIA"
+msgstr "— OrientIA programme guides"
+
+#: templates\orientation\ecoles_proches.html
+msgid "— triées par distance depuis"
+msgstr "— sorted by distance from"
+
+#: templates\interface\carte.html
+msgid "≈ position approx."
+msgstr "≈ approx. location"
+
+#: templates\orientation\annales.html
+msgid "🎉 Parfait !"
+msgstr "🎉 Perfect!"
+
+#: templates\orientation\annales.html
+msgid "👏 Bien joué !"
+msgstr "👏 Well done!"
+
+#: templates\orientation\annales.html
+msgid "💪 Continue de t’entraîner !"
+msgstr "💪 Keep practising!"

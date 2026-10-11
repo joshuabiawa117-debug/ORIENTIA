@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}OrientIA — {% translate "Mon suivi" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% translate "Mon suivi" as titre %}{% translate "Tes notes, l'avancement de tes matières, tes objectifs et tes démarches, au même endroit." as sous_titre %}
+    {% include 'espace/_onglets.html' %}
+
+    <div class="row g-4">
+        <!-- Notes et moyennes -->
+        <div class="col-lg-8">
+            <div class="card-x mb-4" style="height:auto;">
+                <h5 class="fw-bold mb-3"><i class="bi bi-bar-chart-line text-gradient"></i> {% translate "Notes et moyennes" %}</h5>
+                {% for s in bilan %}
+                    <div class="semestre-bilan mb-4">
+                        <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-2">
+                            <h6 class="fw-bold mb-0">{% translate "Semestre" %} {{ s.semestre }}</h6>
+                            <div class="d-flex gap-3 small">
+                                {% if s.moyenne is not None %}<span>{% translate "Moyenne" %} <strong class="moyenne {% if s.moyenne >= 10 %}bonne{% else %}faible{% endif %}">{{ s.moyenne|floatformat:2 }}/20</strong></span>{% endif %}
+                                {% if s.credits_total %}<span>{% translate "Crédits" %} <strong>{{ s.credits_valides }}/{{ s.credits_total }}</strong></span>{% endif %}
+                            </div>
+                        </div>
+                        {% for m in s.matieres %}
+                            <div class="matiere-note">
+                                <span class="nom">{{ m.nom }}</span>
+                                <div class="barre flex-grow-1"><div class="barre-remplie {% if not m.validee %}faible{% endif %}" style="width: {% widthratio m.moyenne 20 100 %}%"></div></div>
+                                <strong class="valeur {% if m.validee %}bonne{% else %}faible{% endif %}">{{ m.moyenne|floatformat:2 }}</strong>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% empty %}
+                    <div class="etat-vide mb-3">{% translate "Aucune note pour l'instant. Ajoute ta première note ci-dessous." %}</div>
+                {% endfor %}
+
+                <form method="post" class="form-note">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="note">
+                    <div class="row g-2 align-items-end">
+                        <div class="col-md-4 field">
+                            <label for="idMatiere">{% translate "Matière" %}</label>
+                            <input type="text" name="matiere" id="idMatiere" class="field-input mb-0" list="matieresSuggerees" required maxlength="255">
+                            <datalist id="matieresSuggerees">{% for m in matieres_suggerees %}<option value="{{ m }}">{% endfor %}</datalist>
+                        </div>
+                        <div class="col-4 col-md-2 field"><label for="idValeur">{% translate "Note /20" %}</label><input type="number" name="valeur" id="idValeur" class="field-input mb-0" min="0" max="20" step="0.25" required></div>
+                        <div class="col-4 col-md-2 field"><label for="idCoef">{% translate "Coef." %}</label><input type="number" name="coefficient" id="idCoef" class="field-input mb-0" min="0.1" step="0.5" value="1"></div>
+                        <div class="col-4 col-md-1 field"><label for="idSem">{% translate "Sem." %}</label><input type="number" name="semestre" id="idSem" class="field-input mb-0" min="1" max="10" value="{{ form_note.initial.semestre }}"></div>
+                        <div class="col-6 col-md-3 field">
+                            <label for="idType">{% translate "Type" %}</label>
+                            <select name="type_note" id="idType" class="field-input mb-0">{% for v, l in form_note.fields.type_note.choices %}<option value="{{ v }}">{{ l }}</option>{% endfor %}</select>
+                        </div>
+                        <div class="col-6 col-md-4 field"><label for="idDate">{% translate "Date" %}</label><input type="date" name="date" id="idDate" class="field-input mb-0" value="{{ aujourdhui|date:'Y-m-d' }}" required></div>
+                        <div class="col-md-3"><button type="submit" class="btn-gradient"><i class="bi bi-plus-lg"></i> {% translate "Ajouter la note" %}</button></div>
+                    </div>
+                </form>
+
+                {% if notes %}
+                    <details class="details-x mt-3">
+                        <summary>{% translate "Toutes mes notes" %}</summary>
+                        <div class="table-responsive mt-2">
+                            <table class="table-ue">
+                                <tbody>
+                                    {% for n in notes %}
+                                        <tr>
+                                            <td>{{ n.date|date:"d/m/Y" }}</td><td>{{ n.matiere }}</td><td>{{ n.get_type_note_display }}</td>
+                                            <td class="text-end fw-semibold">{{ n.valeur|floatformat:2 }}/20</td><td class="text-end text-muted">×{{ n.coefficient|floatformat:1 }}</td>
+                                            <td class="text-end">
+                                                <form method="post" class="m-0">{% csrf_token %}<input type="hidden" name="action" value="supprimer_note"><input type="hidden" name="pk" value="{{ n.pk }}">
+                                                    <button type="submit" class="btn-ghost btn-sm-x" aria-label="{% translate "Supprimer" %}"><i class="bi bi-x-lg"></i></button></form>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <!-- Avancement des matières -->
+            {% if avancement %}
+                <div class="card-x mb-4" style="height:auto;">
+                    <h6 class="fw-bold mb-2"><i class="bi bi-list-check text-gradient"></i> {% translate "Avancement des matières" %}</h6>
+                    <div class="d-flex justify-content-between small mb-1"><span>{% blocktranslate trimmed with v=avancement.validees t=avancement.total %}{{ v }} validées sur {{ t }}{% endblocktranslate %}</span><strong>{{ avancement.pourcentage }} %</strong></div>
+                    <div class="barre mb-2"><div class="barre-remplie" style="width: {{ avancement.pourcentage }}%"></div></div>
+                    <p class="text-muted small mb-2">{% blocktranslate trimmed with n=avancement.en_cours %}{{ n }} en cours{% endblocktranslate %}</p>
+                    <a href="{% url 'espace:filiere' %}" class="arrow-link">{% translate "Mettre à jour" %} <i class="bi bi-arrow-right"></i></a>
+                </div>
+            {% endif %}
+
+            <!-- Objectifs et tâches -->
+            <div class="card-x mb-4" style="height:auto;">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6 class="fw-bold mb-0"><i class="bi bi-check2-square text-gradient"></i> {% translate "Objectifs et tâches" %}</h6>
+                    {% if taches %}<strong class="small text-gradient">{{ taches_pourcentage }} %</strong>{% endif %}
+                </div>
+                {% if taches %}<div class="barre mb-3"><div class="barre-remplie" style="width: {{ taches_pourcentage }}%"></div></div>{% endif %}
+                {% for t in taches %}
+                    <div class="tache {% if t.faite %}faite{% endif %} {% if not t.faite and t.echeance and t.echeance < aujourdhui %}en-retard{% endif %}">
+                        <form method="post" class="m-0">{% csrf_token %}<input type="hidden" name="action" value="basculer_tache"><input type="hidden" name="pk" value="{{ t.pk }}">
+                            <button type="submit" class="case" aria-label="{% translate "Cocher" %}"><i class="bi {% if t.faite %}bi-check-circle-fill{% else %}bi-circle{% endif %}"></i></button></form>
+                        <div class="flex-grow-1 min-w-0">
+                            <div class="small fw-semibold titre">{{ t.titre }}</div>
+                            {% if t.echeance %}<div class="small text-muted"><i class="bi bi-calendar3"></i> {{ t.echeance|date:"j M Y" }}</div>{% endif %}
+                        </div>
+                        <form method="post" class="m-0">{% csrf_token %}<input type="hidden" name="action" value="supprimer_tache"><input type="hidden" name="pk" value="{{ t.pk }}">
+                            <button type="submit" class="btn-ghost btn-sm-x" aria-label="{% translate "Supprimer" %}"><i class="bi bi-x-lg"></i></button></form>
+                    </div>
+                {% endfor %}
+                <form method="post" class="mt-3">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="tache">
+                    <input type="text" name="titre" class="field-input mb-2" required maxlength="200" placeholder="{% translate "Ex : Réviser le chapitre 3 de chimie" %}">
+                    <div class="d-flex gap-2">
+                        <input type="date" name="echeance" class="field-input mb-0" aria-label="{% translate "Échéance" %}">
+                        <button type="submit" class="btn-soft"><i class="bi bi-plus-lg"></i></button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Démarches d'orientation -->
+            <div class="card-x" style="height:auto;">
+                <h6 class="fw-bold mb-3"><i class="bi bi-signpost-split text-gradient"></i> {% translate "Mes démarches d'orientation" %}</h6>
+                {% for v in voeux %}
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between small"><span><strong>{{ v.rang }}.</strong> {{ v.filiere.nom }}</span><span class="text-muted">{{ v.get_etape_display }}</span></div>
+                        <div class="barre mt-1"><div class="barre-remplie {% if v.etape == 'refuse' %}faible{% endif %}" style="width: {{ v.avancement }}%"></div></div>
+                    </div>
+                {% empty %}
+                    <p class="text-muted small">{% translate "Ajoute les filières que tu vises pour suivre tes démarches." %}</p>
+                {% endfor %}
+                <a href="{% url 'espace:filiere' %}" class="arrow-link">{% translate "Gérer mes vœux" %} <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

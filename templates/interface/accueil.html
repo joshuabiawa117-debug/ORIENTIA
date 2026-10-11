@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% translate "OrientIA — Trouve ta voie après le bac" %}{% endblock %}
+
+{% block skeleton %}
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="sk sk-pill" style="width:220px;height:28px;"></div>
+                <div class="sk mt-4" style="width:95%;height:52px;"></div>
+                <div class="sk mt-2" style="width:70%;height:52px;"></div>
+                <div class="sk mt-4" style="width:90%;height:16px;"></div>
+                <div class="sk mt-2" style="width:80%;height:16px;"></div>
+                <div class="sk mt-2" style="width:55%;height:16px;"></div>
+                <div class="d-flex gap-2 mt-4">
+                    <div class="sk sk-pill" style="width:170px;height:50px;"></div>
+                    <div class="sk sk-pill" style="width:230px;height:50px;"></div>
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-md-block">
+                <div class="sk-card ms-auto" style="max-width:460px;padding:0;overflow:hidden;">
+                    <div class="d-flex align-items-center gap-3 p-3 border-bottom">
+                        <div class="sk" style="width:40px;height:40px;border-radius:13px;"></div>
+                        <div class="flex-grow-1"><div class="sk" style="width:80px;height:14px;"></div><div class="sk mt-2" style="width:150px;height:10px;"></div></div>
+                    </div>
+                    <div class="p-3 d-flex flex-column gap-3">
+                        <div class="sk align-self-end" style="width:75%;height:56px;border-radius:16px;"></div>
+                        <div class="sk" style="width:85%;height:92px;border-radius:16px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <div class="sk-card row g-0 p-0" style="border-radius:24px;">
+        {% for i in "123" %}<div class="col-md-4 d-flex flex-column align-items-center gap-2 py-4"><div class="sk" style="width:60px;height:32px;"></div><div class="sk" style="width:170px;height:12px;"></div></div>{% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<!-- Héro -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container position-relative">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="badge-soft fade-up"><span class="pulse-dot"></span> {% translate "OrientIA est en ligne, gratuitement" %}</span>
+                <h1 class="mt-3 mb-3 fade-up delay-1">{% translate "Trouve ta voie après le bac," %} <span class="text-gradient">{% translate "en toute confiance." %}</span></h1>
+                <p class="hero-lead mb-4 fade-up delay-2">
+                    {% translate "Pose tes questions à OrientIA, ton assistant d'orientation. Il s'appuie sur les documents officiels pour te parler filières, débouchés et établissements au Cameroun." %}
+                </p>
+                <div class="d-flex flex-wrap gap-2 mb-4 fade-up delay-3">
+                    <a href="{% url 'chat' %}" class="btn-brand btn-lg-x"><i class="bi bi-stars"></i> {% translate "Parler à OrientIA" %}</a>
+                    <a href="{% url 'carte' %}" class="btn-soft btn-lg-x"><i class="bi bi-geo-alt"></i> {% translate "Voir les établissements" %}</a>
+                </div>
+                <div class="trust-row fade-up delay-3">
+                    <span class="badge-neutral"><i class="bi bi-patch-check"></i> {% translate "Documents MINESUP" %}</span>
+                    <span class="badge-neutral"><i class="bi bi-mortarboard"></i> {% translate "Toutes séries de bac" %}</span>
+                    <span class="badge-neutral"><i class="bi bi-clock"></i> {% translate "Disponible 24h/24" %}</span>
+                </div>
+            </div>
+
+            <div class="col-lg-6 d-none d-md-block">
+                <div class="hero-visual fade-up delay-2">
+                    <span class="circle-deco circle-glow" style="width:280px;height:280px;top:-40px;right:-40px;"></span>
+
+                    <div class="mock-chat">
+                        <div class="mock-chat-head">
+                            <span class="caty-avatar"><i class="bi bi-stars"></i></span>
+                            <div>
+                                <div class="fw-semibold">OrientIA</div>
+                                <div class="chat-status"><span class="pulse-dot"></span> {% translate "Assistante d'orientation" %}</div>
+                            </div>
+                        </div>
+                        <div class="mock-chat-body">
+                            <div class="mock-bubble user">{% translate "J'ai un bac C, j'aime l'informatique. Quelles écoles me conseilles-tu ?" %}</div>
+                            <div class="mock-bubble bot">
+                                {% translate "Avec un bac C, tu peux viser l'ENSP de Yaoundé ou l'IUT de Douala en génie informatique. L'admission se fait sur concours…" %}
+                                <div class="mock-source"><i class="bi bi-file-earmark-text"></i> {% translate "Guide d'orientation post-bac" %}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="floating-chip" style="left:-36px; bottom:-26px;">
+                        <span class="icon-tile solid"><i class="bi bi-shield-check"></i></span>
+                        <div>{% translate "Sources officielles" %}<small>{% translate "Réponses vérifiables" %}</small></div>
+                    </div>
+                    <div class="floating-chip" style="right:-20px; top:-22px; animation-delay:1.2s;">
+                        <span class="icon-tile"><i class="bi bi-geo-alt-fill"></i></span>
+                        <div>{{ nb_etablissements }} {% translate "établissement" %}{{ nb_etablissements|pluralize }}<small>{% translate "sur la carte" %}</small></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Chiffres -->
+<section class="container">
+    <div class="stats-strip row g-0">
+        <div class="col-md-4 stat-item">
+            <div class="stat-value text-gradient">{{ nb_etablissements }}</div>
+            <div class="stat-label">{% translate "établissements référencés" %}</div>
+        </div>
+        <div class="col-md-4 stat-item">
+            <div class="stat-value text-gradient">{{ nb_documents }}</div>
+            <div class="stat-label">{% translate "documents officiels analysés" %}</div>
+        </div>
+        <div class="col-md-4 stat-item">
+            <div class="stat-value text-gradient">24/7</div>
+            <div class="stat-label">{% translate "OrientIA toujours disponible" %}</div>
+        </div>
+    </div>
+</section>
+
+<!-- Fonctionnalités -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-eyebrow">{% translate "Pourquoi OrientIA" %}</span>
+            <h2 class="section-title">{% translate "Tout ce qu'il te faut pour bien t'orienter" %}</h2>
+            <p class="section-sub mx-auto">{% translate "Des réponses fiables, une carte des écoles et des conseils adaptés à ton profil." %}</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card-x card-lift">
+                    <span class="icon-tile solid"><i class="bi bi-stars"></i></span>
+                    <h5 class="fw-bold">{% translate "OrientIA, ton assistant IA" %}</h5>
+                    <p class="text-muted mb-0">{% translate "Pose tes questions sur les filières, les débouchés et les conditions d'admission, comme à une conseillère." %}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-x card-lift">
+                    <span class="icon-tile"><i class="bi bi-geo-alt"></i></span>
+                    <h5 class="fw-bold">{% translate "Établissements sur la carte" %}</h5>
+                    <p class="text-muted mb-0">{% translate "Retrouve les écoles et instituts du supérieur, recherche par nom ou par ville, et situe-les en un clic." %}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-x card-lift">
+                    <span class="icon-tile"><i class="bi bi-person-check"></i></span>
+                    <h5 class="fw-bold">{% translate "Des conseils pour toi" %}</h5>
+                    <p class="text-muted mb-0">{% translate "Indique ta série, tes centres d'intérêt et ta région : OrientIA adapte ses réponses à ton profil." %}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <a href="{% url 'orientation:filieres' %}" class="card-x card-lift">
+                    <span class="icon-tile"><i class="bi bi-journal-bookmark"></i></span>
+                    <h5 class="fw-bold">{% translate "Fiches filières" %}</h5>
+                    <p class="text-muted mb-0">{% translate "Les matières semestre par semestre, les débouchés et les écoles qui forment, d'après les programmes officiels." %}</p>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{% url 'orientation:concours' %}" class="card-x card-lift">
+                    <span class="icon-tile"><i class="bi bi-calendar-event"></i></span>
+                    <h5 class="fw-bold">{% translate "Calendrier des concours" %}</h5>
+                    <p class="text-muted mb-0">{% translate "Les dates d'inscription et d'épreuves, avec des rappels pour ne rien rater." %}</p>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{% url 'communaute:liste' %}" class="card-x card-lift">
+                    <span class="icon-tile"><i class="bi bi-people"></i></span>
+                    <h5 class="fw-bold">{% translate "Communauté" %}</h5>
+                    <p class="text-muted mb-0">{% translate "Échange avec les autres bacheliers et les étudiants : questions, conseils, retours d'expérience." %}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Comment ça marche -->
+<section class="pb-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-eyebrow">{% translate "Comment ça marche" %}</span>
+            <h2 class="section-title">{% translate "Trois étapes, c'est tout" %}</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card-x">
+                    <span class="step-num">1</span>
+                    <h5 class="fw-bold">{% translate "Crée ton compte" %}</h5>
+                    <p class="text-muted mb-0">{% translate "En un clic avec Google, ou avec ton email. Ça prend 30 secondes." %}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-x">
+                    <span class="step-num">2</span>
+                    <h5 class="fw-bold">{% translate "Parle-nous de toi" %}</h5>
+                    <p class="text-muted mb-0">{% translate "Ta série, tes matières préférées, ta région. Tout est facultatif." %}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-x">
+                    <span class="step-num">3</span>
+                    <h5 class="fw-bold">{% translate "Pose tes questions" %}</h5>
+                    <p class="text-muted mb-0">{% translate "OrientIA te répond avec les documents officiels et te guide vers les bons établissements." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Appel à l'action -->
+<section class="pt-4">
+    <div class="container">
+        <div class="cta-band text-center">
+            <span class="circle-deco circle-glow float-circle" style="width:300px;height:300px;top:-150px;left:-80px;"></span>
+            <span class="circle-deco circle-glow float-circle" style="width:220px;height:220px;bottom:-110px;right:-40px;animation-delay:1.5s;"></span>
+            <div class="position-relative">
+                <h2 class="mb-2">{% translate "Prêt à trouver ta voie ?" %}</h2>
+                <p class="mb-4 mx-auto" style="max-width: 480px;">{% translate "Pose ta première question à OrientIA, c'est gratuit et sans engagement." %}</p>
+                <div class="d-flex flex-wrap justify-content-center gap-2">
+                    <a href="{% url 'chat' %}" class="btn-brand btn-lg-x"><i class="bi bi-stars"></i> {% translate "Commencer maintenant" %}</a>
+                    {% if not user.is_authenticated %}
+                        <a href="{% url 'inscription' %}" class="btn-soft btn-lg-x">{% translate "Créer un compte" %}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

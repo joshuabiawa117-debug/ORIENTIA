@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}OrientIA — {% translate "Messages" %}{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 860px;">
+    <div class="page-head">
+        <span class="badge-soft"><i class="bi bi-envelope"></i> {% translate "Messagerie" %}</span>
+        <h1 class="mt-3">{% translate "Mes messages" %}</h1>
+        <p>{% translate "Écris en privé aux autres élèves et étudiants. Pour démarrer une conversation, clique sur le nom d'un membre dans la communauté." %}</p>
+    </div>
+
+    <div class="card-x p-0" style="height:auto;">
+        {% for c in conversations %}
+            <a href="{% url 'communaute:conversation' c.autre.username %}" class="conversation-ligne {% if c.non_lus %}non-lu{% endif %}">
+                <span class="membre-avatar grand">{{ c.autre.first_name|default:c.autre.username|first|upper }}</span>
+                <div class="flex-grow-1 min-w-0">
+                    <div class="d-flex justify-content-between gap-2">
+                        <strong>{{ c.autre.first_name|default:c.autre.username }}</strong>
+                        <span class="text-muted small">{% blocktranslate trimmed with duree=c.dernier.date|timesince %}il y a {{ duree }}{% endblocktranslate %}</span>
+                    </div>
+                    <div class="text-muted small text-truncate">{% if c.dernier.expediteur_id == user.id %}{% translate "Toi :" %} {% endif %}{{ c.dernier.contenu }}</div>
+                </div>
+                {% if c.non_lus %}<span class="pastille-compteur">{{ c.non_lus }}</span>{% endif %}
+            </a>
+        {% empty %}
+            <div class="etat-vide m-3">
+                <i class="bi bi-chat-dots fs-3 d-block mb-2"></i>
+                {% translate "Aucune conversation pour le moment." %}
+                <div class="mt-2"><a href="{% url 'communaute:liste' %}" class="link-brand">{% translate "Aller dans la communauté" %}</a></div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

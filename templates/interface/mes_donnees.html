@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}OrientIA — {% translate "Mes données" %}{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 860px;">
+    <div class="page-head">
+        <span class="badge-soft"><i class="bi bi-shield-lock"></i> {% translate "Confidentialité" %}</span>
+        <h1 class="mt-3">{% translate "Mes données" %}</h1>
+        <p>{% translate "Tes données t'appartiennent : télécharge-les ou supprime ton compte quand tu veux." %}
+            <a href="{% url 'confidentialite' %}" class="link-brand">{% translate "Politique de confidentialité" %}</a></p>
+    </div>
+
+    <div class="card-x mb-4" style="height:auto;">
+        <h2 class="h5 fw-bold"><i class="bi bi-download text-gradient"></i> {% translate "Télécharger mes données" %}</h2>
+        <p class="text-muted">{% translate "Un fichier contenant ton profil, ton espace étudiant, tes conversations avec OrientIA, tes publications et tes messages." %}</p>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="telecharger">
+            <button type="submit" class="btn-soft"><i class="bi bi-filetype-json"></i> {% translate "Télécharger (JSON)" %}</button>
+        </form>
+    </div>
+
+    <div class="card-x zone-danger" style="height:auto;">
+        <h2 class="h5 fw-bold text-danger"><i class="bi bi-trash"></i> {% translate "Supprimer mon compte" %}</h2>
+        <p class="text-muted">{% translate "Tout sera effacé définitivement : profil, notes, emploi du temps, conversations, questions, réponses et messages. Cette action est irréversible." %}</p>
+        <form method="post" onsubmit="return confirm('{{ _("Supprimer définitivement ton compte ?")|escapejs }}');">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="supprimer">
+            <div class="row g-3">
+                <div class="col-md-6 field mb-0">
+                    <label for="idConfirmation">{% translate "Tape SUPPRIMER pour confirmer" %}</label>
+                    <input type="text" name="confirmation" id="idConfirmation" class="field-input" autocomplete="off" required>
+                </div>
+                {% if user.has_usable_password %}
+                <div class="col-md-6 field mb-0">
+                    <label for="idMotDePasse">{% translate "Ton mot de passe" %}</label>
+                    <input type="password" name="password" id="idMotDePasse" class="field-input" autocomplete="current-password" required>
+                </div>
+                {% endif %}
+            </div>
+            <div class="text-end mt-3"><button type="submit" class="btn-danger-x"><i class="bi bi-trash"></i> {% translate "Supprimer mon compte" %}</button></div>
+        </form>
+    </div>
+</div>
+{% endblock %}

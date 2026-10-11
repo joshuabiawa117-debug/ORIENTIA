@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ sujet.titre }} {% translate "— Communauté OrientIA" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row g-4 pt-4">
+        <div class="col-lg-8">
+            <a href="{% url 'communaute:liste' %}" class="arrow-link mb-3"><i class="bi bi-arrow-left"></i> {% translate "Toutes les questions" %}</a>
+
+            <!-- Question -->
+            <article class="card-x mt-2" style="height:auto;">
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    {% if sujet.filiere %}<a class="badge-soft text-decoration-none" href="{% url 'orientation:filiere' sujet.filiere.slug %}"><i class="bi bi-mortarboard"></i> {{ sujet.filiere.nom }}</a>{% endif %}
+                    {% if sujet.etablissement %}<span class="badge-neutral"><i class="bi bi-building"></i> {{ sujet.etablissement.nom }}</span>{% endif %}
+                </div>
+                <h1 class="sujet-titre-grand">{{ sujet.titre }}</h1>
+                <p class="sujet-contenu">{{ sujet.contenu|linebreaksbr }}</p>
+                <div class="d-flex flex-wrap align-items-center gap-2 text-muted small">
+                    {% include 'communaute/_auteur.html' with membre=sujet.auteur %}
+                    <span>· {% blocktranslate trimmed with duree=sujet.date_creation|timesince %}il y a {{ duree }}{% endblocktranslate %}</span>
+                    {% if user.is_authenticated and user != sujet.auteur %}
+                        <a class="lien-signaler ms-auto" href="{% url 'communaute:signaler' 'sujet' sujet.pk %}"><i class="bi bi-flag"></i> {% translate "Signaler" %}</a>
+                    {% endif %}
+                </div>
+                {% if sujet.masque %}
+                    <div class="bandeau-refus mt-3"><i class="bi bi-eye-slash"></i> {% translate "Cette question est masquée en attendant la vérification de l'équipe OrientIA." %}</div>
+                {% endif %}
+            </article>
+
+            <!-- Réponses -->
+            <h2 class="h5 fw-bold mt-5 mb-3">{{ reponses|length }} {% translate "réponse" %}{{ reponses|length|pluralize }}</h2>
+
+            <div class="d-flex flex-column gap-3">
+                {% for reponse in reponses %}
+                    <div class="card-x reponse {% if reponse.meilleure %}meilleure{% endif %}" style="height:auto;">
+                        {% if reponse.meilleure %}
+                            <span class="badge-meilleure"><i class="bi bi-award-fill"></i> {% translate "Meilleure réponse" %}</span>
+                        {% endif %}
+                        <p class="sujet-contenu mb-3">{{ reponse.contenu|linebreaksbr }}</p>
+                        <div class="d-flex flex-wrap align-items-center gap-2">
+                            <span class="text-muted small d-flex align-items-center gap-2">
+                                {% include 'communaute/_auteur.html' with membre=reponse.auteur %}
+                                · {% blocktranslate trimmed with duree=reponse.date_creation|timesince %}il y a {{ duree }}{% endblocktranslate %}
+                            </span>
+                            <div class="ms-auto d-flex gap-2">
+                                {% if user.is_authenticated and user != reponse.auteur %}
+                                    <button type="button" class="btn-vote {% if reponse.pk in mes_votes %}actif{% endif %}"
+                                            data-url="{% url 'communaute:voter' reponse.pk %}">
+                                        <i class="bi bi-hand-thumbs-up{% if reponse.pk in mes_votes %}-fill{% endif %}"></i>
+                                        {% translate "Utile" %} <span class="nb">{{ reponse.nb_votes }}</span>
+                                    </button>
+                                {% else %}
+                                    <span class="btn-vote desactive"><i class="bi bi-hand-thumbs-up"></i> {% translate "Utile" %} <span class="nb">{{ reponse.nb_votes }}</span></span>
+                                {% endif %}
+                                {% if user.is_authenticated and user != reponse.auteur %}
+                                    <a class="lien-signaler" href="{% url 'communaute:signaler' 'reponse' reponse.pk %}" title="{% translate "Signaler" %}" aria-label="{% translate "Signaler" %}"><i class="bi bi-flag"></i></a>
+                                {% endif %}
+                                {% if user == sujet.auteur %}
+                                    <form method="post" action="{% url 'communaute:meilleure' reponse.pk %}" class="m-0">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn-vote {% if reponse.meilleure %}actif{% endif %}">
+                                            <i class="bi bi-award"></i> {% if reponse.meilleure %}{% translate "Retirer" %}{% else %}{% translate "Meilleure réponse" %}{% endif %}
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="etat-vide">{% translate "Pas encore de réponse. Tu connais la réponse ? Aide ce bachelier !" %}</div>
+                {% endfor %}
+            </div>
+
+            <!-- Répondre -->
+            <div class="card-x mt-4" style="height:auto;">
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'communaute:repondre' sujet.pk %}">
+                        {% csrf_token %}
+                        <div class="field">
+                            <label for="idReponse">{% translate "Ta réponse" %}</label>
+                            <textarea name="contenu" id="idReponse" rows="4" class="field-input" required maxlength="5000"
+                                      placeholder="{% translate "Partage ton expérience ou une information fiable…" %}"></textarea>
+                        </div>
+                        <div class="text-end"><button type="submit" class="btn-brand"><i class="bi bi-reply"></i> {% translate "Publier ma réponse" %}</button></div>
+                    </form>
+                {% else %}
+                    <div class="d-flex flex-wrap align-items-center gap-3">
+                        <span class="flex-grow-1">{% translate "Connecte-toi pour répondre et aider les autres bacheliers." %}</span>
+                        <a href="{% url 'connexion' %}?next={{ request.path|urlencode }}" class="btn-brand btn-sm-x">{% translate "Se connecter" %}</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card-x mb-4" style="height:auto;">
+                <h6 class="fw-bold mb-2"><i class="bi bi-stars text-gradient"></i> {% translate "Demande aussi à OrientIA" %}</h6>
+                <p class="text-muted small">{% translate "OrientIA peut te répondre tout de suite à partir des documents officiels." %}</p>
+                <a href="{% url 'chat' %}?q={{ sujet.titre|urlencode }}" class="btn-soft btn-sm-x">{% translate "Poser cette question à OrientIA" %}</a>
+            </div>
+            {% if similaires %}
+                <div class="card-x" style="height:auto;">
+                    <h6 class="fw-bold mb-3">{% translate "Questions sur la même filière" %}</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+                        {% for s in similaires %}<li><a href="{% url 'communaute:detail' s.pk %}" class="link-brand">{{ s.titre }}</a></li>{% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Vote « utile » sans recharger la page
+document.querySelectorAll('.btn-vote[data-url]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+        const reponse = await fetch(btn.dataset.url, {
+            method: 'POST',
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        });
+        if (!reponse.ok) return;
+        const data = await reponse.json();
+        btn.classList.toggle('actif', data.aime);
+        btn.querySelector('i').className = data.aime ? 'bi bi-hand-thumbs-up-fill' : 'bi bi-hand-thumbs-up';
+        btn.querySelector('.nb').textContent = data.votes;
+    });
+});
+</script>
+{% endblock %}

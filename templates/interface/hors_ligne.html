@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}OrientIA — {% translate "Hors connexion" %}{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 640px;">
+    <div class="page-head text-center">
+        <span class="badge-soft"><i class="bi bi-wifi-off"></i> {% translate "Hors connexion" %}</span>
+        <h1 class="mt-3">{% translate "Pas de connexion pour le moment" %}</h1>
+        <p>{% translate "Cette page n'a pas encore été enregistrée sur ton téléphone. Les pages que tu as déjà consultées (fiches filières, concours, ton emploi du temps…) restent disponibles hors connexion." %}</p>
+        <button type="button" class="btn-brand mt-3" onclick="location.reload()"><i class="bi bi-arrow-clockwise"></i> {% translate "Réessayer" %}</button>
+    </div>
+</div>
+{% endblock %}

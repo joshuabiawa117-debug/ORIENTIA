@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}OrientIA — {% translate "Emploi du temps" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% translate "Emploi du temps" as titre %}{% translate "Envoie ton emploi du temps et tes disponibilités : OrientIA te propose plusieurs plannings de révision." as sous_titre %}
+    {% include 'espace/_onglets.html' %}
+
+    <div class="row g-4">
+        <!-- Colonne de gauche : import + saisie -->
+        <div class="col-lg-4">
+            <!-- Import par fichier ou à la voix -->
+            <form method="post" action="{% url 'espace:importer_emploi' %}" enctype="multipart/form-data" class="card-x mb-4" style="height:auto;"
+                  data-chargement="{% translate "OrientIA lit ton emploi du temps…" %}">
+                {% csrf_token %}
+                <h5 class="fw-bold mb-1"><i class="bi bi-magic text-gradient"></i> {% translate "Importer en un clic" %}</h5>
+                <p class="text-muted small">{% translate "Envoie une photo ou un PDF de ton emploi du temps, ou décris-le à l'écrit ou à la voix. OrientIA ajoute les créneaux pour toi." %}</p>
+
+                <label class="zone-fichier" for="idFichierEdt">
+                    <i class="bi bi-cloud-arrow-up fs-4"></i>
+                    <span class="nom-fichier">{% translate "Choisir un fichier (photo, PDF, texte)" %}</span>
+                    <input type="file" name="fichier" id="idFichierEdt" accept="image/*,.pdf,.txt" hidden>
+                </label>
+
+                <div class="field mt-3">
+                    <label for="idDescription">{% translate "Ou décris tes cours et disponibilités" %}</label>
+                    <div class="saisie-vocale">
+                        <textarea name="texte" id="idDescription" rows="3" class="field-input mb-0"
+                                  placeholder="{% translate "Ex : maths le lundi de 8h à 10h, anglais le mardi 14h-16h. Je suis libre le soir après 18h et le samedi matin." %}"></textarea>
+                        <button type="button" class="btn-micro" data-cible="idDescription" aria-label="{% translate "Dicter" %}" title="{% translate "Dicter" %}"><i class="bi bi-mic"></i></button>
+                    </div>
+                </div>
+                <button type="submit" class="btn-gradient mt-2"><i class="bi bi-stars"></i> {% translate "Importer avec OrientIA" %}</button>
+            </form>
+
+            <!-- Saisie manuelle -->
+            <form method="post" class="card-x" style="height:auto;">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="ajouter">
+                <h5 class="fw-bold mb-3">{% translate "Ajouter un créneau" %}</h5>
+                <div class="d-flex gap-2 mb-3">
+                    <label class="type-creneau"><input type="radio" name="type_creneau" value="cours" checked> <span><i class="bi bi-book"></i> {% translate "Cours" %}</span></label>
+                    <label class="type-creneau"><input type="radio" name="type_creneau" value="dispo"> <span><i class="bi bi-cup-hot"></i> {% translate "Disponibilité" %}</span></label>
+                </div>
+                <div class="field">
+                    <label for="idJour">{% translate "Jour" %}</label>
+                    <select name="jour" id="idJour" class="field-input">
+                        {% for valeur, nom in jours %}<option value="{{ valeur }}">{{ nom }}</option>{% endfor %}
+                    </select>
+                </div>
+                <div class="row g-2">
+                    <div class="col-6 field"><label for="idDebut">{% translate "Début" %}</label><input type="time" name="debut" id="idDebut" class="field-input" value="08:00" required></div>
+                    <div class="col-6 field"><label for="idFin">{% translate "Fin" %}</label><input type="time" name="fin" id="idFin" class="field-input" value="10:00" required></div>
+                </div>
+                <div class="field">
+                    <label for="idIntitule">{% translate "Matière / remarque" %}</label>
+                    <input type="text" name="intitule" id="idIntitule" class="field-input" maxlength="120" placeholder="{% translate "Ex : Mathématiques" %}">
+                </div>
+                <button type="submit" class="btn-soft w-100"><i class="bi bi-plus-lg"></i> {% translate "Ajouter" %}</button>
+            </form>
+
+            {% if creneaux %}
+                <div class="card-x mt-4" style="height:auto;">
+                    <h6 class="fw-bold mb-2">{% translate "Mes créneaux" %}</h6>
+                    {% for c in creneaux %}
+                        <form method="post" class="creneau-ligne">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="supprimer">
+                            <input type="hidden" name="pk" value="{{ c.pk }}">
+                            <span class="pastille pastille-{{ c.type_creneau }}"></span>
+                            <span class="flex-grow-1 small"><strong>{{ c.get_jour_display }}</strong> {{ c.debut|time:"H:i" }}–{{ c.fin|time:"H:i" }}{% if c.intitule %} · {{ c.intitule }}{% endif %}</span>
+                            <button type="submit" class="btn-ghost btn-sm-x" aria-label="{% translate "Supprimer" %}"><i class="bi bi-x-lg"></i></button>
+                        </form>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Colonne de droite : grille et propositions -->
+        <div class="col-lg-8">
+            <div class="card-x mb-4" style="height:auto;">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                    <h5 class="fw-bold mb-0">{% if formule_choisie %}{% blocktranslate trimmed with nom=formule_choisie.nom %}Ma semaine — formule {{ nom }}{% endblocktranslate %}{% else %}{% translate "Ma semaine" %}{% endif %}</h5>
+                    <div class="legende small">
+                        <span><span class="pastille pastille-cours"></span> {% translate "Cours" %}</span>
+                        <span><span class="pastille pastille-revision"></span> {% translate "Révision" %}</span>
+                        {% if not formule_choisie %}<span><span class="pastille pastille-dispo"></span> {% translate "Disponibilité" %}</span>{% endif %}
+                    </div>
+                </div>
+                {% include 'espace/_grille.html' with elements=grille %}
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                    <a href="?propositions=1#propositions" class="btn-brand"><i class="bi bi-stars"></i> {% translate "Proposer des emplois du temps" %}</a>
+                    {% if formule_choisie %}
+                        <form method="post" class="m-0">{% csrf_token %}<input type="hidden" name="action" value="effacer_planning">
+                            <button type="submit" class="btn-soft">{% translate "Effacer le planning de révision" %}</button></form>
+                    {% endif %}
+                </div>
+                {% if not nb_dispos %}<p class="text-muted small mt-2 mb-0"><i class="bi bi-info-circle"></i> {% translate "Ajoute d'abord tes disponibilités : c'est là qu'OrientIA placera tes révisions." %}</p>{% endif %}
+            </div>
+
+            {% if demande_propositions %}
+                <div id="propositions">
+                    <h5 class="fw-bold mb-3">{% translate "Choisis l'emploi du temps qui te convient" %}</h5>
+                    {% for p in propositions %}
+                        <div class="card-x proposition mb-4" style="height:auto;">
+                            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
+                                <div>
+                                    <h6 class="fw-bold mb-1"><i class="bi {{ p.icone }} text-gradient"></i> {{ p.nom }}
+                                        <span class="badge-neutral ms-1">{{ p.total_heures }} {% translate "h / semaine" %}</span></h6>
+                                    <p class="text-muted small mb-0">{{ p.description }}</p>
+                                </div>
+                                {% if p.seances %}
+                                    <form method="post" class="m-0">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="choisir">
+                                        <input type="hidden" name="formule" value="{{ p.cle }}">
+                                        <button type="submit" class="btn-brand btn-sm-x"><i class="bi bi-check2"></i> {% translate "Choisir" %}</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                            {% if p.seances %}
+                                {% include 'espace/_grille.html' with elements=p.grille compacte=True %}
+                            {% else %}
+                                <div class="etat-vide py-3">{% translate "Pas assez de temps libre pour cette formule. Ajoute des disponibilités." %}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% include 'interface/_saisie_vocale.html' %}
+<script>
+// Afficher le nom du fichier choisi
+document.getElementById('idFichierEdt').addEventListener('change', (e) => {
+    const nom = e.target.files[0]?.name;
+    if (nom) e.target.closest('.zone-fichier').querySelector('.nom-fichier').textContent = nom;
+});
+</script>
+{% endblock %}
