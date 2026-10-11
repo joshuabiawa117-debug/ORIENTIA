@@ -1363,8 +1363,8 @@ msgid "Fiches filières"
 msgstr "Programme guides"
 
 #: templates\interface\chat.html
-msgid "Fichier trop lourd (8 Mo maximum)."
-msgstr "File too large (8 MB maximum)."
+msgid "Fichier trop lourd (%(n)s Mo maximum)."
+msgstr "File too large (%(n)s MB maximum)."
 
 #: templates\espace\filiere.html
 msgid "Filière"

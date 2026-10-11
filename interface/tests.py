@@ -280,10 +280,9 @@ class HorsLigneEtCarteTests(TestCase):
         self.assertContains(self.client.get(reverse('hors_ligne')), "Pas de connexion")
 
     def test_carte_types_lisibles_et_positions_approximatives(self):
-        from django.contrib.gis.geos import Point
         from etablissements.models import Etablissement
         Etablissement.objects.create(nom="Institut X", type_etablissements="ipes", position_approximative=True,
-                                     localisation=Point(11.5, 3.8, srid=4326))
+                                     latitude=3.8, longitude=11.5)
         donnees = self.client.get(reverse('carte')).context["etablissements"]
         self.assertEqual((donnees[0]["type"], donnees[0]["approx"]), ("Institut privé (IPES)", True))
 
@@ -332,3 +331,23 @@ class TranscriptionTests(TestCase):
             reponse = self.envoyer(b"")
         self.assertEqual(reponse.status_code, 400)
         appel.assert_not_called()
+
+
+class TachesQuotidiennesTests(TestCase):
+    """Route appelée chaque jour par Vercel Cron."""
+
+    def test_refusee_sans_le_secret(self):
+        from django.test import override_settings
+        with override_settings(CRON_SECRET="s3cret"):
+            self.assertEqual(self.client.get(reverse('taches_quotidiennes')).status_code, 401)
+            self.assertEqual(self.client.get(reverse('taches_quotidiennes'), HTTP_AUTHORIZATION="Bearer faux").status_code, 401)
+        with override_settings(CRON_SECRET=""):
+            self.assertEqual(self.client.get(reverse('taches_quotidiennes'), HTTP_AUTHORIZATION="Bearer ").status_code, 401)
+
+    def test_lance_le_nettoyage_et_les_rappels(self):
+        from django.test import override_settings
+        with override_settings(CRON_SECRET="s3cret"):
+            reponse = self.client.get(reverse('taches_quotidiennes'), HTTP_AUTHORIZATION="Bearer s3cret")
+        self.assertEqual(reponse.status_code, 200)
+        self.assertEqual(set(reponse.json()), {"nettoyer_donnees", "envoyer_rappels_concours"})
+        self.assertNotIn("erreur", " ".join(reponse.json().values()))

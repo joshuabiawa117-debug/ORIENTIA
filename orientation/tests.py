@@ -7,7 +7,6 @@ from pathlib import Path
 
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.contrib.gis.geos import Point
 from django.core import mail
 from django.core.management import call_command
 from django.test import TestCase
@@ -29,9 +28,9 @@ class DonneesMixin:
         UniteEnseignement.objects.create(filiere=self.info, semestre=1, code="INF111", intitule="Algorithmique", credits=5, heures=75)
         # Une école à Douala, une à Yaoundé
         self.douala = Etablissement.objects.create(nom="IUT de Douala", type_etablissements="institut", ville="Douala",
-                                                   localisation=Point(9.7043, 4.0611, srid=4326))
+                                                   latitude=4.0611, longitude=9.7043)
         self.yaounde = Etablissement.objects.create(nom="ENSP Yaoundé", type_etablissements="institut", ville="Yaoundé",
-                                                    localisation=Point(11.5021, 3.8700, srid=4326))
+                                                    latitude=3.8700, longitude=11.5021)
         for e in (self.douala, self.yaounde):
             e.filieres.add(self.info)
         self.eleve = User.objects.create_user("awa", "awa@exemple.com", "Orientation2026!")

@@ -13,7 +13,6 @@ La position relevée sur place remplace la position approximative d'un établiss
 import os
 
 import requests
-from django.contrib.gis.geos import Point
 from django.core.management.base import BaseCommand, CommandError
 
 from etablissements.models import Etablissement
@@ -50,7 +49,7 @@ class Command(BaseCommand):
                 continue
 
             valeurs = {
-                "localisation": Point(float(gps[1]), float(gps[0]), srid=4326),  # Point(longitude, latitude)
+                "latitude": float(gps[0]), "longitude": float(gps[1]),
                 "position_approximative": False,
                 "source": "Relevé de terrain KoboToolbox",
             }

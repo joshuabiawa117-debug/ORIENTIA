@@ -1,6 +1,7 @@
 from datetime import date, datetime
 
 from django import forms
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -271,7 +272,7 @@ def importer_emploi(request):
         if texte:
             creneaux += extraire_creneaux(texte=texte)
     except FichierRefuse as e:
-        messages.error(request, _("Fichier trop lourd (8 Mo maximum).") if str(e) == 'trop_lourd'
+        messages.error(request, _("Fichier trop lourd (%(n)s Mo maximum).") % {"n": settings.TAILLE_MAX_ENVOI_MO} if str(e) == 'trop_lourd'
                        else _("Format non pris en charge : envoie une photo, un PDF ou un fichier texte."))
         return redirect('espace:emploi_du_temps')
     except Exception:

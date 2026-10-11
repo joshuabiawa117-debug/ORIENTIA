@@ -9,8 +9,11 @@ from .models import Profil
 
 @receiver(post_save, sender=User)
 def creer_profil(sender, instance, created, **kwargs):
-    """Chaque nouvel utilisateur (formulaire ou Google) reçoit un profil vide à compléter."""
-    if created:
+    """Chaque nouvel utilisateur (formulaire ou Google) reçoit un profil vide à compléter.
+
+    Pas pendant un chargement de données (loaddata, raw=True) : le profil d'origine est chargé juste après.
+    """
+    if created and not kwargs.get('raw'):
         Profil.objects.get_or_create(utilisateur=instance)
 
 

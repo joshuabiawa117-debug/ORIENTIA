@@ -1,0 +1,13 @@
+# Jamais envoyé à Vercel (déploiement depuis l'ordinateur avec « vercel deploy ») :
+# secrets, environnement local, sauvegardes, journaux, fichiers générés
+config/.env
+.env
+.env.local
+env/
+venv/
+__pycache__/
+sauvegardes/
+logs/
+media/
+staticfiles/
+db.sqlite3

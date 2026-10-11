@@ -7,7 +7,6 @@ et ne touche pas aux informations complétées à la main (frais, filières, sit
 from pathlib import Path
 
 from django.conf import settings
-from django.contrib.gis.geos import Point
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
@@ -57,7 +56,7 @@ def enregistrer(nom, region, valeurs, garder_position):
         Etablissement.objects.create(nom=nom, region=region, **valeurs)
         return True
     if garder_position and not existant.position_approximative:
-        valeurs = {k: v for k, v in valeurs.items() if k not in ("localisation", "position_approximative")}
+        valeurs = {k: v for k, v in valeurs.items() if k not in ("latitude", "longitude", "position_approximative")}
     for champ, valeur in valeurs.items():
         setattr(existant, champ, valeur)
     existant.region = region
@@ -74,13 +73,13 @@ class Command(BaseCommand):
         for nom, ville, region, lat, lon in GRANDES_ECOLES:
             crees += enregistrer(nom, region, {
                 "type_etablissements": "grande_ecole", "statut": "public", "ville": ville, "adresse": ville,
-                "admission": "concours", "localisation": Point(lon, lat, srid=4326), "source": "Saisie OrientIA",
+                "admission": "concours", "latitude": lat, "longitude": lon, "source": "Saisie OrientIA",
             }, garder_position=True)
 
         for nom, ville, region, lat, lon in UNIVERSITES:
             crees += enregistrer(nom, region, {
                 "type_etablissements": "universite", "statut": "public", "ville": ville, "adresse": ville,
-                "localisation": Point(lon, lat, srid=4326), "position_approximative": True, "a_verifier": True,
+                "latitude": lat, "longitude": lon, "position_approximative": True, "a_verifier": True,
                 "source": "Universités d'État du Cameroun (saisie OrientIA, à vérifier)",
             }, garder_position=True)
 
@@ -94,7 +93,7 @@ class Command(BaseCommand):
             crees += enregistrer(nom, region, {
                 "type_etablissements": "ipes", "statut": "prive", "ville": nom_ville if ville else "",
                 "adresse": nom_ville if ville else f"Région {region}",
-                "localisation": Point(lon, lat, srid=4326), "position_approximative": True, "a_verifier": True,
+                "latitude": lat, "longitude": lon, "position_approximative": True, "a_verifier": True,
                 "source": "Liste des IPES autorisés (MINESUP)",
             }, garder_position=True)
 

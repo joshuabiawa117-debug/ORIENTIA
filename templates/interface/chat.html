@@ -120,6 +120,7 @@ const questionInput = document.getElementById('questionInput');
 const btnEnvoyer = document.getElementById('btnEnvoyer');
 const suggestions = document.getElementById('suggestions');
 const messageAccueil = chatMessages.innerHTML;
+const TAILLE_MAX_MO = {{ taille_max_envoi_mo }};
 const csrf = () => document.querySelector('[name=csrfmiddlewaretoken]').value;
 // Identifiant de la conversation : donné par le serveur à la première réponse, il permet à OrientIA
 // de se souvenir des échanges précédents (« et pour la 2e filière ? »)
@@ -236,8 +237,8 @@ function retirerPieceJointe() {
 fichierChat.addEventListener('change', () => {
     const fichier = fichierChat.files[0];
     if (!fichier) return retirerPieceJointe();
-    if (fichier.size > 8 * 1024 * 1024) {
-        alert("{{ _("Fichier trop lourd (8 Mo maximum).")|escapejs }}");
+    if (fichier.size > TAILLE_MAX_MO * 1024 * 1024) {
+        alert("{% blocktranslate with n=taille_max_envoi_mo asvar message_trop_lourd %}Fichier trop lourd ({{ n }} Mo maximum).{% endblocktranslate %}{{ message_trop_lourd|escapejs }}");
         return retirerPieceJointe();
     }
     document.getElementById('nomPieceJointe').textContent = fichier.name;

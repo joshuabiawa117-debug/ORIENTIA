@@ -83,7 +83,6 @@ Réponds UNIQUEMENT en JSON : {{"mots": ["...", "..."]}}"""
 MODELE_VISION = os.getenv("GROQ_VISION_MODEL", "qwen/qwen3.8-27b")       # lit les photos (emploi du temps, documents)
 MODELE_TRANSCRIPTION = os.getenv("GROQ_AUDIO_MODEL", "whisper-large-v3-turbo")
 
-TAILLE_MAX_FICHIER = 8 * 1024 * 1024   # 8 Mo
 LONGUEUR_MAX_TEXTE = 12000             # caractères gardés d'un document joint
 TYPES_IMAGE = {"image/png", "image/jpeg", "image/webp", "image/gif"}
 
@@ -134,7 +133,8 @@ def appel_vision(consigne, image_octets, type_mime, json_attendu=False):
 
 def lire_fichier(fichier):
     """Renvoie (texte, est_image, octets, type_mime) d'un fichier envoyé : PDF, texte ou image."""
-    if fichier.size > TAILLE_MAX_FICHIER:
+    from django.conf import settings
+    if fichier.size > settings.TAILLE_MAX_ENVOI_MO * 1024 * 1024:
         raise FichierRefuse("trop_lourd")
     nom = (fichier.name or "").lower()
     type_mime = (fichier.content_type or "").lower()

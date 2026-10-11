@@ -21,4 +21,5 @@ urlpatterns = [
     path('mes-donnees/', donnees.mes_donnees, name='mes_donnees'),
     path('sw.js', views.service_worker, name='service_worker'),
     path('hors-ligne/', views.hors_ligne, name='hors_ligne'),
+    path('taches/quotidiennes/', views.taches_quotidiennes, name='taches_quotidiennes'),
 ]

@@ -158,7 +158,7 @@
                                 <div class="ecole-ligne">
                                     <span class="rang" style="width:26px;height:26px;font-size:.75rem;">{{ forloop.counter }}</span>
                                     <div class="min-w-0"><div class="fw-semibold small text-truncate">{{ e.nom }}</div>
-                                        <div class="text-muted small">{{ e.distance.km|floatformat:0 }} {% translate "km" %}</div></div>
+                                        <div class="text-muted small">{{ e.distance_km|floatformat:0 }} {% translate "km" %}</div></div>
                                 </div>
                             {% endfor %}
                         {% else %}

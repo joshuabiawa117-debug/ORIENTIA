@@ -58,7 +58,7 @@
                 </thead>
                 <tbody>
                     <tr><td>{% translate "Ville" %}</td>{% for e in ecoles %}<td>{{ e.ville|default:e.adresse|default:"—" }}</td>{% endfor %}</tr>
-                    {% if lieu %}<tr><td>{% translate "Distance" %}</td>{% for e in ecoles %}<td>{% if e.distance %}<strong>{{ e.distance.km|floatformat:0 }} {% translate "km" %}</strong> <span class="text-muted small">{% translate "depuis" %} {{ lieu }}</span>{% else %}—{% endif %}</td>{% endfor %}</tr>{% endif %}
+                    {% if lieu %}<tr><td>{% translate "Distance" %}</td>{% for e in ecoles %}<td>{% if e.distance_km is not None %}<strong>{{ e.distance_km|floatformat:0 }} {% translate "km" %}</strong> <span class="text-muted small">{% translate "depuis" %} {{ lieu }}</span>{% else %}—{% endif %}</td>{% endfor %}</tr>{% endif %}
                     <tr><td>{% translate "Statut" %}</td>{% for e in ecoles %}<td>{{ e.get_statut_display|default:_("Non renseigné") }}</td>{% endfor %}</tr>
                     <tr><td>{% translate "Admission" %}</td>{% for e in ecoles %}<td>{{ e.get_admission_display|default:_("Non renseignée") }}</td>{% endfor %}</tr>
                     <tr><td>{% translate "Frais par an" %}</td>{% for e in ecoles %}<td>{% if e.frais_annuels %}{{ e.frais_annuels }} FCFA{% else %}<span class="text-muted">{% translate "Non renseignés" %}</span>{% endif %}</td>{% endfor %}</tr>

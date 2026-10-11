@@ -822,7 +822,7 @@ TRADUCTIONS = {
     "Que peux-tu me dire sur ce document pour mon orientation ?": "What can you tell me about this document for my studies?",
     "Écouter": "Listen",
     "Arrêter": "Stop",
-    "Fichier trop lourd (8 Mo maximum).": "File too large (8 MB maximum).",
+    "Fichier trop lourd (%(n)s Mo maximum).": "File too large (%(n)s MB maximum).",
     "Format non pris en charge : envoie une photo, un PDF ou un fichier texte.": "Unsupported format: send a photo, a PDF or a text file.",
     "Ton navigateur ne permet pas d’enregistrer la voix (utilise Chrome, Edge ou Firefox récent).": "Your browser can't record audio (use a recent Chrome, Edge or Firefox).",
     "Accès au micro refusé. Autorise le micro dans ton navigateur pour dicter.": "Microphone access denied. Allow the microphone in your browser to dictate.",

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 
 import os
 import sys
+import urllib.parse
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -20,6 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Charger les clés secrètes (GROQ_API_KEY, KOBO_API_TOKEN...) depuis config/.env
 load_dotenv(BASE_DIR / "config" / ".env")
+
+# Vercel indique lui-même qu'il fait tourner le site (VERCEL=1) : disque en lecture seule,
+# requêtes limitées à 4,5 Mo, HTTPS et adresses *.vercel.app gérés par Vercel
+SUR_VERCEL = os.getenv('VERCEL') == '1'
 
 
 # Quick-start development settings - unsuitable for production
@@ -34,6 +39,11 @@ DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = [h.strip() for h in os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',') if h.strip()]
 # Adresses complètes du site en ligne, ex. https://orientia.cm (nécessaire derrière HTTPS pour les formulaires)
 CSRF_TRUSTED_ORIGINS = [o.strip() for o in os.getenv('DJANGO_CSRF_TRUSTED_ORIGINS', '').split(',') if o.strip()]
+# Sur Vercel, les adresses du déploiement (ex. orientia.vercel.app) sont ajoutées automatiquement
+for variable in ('VERCEL_URL', 'VERCEL_BRANCH_URL', 'VERCEL_PROJECT_PRODUCTION_URL'):
+    if os.getenv(variable):
+        ALLOWED_HOSTS.append(os.environ[variable])
+        CSRF_TRUSTED_ORIGINS.append(f"https://{os.environ[variable]}")
 
 
 # ===== Sécurité en production (s'active dès que DJANGO_DEBUG=False) =====
@@ -64,7 +74,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'etablissements',
     'rag',
-    'django.contrib.gis',
     'django.contrib.postgres',
     'interface',
     'orientation',
@@ -117,20 +126,37 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': os.getenv('DB_NAME', 'assistant_orientation'),
-        'USER': os.getenv('DB_USER', 'postgres'),
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '5432'),
+# En ligne (Vercel + Neon), la base est donnée par une seule adresse : DATABASE_URL.
+# En local, on garde les réglages DB_NAME, DB_USER, DB_PASSWORD... de config/.env.
+if os.getenv('DATABASE_URL'):
+    adresse_base = urllib.parse.urlparse(os.environ['DATABASE_URL'])
+    options_base = dict(urllib.parse.parse_qsl(adresse_base.query))
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': adresse_base.path.lstrip('/'),
+            'USER': urllib.parse.unquote(adresse_base.username or ''),
+            'PASSWORD': urllib.parse.unquote(adresse_base.password or ''),
+            'HOST': adresse_base.hostname,
+            'PORT': adresse_base.port or 5432,
+            # Neon exige une connexion chiffrée (sslmode=require dans l'adresse)
+            'OPTIONS': {'sslmode': options_base.get('sslmode', 'require')},
+            # Fonctions serverless : une connexion par requête, vérifiée avant usage
+            'CONN_MAX_AGE': 0,
+            'CONN_HEALTH_CHECKS': True,
+        }
     }
-}
-
-# Chemins des bibliothèques géographiques (nécessaires sous Windows, inutiles sur un serveur Linux)
-GDAL_LIBRARY_PATH = os.getenv('GDAL_LIBRARY_PATH') or None
-GEOS_LIBRARY_PATH = os.getenv('GEOS_LIBRARY_PATH') or None
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('DB_NAME', 'assistant_orientation'),
+            'USER': os.getenv('DB_USER', 'postgres'),
+            'PASSWORD': os.environ['DB_PASSWORD'],
+            'HOST': os.getenv('DB_HOST', 'localhost'),
+            'PORT': os.getenv('DB_PORT', '5432'),
+        }
+    }
 
 
 # Password validation
@@ -190,9 +216,22 @@ STORAGES = {
 # Fichiers envoyés depuis l'administration (annales des concours)
 MEDIA_URL = 'media/'
 MEDIA_ROOT = Path(os.getenv('DJANGO_MEDIA_ROOT', BASE_DIR / 'media'))
-# En production, Django peut servir lui-même ces fichiers (suffisant pour un petit site) ;
-# sur un gros site, les confier plutôt à Nginx ou à un stockage externe
-SERVIR_MEDIAS = DEBUG or os.getenv('DJANGO_SERVIR_MEDIAS') != 'False'
+# Sur Vercel, le disque est en lecture seule : les annales vont dans Vercel Blob.
+# Il suffit de créer un « Blob store » dans le projet Vercel : BLOB_READ_WRITE_TOKEN est alors ajouté tout seul.
+# BLOB_URL_BASE = adresse publique du store, ex. https://abcd1234.public.blob.vercel-storage.com
+STOCKAGE_BLOB = bool(os.getenv('BLOB_READ_WRITE_TOKEN'))
+if STOCKAGE_BLOB:
+    STORAGES['default'] = {'BACKEND': 'config.stockage.VercelBlobStorage'}
+BLOB_URL_BASE = os.getenv('BLOB_URL_BASE', '').rstrip('/')
+# Sinon, Django sert lui-même ces fichiers (suffisant pour un petit site)
+SERVIR_MEDIAS = not STOCKAGE_BLOB and (DEBUG or os.getenv('DJANGO_SERVIR_MEDIAS') != 'False')
+
+# Taille maximale d'un fichier joint au chat ou d'un message vocal.
+# Vercel refuse toute requête de plus de 4,5 Mo : on s'arrête à 4 Mo pour garder de la marge.
+TAILLE_MAX_ENVOI_MO = 4 if SUR_VERCEL else 8
+
+# Tâches quotidiennes lancées par Vercel Cron (nettoyage, rappels de concours) : protégées par ce secret
+CRON_SECRET = os.getenv('CRON_SECRET', '')
 
 
 # ===== Cache et limites d'utilisation =====
@@ -205,7 +244,7 @@ CACHES = {
 }
 
 # Mettre True quand le site tourne derrière un hébergeur (Render, Railway, Nginx...) qui transmet l'IP du visiteur
-DERRIERE_PROXY = os.getenv('DJANGO_DERRIERE_PROXY', 'False') == 'True'
+DERRIERE_PROXY = SUR_VERCEL or os.getenv('DJANGO_DERRIERE_PROXY', 'False') == 'True'
 
 # Nombre maximum d'utilisations par heure : (visiteur sans compte, élève connecté)
 LIMITES_PAR_HEURE = {
@@ -295,7 +334,9 @@ SOCIALACCOUNT_PROVIDERS = {
 # ===== Journal des erreurs et surveillance =====
 # Les avertissements et erreurs (ex. Groq indisponible, email non envoyé) sont écrits dans logs/orientia.log
 # (5 fichiers de 2 Mo au maximum) et dans la console de l'hébergeur.
-(BASE_DIR / 'logs').mkdir(exist_ok=True)
+# Sur Vercel (disque en lecture seule), seulement dans la console : onglet « Logs » du projet Vercel.
+if not SUR_VERCEL:
+    (BASE_DIR / 'logs').mkdir(exist_ok=True)
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -319,6 +360,10 @@ LOGGING = {
         'django': {'handlers': ['console', 'fichier'], 'level': 'WARNING', 'propagate': False},
     },
 }
+if SUR_VERCEL:
+    del LOGGING['handlers']['fichier']
+    LOGGING['root']['handlers'] = ['console']
+    LOGGING['loggers']['django']['handlers'] = ['console']
 # Pendant les tests automatiques, les erreurs simulées ne doivent pas remplir le vrai journal
 if len(sys.argv) > 1 and sys.argv[1] == 'test':
     LOGGING['root']['handlers'] = []

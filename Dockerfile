@@ -1,13 +1,13 @@
-# Image de production d'OrientIA : fonctionne chez tout hébergeur qui accepte Docker
-# (Render, Railway, Fly.io, un VPS...). Les bibliothèques géographiques (GDAL) sont incluses.
+# Image de production d'OrientIA : solution de rechange à Vercel, pour tout hébergeur qui accepte Docker
+# (Render, Railway, Fly.io, un VPS...).
 FROM python:3.14-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
-# GDAL/GEOS/PROJ pour PostGIS (cartes, écoles proches) et pg_dump pour les sauvegardes
+# pg_dump pour les sauvegardes
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends gdal-bin postgresql-client \
+    && apt-get install -y --no-install-recommends postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app

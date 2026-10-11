@@ -1,8 +1,7 @@
 """Recherche des écoles les plus proches de l'élève qui proposent les filières qui l'intéressent."""
-from django.contrib.gis.db.models.functions import Distance
-from django.contrib.gis.geos import Point
 from django.utils.translation import gettext as _
 
+from etablissements.geo import Position, trier_par_distance
 from etablissements.models import Etablissement
 
 from .models import Filiere
@@ -38,10 +37,10 @@ MOTS_PROJET = {
 
 
 def position_par_defaut(profil):
-    """(Point, libellé) à partir de la région du profil, ou (None, None)."""
+    """(Position, libellé) à partir de la région du profil, ou (None, None)."""
     if profil and profil.region in CHEFS_LIEUX:
         ville, lat, lon = CHEFS_LIEUX[profil.region]
-        return Point(lon, lat, srid=4326), _("%(ville)s (région %(region)s)") % {"ville": ville, "region": profil.region}
+        return Position(lat, lon), _("%(ville)s (région %(region)s)") % {"ville": ville, "region": profil.region}
     return None, None
 
 
@@ -73,12 +72,13 @@ def ecoles_proches(point, filiere=None, domaines=None, limite=None):
         ecoles = ecoles.filter(filieres=filiere)
     elif domaines:
         ecoles = ecoles.filter(filieres__domaine__in=domaines).distinct()
+    ecoles = ecoles.order_by('nom').prefetch_related('filieres')
     if point is not None:
-        ecoles = ecoles.annotate(distance=Distance('localisation', point)).order_by('distance')
+        # Chaque école reçoit son attribut distance_km
+        ecoles = trier_par_distance(ecoles, point)
     else:
-        ecoles = ecoles.order_by('nom')
-    ecoles = ecoles.prefetch_related('filieres')
-    return list(ecoles[:limite] if limite else ecoles)
+        ecoles = list(ecoles)
+    return ecoles[:limite] if limite else ecoles
 
 
 def resume_pour_orientia(profil, limite=5):
@@ -94,7 +94,7 @@ def resume_pour_orientia(profil, limite=5):
     lignes = []
     for e in ecoles:
         filieres = ", ".join(f.nom for f in e.filieres.all() if f.domaine in domaines)
-        lignes.append(f"- {e.nom} : à {e.distance.km:.0f} km ({filieres})")
+        lignes.append(f"- {e.nom} : à {e.distance_km:.0f} km ({filieres})")
     return (f"Écoles les plus proches de l'élève (depuis {lieu}) dans ses domaines "
             f"({', '.join(str(noms_domaines[d]) for d in domaines)}) — propose-les si c'est pertinent :\n"
             + "\n".join(lignes) + "\n\n")

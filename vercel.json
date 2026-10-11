@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "regions": ["cdg1"],
+  "buildCommand": "python manage.py migrate --noinput && python manage.py createcachetable",
+  "functions": {
+    "config/wsgi.py": {
+      "maxDuration": 60,
+      "excludeFiles": "{sauvegardes/**,logs/**,media/**,staticfiles/**,.github/**,Dockerfile,gunicorn.conf.py,**/tests.py}"
+    }
+  },
+  "crons": [
+    { "path": "/taches/quotidiennes/", "schedule": "0 5 * * *" }
+  ]
+}

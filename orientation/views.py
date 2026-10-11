@@ -5,8 +5,6 @@ from itertools import groupby
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.gis.db.models.functions import Distance
-from django.contrib.gis.geos import Point
 from django.db.models import Count, Q, Sum
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -15,6 +13,7 @@ from django.utils.translation import get_language
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
+from etablissements.geo import Position, distance_km
 from etablissements.models import Etablissement
 from interface.limites import limite_atteinte, reponse_limite
 from interface.models import Profil
@@ -127,7 +126,7 @@ def ecoles_pour_toi(request):
     try:
         lat, lon = float(request.GET['lat']), float(request.GET['lon'])
         if -90 <= lat <= 90 and -180 <= lon <= 180:
-            point, lieu = Point(lon, lat, srid=4326), _("ta position actuelle")
+            point, lieu = Position(lat, lon), _("ta position actuelle")
     except (KeyError, ValueError):
         pass
     if point is None:
@@ -142,8 +141,8 @@ def ecoles_pour_toi(request):
     donnees_carte = [
         {
             'nom': e.nom, 'ville': e.ville or e.adresse,
-            'lat': e.localisation.y, 'lon': e.localisation.x,
-            'km': round(e.distance.km) if getattr(e, 'distance', None) is not None else None,
+            'lat': e.latitude, 'lon': e.longitude,
+            'km': round(e.distance_km) if getattr(e, 'distance_km', None) is not None else None,
         }
         for e in ecoles
     ]
@@ -151,7 +150,7 @@ def ecoles_pour_toi(request):
     return render(request, 'orientation/ecoles_proches.html', {
         'ecoles': ecoles,
         'donnees_carte': donnees_carte,
-        'position': {'lat': point.y, 'lon': point.x} if point else None,
+        'position': {'lat': point.lat, 'lon': point.lon} if point else None,
         'lieu': lieu,
         'fiche': fiche,
         'domaine': domaine,
@@ -263,11 +262,12 @@ def comparateur(request):
 
     point, lieu = position_par_defaut(profil)
     ecoles = Etablissement.objects.filter(pk__in=ids).prefetch_related('filieres', 'concours')
-    if point is not None:
-        ecoles = ecoles.annotate(distance=Distance('localisation', point))
     ecoles = ecoles.annotate(nb_questions=Count('sujets', distinct=True))
     # Garder l'ordre choisi par l'élève
     ecoles = sorted(ecoles, key=lambda e: ids.index(str(e.pk)))
+    if point is not None:
+        for e in ecoles:
+            e.distance_km = distance_km(point, e.position)
 
     favoris = set(profil.ecoles_favorites.values_list('pk', flat=True)) if profil else set()
     noms = [e.nom for e in ecoles]

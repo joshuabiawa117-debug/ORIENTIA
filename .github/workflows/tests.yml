@@ -12,7 +12,7 @@ jobs:
 
     services:
       postgres:
-        image: postgis/postgis:17-3.5
+        image: postgres:17
         env:
           POSTGRES_PASSWORD: orientia-tests
         ports: ["5432:5432"]
@@ -30,9 +30,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
-
-      - name: Installer les bibliothèques géographiques (GDAL)
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin
 
       - uses: actions/setup-python@v6
         with:

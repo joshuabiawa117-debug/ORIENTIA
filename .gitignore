@@ -22,3 +22,7 @@ staticfiles/
 
 # Journaux
 logs/
+
+# Variables Vercel téléchargées avec « vercel pull »
+.env.local
+.vercel/

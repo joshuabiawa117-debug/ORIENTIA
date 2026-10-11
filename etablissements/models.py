@@ -1,11 +1,15 @@
-from django.contrib.gis.db import models
+from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+from .geo import Position
+
 
 class Etablissement(models.Model):
     nom = models.CharField(max_length=255)
     type_etablissements = models.CharField(max_length=100)
     adresse = models.CharField(max_length=255, blank=True)
-    localisation = models.PointField(srid=4326)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
     ville = models.CharField(max_length=100, blank=True)
     statut = models.CharField(max_length=10, choices=[('public', _('Public')), ('prive', _('Privé'))], blank=True)
     site_web = models.URLField(blank=True)
@@ -26,4 +30,6 @@ class Etablissement(models.Model):
     def __str__(self):
         return self.nom
 
-# Create your models here.
+    @property
+    def position(self):
+        return Position(self.latitude, self.longitude)

@@ -62,7 +62,7 @@
                     <div class="flex-grow-1 min-w-0">
                         <h3>{{ e.nom }}</h3>
                         <p><i class="bi bi-geo-alt"></i> {{ e.ville|default:e.adresse|default:_("Adresse non renseignée") }}
-                            {% if e.distance %}· <strong>{{ e.distance.km|floatformat:0 }} {% translate "km" %}</strong>{% endif %}</p>
+                            {% if e.distance_km is not None %}· <strong>{{ e.distance_km|floatformat:0 }} {% translate "km" %}</strong>{% endif %}</p>
                         <div class="d-flex flex-wrap gap-1">
                             {% if fiche %}<span class="badge-soft">{{ fiche.nom }}</span>{% endif %}
                             {% for f in e.filieres.all %}{% if f.pk != fiche.pk and forloop.counter <= 3 %}<span class="badge-neutral">{{ f.nom }}</span>{% endif %}{% endfor %}

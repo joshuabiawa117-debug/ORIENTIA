@@ -1,4 +1,5 @@
 import hashlib
+import hmac
 import json
 import logging
 import os
@@ -108,6 +109,30 @@ def service_worker(request):
     reponse["Service-Worker-Allowed"] = "/"
     reponse["Cache-Control"] = "no-cache"
     return reponse
+
+
+def taches_quotidiennes(request):
+    """Appelée chaque jour par Vercel Cron : nettoyage des données et rappels de concours.
+
+    Vercel envoie l'en-tête « Authorization: Bearer <CRON_SECRET> » : sans ce secret, on refuse.
+    """
+    import io
+
+    from django.core.management import call_command
+
+    attendu = f"Bearer {settings.CRON_SECRET}"
+    if not settings.CRON_SECRET or not hmac.compare_digest(request.headers.get("Authorization", ""), attendu):
+        return JsonResponse({"erreur": "non autorisé"}, status=401)
+    compte_rendu = {}
+    for commande in ("nettoyer_donnees", "envoyer_rappels_concours"):
+        sortie = io.StringIO()
+        try:
+            call_command(commande, stdout=sortie)
+            compte_rendu[commande] = sortie.getvalue().strip()
+        except Exception as erreur:
+            logger.exception("Tâche quotidienne %s impossible", commande)
+            compte_rendu[commande] = f"erreur : {erreur}"
+    return JsonResponse(compte_rendu)
 
 
 def hors_ligne(request):
@@ -224,7 +249,7 @@ def api_chat(request):
                                       nom_document=fichier.name if fichier else "",
                                       historique=[(e.question, e.reponse) for e in historique])
         except FichierRefuse as e:
-            message = (_("Fichier trop lourd (8 Mo maximum).") if str(e) == "trop_lourd"
+            message = (_("Fichier trop lourd (%(n)s Mo maximum).") % {"n": settings.TAILLE_MAX_ENVOI_MO} if str(e) == "trop_lourd"
                        else _("Format non pris en charge : envoie une photo, un PDF ou un fichier texte."))
             return JsonResponse({"erreur": message}, status=400)
         except Exception:
@@ -275,7 +300,7 @@ def api_transcrire(request):
         return JsonResponse({"erreur": _("Aucun enregistrement reçu.")}, status=400)
     if audio.size < TAILLE_MIN_AUDIO:
         return JsonResponse({"erreur": _("Enregistrement trop court : clique sur le micro, parle, puis clique à nouveau.")}, status=400)
-    if audio.size > 15 * 1024 * 1024:
+    if audio.size > settings.TAILLE_MAX_ENVOI_MO * 1024 * 1024:
         return JsonResponse({"erreur": _("Enregistrement trop long.")}, status=400)
     if not os.getenv("GROQ_API_KEY"):
         return JsonResponse({"erreur": _("OrientIA n'est pas encore configuré : la clé GROQ_API_KEY est vide dans config/.env.")}, status=503)
@@ -313,8 +338,8 @@ def carte(request):
             "adresse": e.adresse,
             "region": e.region,
             "approx": e.position_approximative,
-            "lat": e.localisation.y,
-            "lon": e.localisation.x,
+            "lat": e.latitude,
+            "lon": e.longitude,
         }
         for e in Etablissement.objects.order_by('nom')
     ]
