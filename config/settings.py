@@ -66,7 +66,6 @@ INSTALLED_APPS = [
     'rag',
     'django.contrib.gis',
     'django.contrib.postgres',
-    'pgvector.django',
     'interface',
     'orientation',
     'communaute',

@@ -11,11 +11,8 @@ class Migration(migrations.Migration):
         ('rag', '0002_embedding_mistral_1024'),
     ]
 
+    # La suppression de la colonne « embedding » a été retirée : elle n'est plus créée (voir 0001)
     operations = [
-        migrations.RemoveField(
-            model_name='documentchunk',
-            name='embedding',
-        ),
         migrations.AddField(
             model_name='documentchunk',
             name='recherche',
